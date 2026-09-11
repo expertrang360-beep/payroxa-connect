@@ -137,11 +137,13 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isCmsRoute = pathname.startsWith("/cms");
+  const isMarketplaceRoute = pathname.startsWith("/marketplace");
+  const isFullWidthRoute = isCmsRoute || isMarketplaceRoute;
 
   return (
     <QueryClientProvider client={queryClient}>
       <PublicCmsProvider>
-        {isCmsRoute ? (
+        {isFullWidthRoute ? (
           <Outlet />
         ) : (
           <div className="flex min-h-screen flex-col bg-background">

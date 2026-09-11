@@ -62,6 +62,11 @@ export function CmsLayout({ children }: CmsLayoutProps) {
     return null;
   }
 
+  // Do not show the navigation layout on the login page
+  if (currentPath === "/cms-admin/login") {
+    return <div className="min-h-screen bg-slate-900">{children}</div>;
+  }
+
   const navGroups = [
     {
       title: "Overview",

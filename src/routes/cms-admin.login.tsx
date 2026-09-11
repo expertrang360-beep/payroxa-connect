@@ -8,11 +8,7 @@ export const Route = createFileRoute("/cms-admin/login")({
 });
 
 function CmsLoginWrapper() {
-  return (
-    <CmsAuthProvider>
-      <CmsLoginPage />
-    </CmsAuthProvider>
-  );
+  return <CmsLoginPage />;
 }
 
 function CmsLoginPage() {
@@ -39,7 +35,9 @@ function CmsLoginPage() {
       if (res.success) {
         navigate({ to: "/cms-admin" });
       } else {
-        setError(res.error || "Authentication failed. Please verify credentials.");
+        setError(
+          "Authentication failed. If you are a standard user, please login via the User Portal at app.payroxa.com.ng",
+        );
       }
     } catch {
       setError("An unexpected error occurred while connecting to the CMS server.");
@@ -62,18 +60,27 @@ function CmsLoginPage() {
           <div className="inline-flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7928CA] to-[#9b51e0] text-2xl font-bold text-white shadow-lg shadow-purple-500/25">
             P
           </div>
-          <h1 className="mt-4 text-2xl font-bold tracking-tight text-white">Payroxa Website CMS</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Administrative portal for public marketing website content
-          </p>
         </div>
 
         {/* Login Card */}
         <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl backdrop-blur-xl">
           {error && (
-            <div className="mb-6 flex items-start gap-3 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs text-rose-300">
-              <AlertCircle className="size-4 shrink-0 text-rose-400" />
-              <div className="flex-1">{error}</div>
+            <div className="mb-6 flex flex-col gap-3 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs">
+              <div className="flex items-start gap-3 text-rose-300">
+                <AlertCircle className="size-4 shrink-0 text-rose-400" />
+                <div className="flex-1">{error}</div>
+              </div>
+              {error.includes("app.payroxa.com.ng") && (
+                <a
+                  href="https://app.payroxa.com.ng"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-lg bg-rose-500/20 px-3 py-1.5 font-bold text-rose-200 transition-colors hover:bg-rose-500/30"
+                >
+                  Go to User Portal
+                  <ArrowRight className="size-3" />
+                </a>
+              )}
             </div>
           )}
 
@@ -83,7 +90,7 @@ function CmsLoginPage() {
                 htmlFor="cms-email"
                 className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5"
               >
-                Administrator Email
+                Email
               </label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-500" />
@@ -140,25 +147,6 @@ function CmsLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Quick Demo Credentials Info */}
-          <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-            <div className="flex items-center gap-2 text-xs font-semibold text-purple-400">
-              <ShieldCheck className="size-4" />
-              <span>Initial Administrator Credentials:</span>
-            </div>
-            <div className="mt-2 space-y-1 text-xs text-slate-400 font-mono">
-              <p>
-                Email: <span className="text-slate-200">admin@payroxa.com.ng</span>
-              </p>
-              <p>
-                Password: <span className="text-slate-200">PayroxaAdmin2026!</span>
-              </p>
-            </div>
-            <p className="mt-2 text-[11px] text-slate-500">
-              You can change this password or invite additional editors in Settings → Admin Users.
-            </p>
-          </div>
         </div>
 
         {/* Back link */}
