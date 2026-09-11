@@ -1074,8 +1074,7 @@ Every time an order is placed, you receive an instant push notification with cus
       seoTitle: "How to Create an Online Store for Your Business | Payroxa",
       metaDescription:
         "Step-by-step guide on launching your online store with Payroxa Store. Sell physical products, collect payments, and manage shipping easily.",
-      canonicalUrl:
-        `${siteConfig.websiteUrl}/resources/how-to-create-an-online-store-for-your-business`,
+      canonicalUrl: `${siteConfig.websiteUrl}/resources/how-to-create-an-online-store-for-your-business`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format&fit=crop&q=80",
       status: "published",
@@ -1115,8 +1114,7 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
       seoTitle: "Virtual Cards for Nigerian Businesses & International Spend | Payroxa",
       metaDescription:
         "Solve international subscription and advertisement payment declines with Payroxa instant virtual cards with custom spending limits.",
-      canonicalUrl:
-        `${siteConfig.websiteUrl}/resources/virtual-cards-for-nigerian-businesses-international-spending`,
+      canonicalUrl: `${siteConfig.websiteUrl}/resources/virtual-cards-for-nigerian-businesses-international-spending`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&auto=format&fit=crop&q=80",
       status: "published",
