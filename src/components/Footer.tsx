@@ -4,12 +4,18 @@ import BrandLogo from "@/components/BrandLogo";
 import { PAYROXA_LINKS } from "@/config/links";
 import { siteConfig } from "@/config/siteConfig";
 
-const productLinks = [
-  { label: "Payments", to: "/payments" as const },
+type FooterLink = {
+  label: string;
+  to?: "/payments" | "/cards" | "/store" | "/business" | "/about" | "/pricing" | "/contact";
+  href?: string;
+};
+
+const productLinks: FooterLink[] = [
+  { label: "Payments", to: "/payments" },
   { label: "Wallet", href: PAYROXA_LINKS.wallet },
-  { label: "Cards", to: "/cards" as const },
-  { label: "Store", to: "/store" as const },
-  { label: "Business", to: "/business" as const },
+  { label: "Cards", to: "/cards" },
+  { label: "Store", to: "/store" },
+  { label: "Business", to: "/business" },
 ];
 
 const companyLinks = [
