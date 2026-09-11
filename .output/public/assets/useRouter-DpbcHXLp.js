@@ -1,1 +1,0 @@
-import{i as e,s as t}from"./jsx-dev-runtime-D6J2l8dL.js";var n=t(e(),1),r=n.createContext(null);function i(e){let t=n.useContext(r);return(e?.warn??!0)&&!t&&console.warn(`Warning: useRouter must be used inside a <RouterProvider> component!`),t}export{r as n,i as t};
