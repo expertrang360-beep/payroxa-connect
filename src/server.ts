@@ -2,6 +2,8 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { getCmsDb, saveCmsDb } from "./cms/db.server";
+import { generateRobotsTxt, generateSitemapXml, handleServerRedirect } from "./cms/seo.server";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -47,6 +49,58 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const pathname = url.pathname;
+
+      // Automated robots.txt handler
+      if (pathname === "/robots.txt") {
+        const origin = `${url.protocol}//${url.host}`;
+        const robotsTxt = generateRobotsTxt(origin);
+        return new Response(robotsTxt, {
+          status: 200,
+          headers: {
+            "content-type": "text/plain; charset=utf-8",
+            "cache-control": "public, max-age=3600, s-maxage=86400",
+          },
+        });
+      }
+
+      // Automated sitemap.xml handler
+      if (pathname === "/sitemap.xml") {
+        const db = getCmsDb();
+        const origin = `${url.protocol}//${url.host}`;
+        const sitemapXml = generateSitemapXml(db, origin);
+        return new Response(sitemapXml, {
+          status: 200,
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=3600, s-maxage=86400",
+          },
+        });
+      }
+
+      // 301 / 302 Redirect Manager
+      try {
+        const db = getCmsDb();
+        if (db.redirects && db.redirects.length > 0) {
+          const match = handleServerRedirect(pathname, db.redirects);
+          if (match && match.shouldRedirect) {
+            const rule = db.redirects.find((r) => r.id === match.ruleId);
+            if (rule) {
+              rule.hitCount = (rule.hitCount || 0) + 1;
+              rule.lastHitAt = new Date().toISOString();
+              saveCmsDb(db);
+            }
+            const destination = match.target.startsWith("http")
+              ? match.target
+              : `${url.protocol}//${url.host}${match.target.startsWith("/") ? "" : "/"}${match.target}`;
+            return Response.redirect(destination, match.status);
+          }
+        }
+      } catch (redirectErr) {
+        console.warn("Redirect processing error:", redirectErr);
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

@@ -628,9 +628,7 @@ function CmsMediaManagementPage() {
                   <select
                     value={iconShape}
                     onChange={(e) =>
-                      setIconShape(
-                        e.target.value as "none" | "squircle" | "circle" | "soft",
-                      )
+                      setIconShape(e.target.value as "none" | "squircle" | "circle" | "soft")
                     }
                     className="w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-800 shadow-2xs focus:border-purple-500 focus:outline-none"
                   >
@@ -860,7 +858,7 @@ function CmsMediaManagementPage() {
                   onChange={(e) =>
                     setBrandForm({
                       ...brandForm,
-                      logoType: e.target.value as any,
+                      logoType: e.target.value as "symbol_text" | "image" | "symbol_only",
                     })
                   }
                   className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 shadow-2xs focus:border-purple-500 focus:outline-none"
@@ -921,7 +919,8 @@ function CmsMediaManagementPage() {
                   onChange={(e) =>
                     setBrandForm({
                       ...brandForm,
-                      brandSymbolBg: e.target.value as any,
+                      brandSymbolBg: e.target.value as
+                        "gradient-purple" | "solid-purple" | "dark-slate" | "emerald",
                     })
                   }
                   className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 shadow-2xs focus:border-purple-500 focus:outline-none"
@@ -1041,7 +1040,7 @@ function CmsMediaManagementPage() {
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
                 <select
                   value={editCategory}
-                  onChange={(e) => setEditCategory(e.target.value as any)}
+                  onChange={(e) => setEditCategory(e.target.value as MediaCategory)}
                   className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs text-slate-900 shadow-2xs focus:border-purple-500 focus:outline-none capitalize"
                 >
                   <option value="branding">Branding & Logos</option>

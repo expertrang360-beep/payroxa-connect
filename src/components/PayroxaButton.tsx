@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode } from "react";
-
+import type { ReactNode, MouseEventHandler } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonStyles = cva(
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60",
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60 cursor-pointer",
   {
     variants: {
       variant: {
@@ -27,17 +26,14 @@ const buttonStyles = cva(
 type BaseProps = VariantProps<typeof buttonStyles> & {
   children: ReactNode;
   className?: string;
-  /** Absolute URL — opens the external Payroxa application. */
   href?: string;
-  /** Internal marketing route handled by this website's router. */
-  to?: "/" | "/business" | "/payments" | "/store" | "/cards" | "/pricing" | "/about" | "/contact";
+  to?: string;
   ariaLabel?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
-/**
- * Single reusable CTA. Destinations always come from the centralized
- * link configuration — never hard-code an application URL at a call site.
- */
 export function PayroxaButton({
   children,
   className,
@@ -46,27 +42,45 @@ export function PayroxaButton({
   variant,
   size,
   ariaLabel,
+  onClick,
+  type = "button",
+  disabled,
 }: BaseProps) {
   const classes = cn(buttonStyles({ variant, size }), className);
 
   if (to) {
     return (
-      <Link to={to} className={classes} aria-label={ariaLabel}>
+      <Link to={to as any} className={classes} aria-label={ariaLabel} onClick={onClick as any}>
         {children}
       </Link>
     );
   }
 
+  if (href) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        aria-label={ariaLabel}
+        rel="noopener noreferrer"
+        target="_blank"
+        onClick={onClick as any}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <a
-      href={href}
+    <button
+      type={type}
       className={classes}
       aria-label={ariaLabel}
-      rel="noopener noreferrer"
-      target="_blank"
+      onClick={onClick}
+      disabled={disabled}
     >
       {children}
-    </a>
+    </button>
   );
 }
 

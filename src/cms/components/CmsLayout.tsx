@@ -25,6 +25,8 @@ import {
   ShieldAlert,
   Layers,
   CheckCircle2,
+  BookOpen,
+  ShoppingBag,
 } from "lucide-react";
 import { useCmsAuth } from "../context/CmsAuthContext";
 
@@ -69,8 +71,10 @@ export function CmsLayout({ children }: CmsLayoutProps) {
       title: "Content Studio",
       items: [
         { label: "All Pages", href: "/cms-admin/pages", icon: Layers },
+        { label: "Blog & Resources", href: "/cms-admin/blog", icon: BookOpen },
         { label: "Hero Section", href: "/cms-admin/hero", icon: Sparkles },
         { label: "Products", href: "/cms-admin/products", icon: Package },
+        { label: "Marketplace API", href: "/cms-admin/marketplace", icon: ShoppingBag },
         { label: "Business Types", href: "/cms-admin/business", icon: Briefcase },
         { label: "Content Sections", href: "/cms-admin/content", icon: FileText },
         { label: "Announcements", href: "/cms-admin/announcements", icon: Megaphone },
@@ -86,8 +90,8 @@ export function CmsLayout({ children }: CmsLayoutProps) {
       ],
     },
     {
-      title: "SEO & Growth",
-      items: [{ label: "SEO & Metadata", href: "/cms-admin/seo", icon: Search }],
+      title: "SEO & Growth Engine",
+      items: [{ label: "SEO & Redirects Suite", href: "/cms-admin/seo", icon: Search }],
     },
     {
       title: "Settings & System",

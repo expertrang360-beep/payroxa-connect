@@ -7,22 +7,28 @@ import { usePublicCms } from "@/cms/context/PublicCmsContext";
 
 type FooterLink = {
   label: string;
-  to?: "/payments" | "/cards" | "/store" | "/business" | "/about" | "/pricing" | "/contact";
+  to?: string;
   href?: string;
 };
 
 const productLinks: FooterLink[] = [
+  { label: "Marketplace", to: "/marketplace" },
   { label: "Payments", to: "/payments" },
-  { label: "Wallet", href: PAYROXA_LINKS.wallet },
-  { label: "Cards", to: "/cards" },
-  { label: "Store", to: "/store" },
-  { label: "Business", to: "/business" },
+  { label: "Business Wallet", to: "/wallet" },
+  { label: "Corporate Cards", to: "/cards" },
+  { label: "Online Store", to: "/store" },
+  { label: "Transfers & Payouts", to: "/transfers" },
+  { label: "Payment Links", to: "/payment-links" },
+  { label: "Payment Requests", to: "/payment-requests" },
+  { label: "Business Management", to: "/business" },
 ];
 
-const companyLinks = [
-  { label: "About", to: "/about" as const },
-  { label: "Pricing", to: "/pricing" as const },
-  { label: "Contact", to: "/contact" as const },
+const companyLinks: FooterLink[] = [
+  { label: "About Us", to: "/about" },
+  { label: "Resources & Playbooks", to: "/resources" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Contact Support", to: "/contact" },
+  { label: "Security & Compliance", to: "/security" },
 ];
 
 export function Footer() {

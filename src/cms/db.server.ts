@@ -45,6 +45,24 @@ export function getCmsDb(): CmsDatabaseState {
         settings: { ...INITIAL_CMS_DATABASE.settings, ...(parsed.settings || {}) },
         links: { ...INITIAL_CMS_DATABASE.links, ...(parsed.links || {}) },
         social: { ...INITIAL_CMS_DATABASE.social, ...(parsed.social || {}) },
+        seo: { ...INITIAL_CMS_DATABASE.seo, ...(parsed.seo || {}) },
+        blogPosts:
+          parsed.blogPosts && parsed.blogPosts.length > 0
+            ? parsed.blogPosts
+            : INITIAL_CMS_DATABASE.blogPosts,
+        blogCategories:
+          parsed.blogCategories && parsed.blogCategories.length > 0
+            ? parsed.blogCategories
+            : INITIAL_CMS_DATABASE.blogCategories,
+        blogAuthors:
+          parsed.blogAuthors && parsed.blogAuthors.length > 0
+            ? parsed.blogAuthors
+            : INITIAL_CMS_DATABASE.blogAuthors,
+        redirects:
+          parsed.redirects && parsed.redirects.length > 0
+            ? parsed.redirects
+            : INITIAL_CMS_DATABASE.redirects,
+        searchConsole: { ...INITIAL_CMS_DATABASE.searchConsole, ...(parsed.searchConsole || {}) },
       };
       return memoryDb;
     }

@@ -289,8 +289,88 @@ export interface SeoMetadata {
   ogDescription: string;
   ogImageUrl: string;
   twitterCard: "summary" | "summary_large_image";
+  robotsDirective?: "index, follow" | "noindex, follow" | "noindex, nofollow" | "index, nofollow";
+  schemaType?:
+    | "WebSite"
+    | "Organization"
+    | "SoftwareApplication"
+    | "FinancialService"
+    | "Article"
+    | "FAQPage"
+    | "BreadcrumbList";
+  customSchemaJson?: string;
+  targetKeywords?: string[];
+  h1Tag?: string;
+  priority?: number;
+  changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   updatedAt: string;
   updatedBy: string;
+}
+
+export type PageSeoSettings = SeoMetadata;
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featuredImageUrl: string;
+  featuredImageAlt?: string;
+  authorId?: string;
+  authorName: string;
+  authorRole?: string;
+  authorAvatar?: string;
+  categoryId: string;
+  categoryName: string;
+  tags: string[];
+  readTimeMinutes: number;
+  seoTitle: string;
+  metaDescription: string;
+  canonicalUrl: string;
+  ogImageUrl: string;
+  status: "published" | "draft" | "archived";
+  publishedAt: string;
+  updatedAt: string;
+  featured: boolean;
+  relatedProduct?: string;
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  color?: string;
+}
+
+export interface BlogAuthor {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  avatarUrl?: string;
+  socialUrl?: string;
+}
+
+export interface RedirectRule {
+  id: string;
+  sourcePath: string;
+  targetPath: string;
+  statusCode: 301 | 302;
+  enabled: boolean;
+  hitCount: number;
+  lastHitAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SearchConsoleSettings {
+  googleVerificationTag?: string;
+  bingVerificationTag?: string;
+  sitemapSubmittedUrl?: string;
+  lastVerifiedAt?: string;
+  notes?: string;
 }
 
 export interface CmsActivityLog {
@@ -354,6 +434,11 @@ export interface CmsDatabaseState {
   media: MediaAsset[];
   announcements: AnnouncementBanner[];
   seo: Record<string, SeoMetadata>;
+  blogPosts: BlogPost[];
+  blogCategories: BlogCategory[];
+  blogAuthors: BlogAuthor[];
+  redirects: RedirectRule[];
+  searchConsole: SearchConsoleSettings;
   activities: CmsActivityLog[];
   revisions: ContentRevision[];
 }

@@ -38,6 +38,10 @@ interface PublicCmsContextType {
   announcements: AnnouncementItem[];
   activeAnnouncement: AnnouncementItem | null;
   seo: any;
+  allSeo: Record<string, any>;
+  blogPosts: any[];
+  blogCategories: any[];
+  blogAuthors: any[];
   isCmsLoaded: boolean;
 }
 
@@ -61,6 +65,10 @@ const defaultState: PublicCmsContextType = {
   announcements: INITIAL_CMS_DATABASE.announcements,
   activeAnnouncement: null,
   seo: INITIAL_CMS_DATABASE.seo.home,
+  allSeo: INITIAL_CMS_DATABASE.seo,
+  blogPosts: INITIAL_CMS_DATABASE.blogPosts,
+  blogCategories: INITIAL_CMS_DATABASE.blogCategories,
+  blogAuthors: INITIAL_CMS_DATABASE.blogAuthors,
   isCmsLoaded: false,
 };
 
@@ -97,6 +105,10 @@ export function PublicCmsProvider({ children }: { children: React.ReactNode }) {
             announcements: res.announcements || INITIAL_CMS_DATABASE.announcements,
             activeAnnouncement: activeAnn,
             seo: res.seo || INITIAL_CMS_DATABASE.seo.home,
+            allSeo: res.allSeo || INITIAL_CMS_DATABASE.seo,
+            blogPosts: res.blogPosts || INITIAL_CMS_DATABASE.blogPosts,
+            blogCategories: res.blogCategories || INITIAL_CMS_DATABASE.blogCategories,
+            blogAuthors: res.blogAuthors || INITIAL_CMS_DATABASE.blogAuthors,
             isCmsLoaded: true,
           });
         }

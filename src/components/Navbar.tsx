@@ -8,10 +8,12 @@ import { PAYROXA_LINKS } from "@/config/links";
 import { usePublicCms } from "@/cms/context/PublicCmsContext";
 
 const fallbackNavItems = [
+  { to: "/marketplace", label: "Marketplace" },
   { to: "/payments", label: "Payments" },
   { to: "/store", label: "Store" },
   { to: "/cards", label: "Cards" },
   { to: "/business", label: "Business" },
+  { to: "/resources", label: "Resources" },
   { to: "/pricing", label: "Pricing" },
 ] as const;
 
@@ -19,7 +21,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { navigation, links } = usePublicCms();
 
-  const activeNav =
+  const rawNav =
     navigation && navigation.length > 0
       ? navigation.filter((n) => n.enabled)
       : fallbackNavItems.map((item, idx) => ({
@@ -31,6 +33,21 @@ export function Navbar() {
           enabled: true,
           section: "header" as const,
         }));
+
+  const activeNav = rawNav.some((item) => item.url === "/marketplace")
+    ? rawNav
+    : [
+        {
+          id: "nav-mkt",
+          label: "Marketplace",
+          url: "/marketplace",
+          type: "internal" as const,
+          displayOrder: 2,
+          enabled: true,
+          section: "header" as const,
+        },
+        ...rawNav,
+      ];
 
   const loginUrl = links?.login || PAYROXA_LINKS.login;
   const registerUrl = links?.register || PAYROXA_LINKS.register;

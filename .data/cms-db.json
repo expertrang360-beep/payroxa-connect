@@ -1,0 +1,602 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "id": "usr_admin_default",
+      "name": "Payroxa Super Admin",
+      "email": "admin@payroxa.com.ng",
+      "role": "Super Admin",
+      "passwordHash": "$2a$10$E3KkYwWvM7mK7ZkQf2x.8.YtWpPn8V1Vq5Y.fJ0fU.M4w3A0vUe3W",
+      "createdAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "usr_editor_default",
+      "name": "Payroxa Content Editor",
+      "email": "editor@payroxa.com.ng",
+      "role": "Editor",
+      "passwordHash": "$2a$10$K9Wn0E9YwD5jA6G7H8J9KuFw1C2D3E4F5G6H7J8K9L0M1N2P3Q4R5",
+      "createdAt": "2026-09-11T12:13:48.552Z"
+    }
+  ],
+  "settings": {
+    "name": "Payroxa",
+    "legalName": "Payroxa Technologies Limited",
+    "tagline": "More than payments.",
+    "description": "Payroxa is the operating system for African businesses — move money, get paid, sell online and run your business from one secure platform.",
+    "websiteUrl": "https://payroxa.com.ng",
+    "appUrl": "https://app.payroxa.com.ng",
+    "defaultLanguage": "English (en)",
+    "contactEmail": "support@payroxa.com.ng",
+    "contactPhone": "+234 800 PAYROXA",
+    "businessAddress": "Lagos, Nigeria",
+    "supportEmail": "support@payroxa.com.ng",
+    "copyrightText": "© 2026 Payroxa. Safe. Fast. Reliable.",
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "links": {
+    "app": "https://app.payroxa.com.ng",
+    "login": "https://app.payroxa.com.ng/login",
+    "register": "https://app.payroxa.com.ng/register",
+    "wallet": "https://app.payroxa.com.ng/wallet",
+    "payments": "https://app.payroxa.com.ng/payments",
+    "cards": "https://app.payroxa.com.ng/cards",
+    "store": "https://app.payroxa.com.ng/store",
+    "business": "https://app.payroxa.com.ng/business",
+    "transfers": "https://app.payroxa.com.ng/transfers",
+    "delivery": "https://app.payroxa.com.ng/delivery",
+    "ride": "https://app.payroxa.com.ng/ride",
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "social": {
+    "links": [
+      {
+        "id": "s-1",
+        "platform": "instagram",
+        "label": "Instagram",
+        "href": "https://instagram.com/payroxaapp",
+        "enabled": true
+      },
+      {
+        "id": "s-2",
+        "platform": "x",
+        "label": "X (Twitter)",
+        "href": "https://x.com/payroxaapp",
+        "enabled": true
+      },
+      {
+        "id": "s-3",
+        "platform": "linkedin",
+        "label": "LinkedIn",
+        "href": "https://linkedin.com/company/payroxa",
+        "enabled": true
+      },
+      {
+        "id": "s-4",
+        "platform": "facebook",
+        "label": "Facebook",
+        "href": "https://facebook.com/payroxaapp",
+        "enabled": true
+      },
+      {
+        "id": "s-5",
+        "platform": "youtube",
+        "label": "YouTube",
+        "href": "https://youtube.com/@payroxa",
+        "enabled": false
+      },
+      {
+        "id": "s-6",
+        "platform": "tiktok",
+        "label": "TikTok",
+        "href": "https://tiktok.com/@payroxa",
+        "enabled": false
+      }
+    ],
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "navigation": [
+    {
+      "id": "nav-1",
+      "label": "Home",
+      "url": "/",
+      "type": "internal",
+      "displayOrder": 1,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-2",
+      "label": "Business",
+      "url": "/business",
+      "type": "internal",
+      "displayOrder": 2,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-3",
+      "label": "Payments",
+      "url": "/payments",
+      "type": "internal",
+      "displayOrder": 3,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-4",
+      "label": "Store",
+      "url": "/store",
+      "type": "internal",
+      "displayOrder": 4,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-5",
+      "label": "Cards",
+      "url": "/cards",
+      "type": "internal",
+      "displayOrder": 5,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-6",
+      "label": "Pricing",
+      "url": "/pricing",
+      "type": "internal",
+      "displayOrder": 6,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-7",
+      "label": "About",
+      "url": "/about",
+      "type": "internal",
+      "displayOrder": 7,
+      "enabled": true,
+      "section": "header"
+    },
+    {
+      "id": "nav-8",
+      "label": "Contact",
+      "url": "/contact",
+      "type": "internal",
+      "displayOrder": 8,
+      "enabled": true,
+      "section": "header"
+    }
+  ],
+  "hero": {
+    "published": {
+      "eyebrow": "More than payments.",
+      "headline": "Everything your business needs to",
+      "highlightedText": "move, sell and grow.",
+      "description": "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account.",
+      "footnote": "Your Money. Your Control. Your Payroxa.",
+      "primaryCtaLabel": "Get Started",
+      "primaryCtaUrl": "https://app.payroxa.com.ng/register",
+      "secondaryCtaLabel": "Sign In",
+      "secondaryCtaUrl": "https://app.payroxa.com.ng/login",
+      "heroImageUrl": "/src/assets/hero-payroxa.jpg",
+      "heroImageAlt": "Payroxa mobile wallet app shown with a Payroxa payment card and coins",
+      "visibility": true,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z",
+      "updatedBy": "System"
+    },
+    "draft": {
+      "eyebrow": "More than payments.",
+      "headline": "Everything your business needs to",
+      "highlightedText": "move, sell and grow.",
+      "description": "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account.",
+      "footnote": "Your Money. Your Control. Your Payroxa.",
+      "primaryCtaLabel": "Get Started",
+      "primaryCtaUrl": "https://app.payroxa.com.ng/register",
+      "secondaryCtaLabel": "Sign In",
+      "secondaryCtaUrl": "https://app.payroxa.com.ng/login",
+      "heroImageUrl": "/src/assets/hero-payroxa.jpg",
+      "heroImageAlt": "Payroxa mobile wallet app shown with a Payroxa payment card and coins",
+      "visibility": true,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z",
+      "updatedBy": "System"
+    }
+  },
+  "trustStrip": {
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System",
+    "items": [
+      {
+        "id": "t-1",
+        "icon": "ShieldCheck",
+        "title": "Secure",
+        "copy": "Your funds and data are protected end to end.",
+        "displayOrder": 1,
+        "enabled": true
+      },
+      {
+        "id": "t-2",
+        "icon": "Zap",
+        "title": "Fast",
+        "copy": "Instant payments and real-time settlement.",
+        "displayOrder": 2,
+        "enabled": true
+      },
+      {
+        "id": "t-3",
+        "icon": "Headphones",
+        "title": "Reliable",
+        "copy": "Support whenever you need us.",
+        "displayOrder": 3,
+        "enabled": true
+      },
+      {
+        "id": "t-4",
+        "icon": "Landmark",
+        "title": "Built for Africa",
+        "copy": "Made for African businesses and customers.",
+        "displayOrder": 4,
+        "enabled": true
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": "prod-1",
+      "name": "Move Money",
+      "shortDescription": "Send and receive money in seconds, to any bank or Payroxa account.",
+      "icon": "Send",
+      "displayOrder": 1,
+      "featured": true,
+      "published": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "prod-2",
+      "name": "Get Paid",
+      "shortDescription": "Collect payments with links, transfers, cards and QR — settled to your wallet.",
+      "icon": "Wallet",
+      "displayOrder": 2,
+      "featured": true,
+      "published": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "prod-3",
+      "name": "Sell",
+      "shortDescription": "Launch a storefront, list products and reach customers already on Payroxa.",
+      "icon": "ShoppingBag",
+      "displayOrder": 3,
+      "featured": true,
+      "published": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "prod-4",
+      "name": "Run Your Business",
+      "shortDescription": "Invoices, records and insights that keep the numbers where you can see them.",
+      "icon": "Briefcase",
+      "displayOrder": 4,
+      "featured": false,
+      "published": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "prod-5",
+      "name": "Move Your Business",
+      "shortDescription": "Fulfil orders with delivery and logistics built around your storefront.",
+      "icon": "Truck",
+      "displayOrder": 5,
+      "featured": false,
+      "published": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    }
+  ],
+  "businessTypes": [
+    {
+      "id": "bt-1",
+      "name": "Retail shops",
+      "displayOrder": 1,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-2",
+      "name": "Restaurants & food vendors",
+      "displayOrder": 2,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-3",
+      "name": "Fashion & beauty brands",
+      "displayOrder": 3,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-4",
+      "name": "Online sellers",
+      "displayOrder": 4,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-5",
+      "name": "Service professionals",
+      "displayOrder": 5,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-6",
+      "name": "Logistics & delivery",
+      "displayOrder": 6,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-7",
+      "name": "Agents & merchants",
+      "displayOrder": 7,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "bt-8",
+      "name": "Growing SMEs",
+      "displayOrder": 8,
+      "active": true,
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    }
+  ],
+  "storeSection": {
+    "eyebrow": "Payroxa Store",
+    "title": "Shop smarter — and sell smarter",
+    "description": "Open a storefront, list your products and let customers discover and pay you inside Payroxa. No website required.",
+    "features": [
+      "Product listings, categories and store profile",
+      "Payments settled straight into your wallet",
+      "Orders, delivery and customer records in one view"
+    ],
+    "ctaLabel": "Create Your Store",
+    "ctaUrl": "https://app.payroxa.com.ng/store",
+    "secondaryCtaLabel": "Learn more",
+    "secondaryCtaUrl": "/store",
+    "cardHeadline": "Discover great products from trusted businesses.",
+    "cardDescription": "Payroxa Store puts your business in front of customers already moving money on Payroxa every day.",
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "walletSection": {
+    "eyebrow": "Wallet",
+    "title": "A secure wallet for your funds",
+    "description": "Hold, move and track your money with balances you can see at a glance and controls you actually understand.",
+    "nairaTitle": "Instant transfers",
+    "nairaSubtitle": "Naira wallet",
+    "dollarTitle": "Cross-border ready",
+    "dollarSubtitle": "Dollar wallet",
+    "features": [
+      "Add money, send, withdraw, exchange",
+      "Statements and transaction history",
+      "Saved bank accounts and beneficiaries",
+      "Clear limits and spending controls"
+    ],
+    "ctaLabel": "Open your wallet",
+    "ctaUrl": "https://app.payroxa.com.ng/wallet",
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "dashboardSection": {
+    "eyebrow": "Business dashboard",
+    "title": "Know your numbers without the guesswork",
+    "description": "Track inflows, outflows, orders and customers with reporting built for the way African businesses actually operate.",
+    "metrics": [
+      {
+        "id": "m-1",
+        "label": "Inflow & outflow",
+        "copy": "See money in and money out per day, week or month."
+      },
+      {
+        "id": "m-2",
+        "label": "Order insights",
+        "copy": "Best sellers, repeat buyers and fulfilment status."
+      },
+      {
+        "id": "m-3",
+        "label": "Team access",
+        "copy": "Give staff the access they need, nothing more."
+      },
+      {
+        "id": "m-4",
+        "label": "Exportable records",
+        "copy": "Download statements for accounting and audits."
+      }
+    ],
+    "ctaLabel": "Start with Payroxa Business",
+    "ctaUrl": "https://app.payroxa.com.ng/business",
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "securitySection": {
+    "eyebrow": "Security",
+    "title": "Safe. Fast. Reliable. That's the Payroxa way.",
+    "description": "Security is not a feature we added later — it shapes how every part of Payroxa is built.",
+    "points": [
+      {
+        "id": "sec-1",
+        "icon": "Lock",
+        "title": "Encryption everywhere",
+        "copy": "Data is encrypted in transit and at rest."
+      },
+      {
+        "id": "sec-2",
+        "icon": "Fingerprint",
+        "title": "Verified identities",
+        "copy": "Tiered verification keeps accounts real."
+      },
+      {
+        "id": "sec-3",
+        "icon": "ShieldCheck",
+        "title": "Fraud monitoring",
+        "copy": "Suspicious activity is flagged early."
+      },
+      {
+        "id": "sec-4",
+        "icon": "BarChart3",
+        "title": "Full audit trail",
+        "copy": "Every transaction is recorded and traceable."
+      }
+    ],
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "howItWorks": [
+    {
+      "id": "hw-1",
+      "step": "01",
+      "title": "Create your account",
+      "copy": "Sign up with your phone number or email.",
+      "displayOrder": 1,
+      "enabled": true
+    },
+    {
+      "id": "hw-2",
+      "step": "02",
+      "title": "Verify your business",
+      "copy": "Complete verification to unlock full limits.",
+      "displayOrder": 2,
+      "enabled": true
+    },
+    {
+      "id": "hw-3",
+      "step": "03",
+      "title": "Fund your wallet",
+      "copy": "Add money by transfer, card or agent.",
+      "displayOrder": 3,
+      "enabled": true
+    },
+    {
+      "id": "hw-4",
+      "step": "04",
+      "title": "Start transacting",
+      "copy": "Pay, get paid, sell and grow from one place.",
+      "displayOrder": 4,
+      "enabled": true
+    }
+  ],
+  "cardsSection": {
+    "eyebrow": "Cards",
+    "title": "Virtual and physical cards for real spending",
+    "description": "Spend online and in store, set limits, freeze a card instantly and keep every transaction visible.",
+    "ctaLabel": "Get a card",
+    "ctaUrl": "https://app.payroxa.com.ng/cards",
+    "secondaryCtaLabel": "See how cards work",
+    "secondaryCtaUrl": "/cards",
+    "cardPlaceholderNumber": "•••• •••• •••• 7528",
+    "cardLabel": "Payroxa Card",
+    "cardExpiry": "••/••",
+    "visibility": true,
+    "updatedAt": "2026-09-11T12:13:48.552Z",
+    "updatedBy": "System"
+  },
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "What is Payroxa?",
+      "answer": "Payroxa is a business platform that brings payments, a secure wallet, cards, a storefront and business tools together in one app.",
+      "category": "General",
+      "displayOrder": 1,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "faq-2",
+      "question": "Who can use Payroxa?",
+      "answer": "Individuals, merchants and registered businesses across Africa who want a simpler way to move money and get paid.",
+      "category": "Eligibility",
+      "displayOrder": 2,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "faq-3",
+      "question": "How long does verification take?",
+      "answer": "Most accounts are verified shortly after the required details are submitted. Higher limits may need additional business documents.",
+      "category": "Verification",
+      "displayOrder": 3,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "faq-4",
+      "question": "Can I sell on Payroxa without a website?",
+      "answer": "Yes. Payroxa Store gives you a storefront and a shareable link, so you can start selling without building a website.",
+      "category": "Store",
+      "displayOrder": 4,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    },
+    {
+      "id": "faq-5",
+      "question": "Is my money safe?",
+      "answer": "Payroxa uses encryption, identity verification and continuous monitoring, and works with licensed financial partners.",
+      "category": "Security",
+      "displayOrder": 5,
+      "status": "published",
+      "updatedAt": "2026-09-11T12:13:48.552Z"
+    }
+  ],
+  "testimonials": [],
+  "media": [],
+  "announcements": [
+    {
+      "id": "ann-1",
+      "title": "Payroxa Cards",
+      "message": "Virtual & Physical cards are officially rolling out for Nigerian businesses.",
+      "ctaLabel": "Learn More",
+      "ctaUrl": "https://app.payroxa.com.ng/cards",
+      "enabled": false,
+      "updatedAt": "2026-09-11T12:13:48.552Z",
+      "updatedBy": "System"
+    }
+  ],
+  "seo": {
+    "home": {
+      "pageSlug": "/",
+      "pageTitle": "Home",
+      "metaTitle": "Payroxa — Payments, Wallet, Cards & Store for African Businesses",
+      "metaDescription": "Everything your business needs to move money, get paid, sell online and grow. Payroxa is the operating system for African businesses.",
+      "keywords": "payments, wallet, cards, store, Nigeria, Africa, fintech, POS",
+      "canonicalUrl": "https://payroxa.com.ng/",
+      "ogTitle": "Payroxa — Payments, Wallet, Cards & Store for African Businesses",
+      "ogDescription": "Everything your business needs to move money, get paid, sell online and grow. Payroxa is the operating system for African businesses.",
+      "ogImageUrl": "/hero-payroxa.jpg",
+      "twitterCard": "summary_large_image",
+      "updatedAt": "2026-09-11T12:13:48.552Z",
+      "updatedBy": "System"
+    }
+  },
+  "activities": [
+    {
+      "id": "act-init",
+      "action": "settings_updated",
+      "description": "Payroxa Website CMS initialized with production configurations.",
+      "userName": "System",
+      "userEmail": "system@payroxa.com.ng",
+      "timestamp": "2026-09-11T12:13:48.552Z",
+      "resourceType": "system"
+    }
+  ],
+  "revisions": []
+}

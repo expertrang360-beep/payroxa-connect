@@ -155,11 +155,20 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       section: "header",
     },
     {
+      id: "nav-mkt",
+      label: "Marketplace",
+      url: "/marketplace",
+      type: "internal",
+      displayOrder: 2,
+      enabled: true,
+      section: "header",
+    },
+    {
       id: "nav-2",
       label: "Business",
       url: "/business",
       type: "internal",
-      displayOrder: 2,
+      displayOrder: 3,
       enabled: true,
       section: "header",
     },
@@ -168,7 +177,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       label: "Payments",
       url: "/payments",
       type: "internal",
-      displayOrder: 3,
+      displayOrder: 4,
       enabled: true,
       section: "header",
     },
@@ -177,7 +186,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       label: "Store",
       url: "/store",
       type: "internal",
-      displayOrder: 4,
+      displayOrder: 5,
       enabled: true,
       section: "header",
     },
@@ -186,7 +195,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       label: "Cards",
       url: "/cards",
       type: "internal",
-      displayOrder: 5,
+      displayOrder: 6,
       enabled: true,
       section: "header",
     },
@@ -195,7 +204,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       label: "Pricing",
       url: "/pricing",
       type: "internal",
-      displayOrder: 6,
+      displayOrder: 7,
       enabled: true,
       section: "header",
     },
@@ -650,9 +659,513 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
         "Everything your business needs to move money, get paid, sell online and grow. Payroxa is the operating system for African businesses.",
       ogImageUrl: "/hero-payroxa.jpg",
       twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "Organization",
+      priority: 1.0,
+      changefreq: "daily",
       updatedAt: new Date().toISOString(),
       updatedBy: "System",
     },
+    payments: {
+      pageSlug: "/payments",
+      pageTitle: "Payments",
+      metaTitle: "Payment Solutions for African Businesses | Payroxa",
+      metaDescription:
+        "Accept payments, send payment requests and manage your business transactions with Payroxa.",
+      keywords: "payment solutions Nigeria, online payments, payment links, merchant checkout",
+      canonicalUrl: "https://payroxa.com.ng/payments",
+      ogTitle: "Payment Solutions for African Businesses | Payroxa",
+      ogDescription:
+        "Accept payments, send payment requests and manage your business transactions with Payroxa.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "SoftwareApplication",
+      priority: 0.9,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    business: {
+      pageSlug: "/business",
+      pageTitle: "Business Platform",
+      metaTitle: "Business Management Platform for African Businesses | Payroxa",
+      metaDescription:
+        "Manage cash flow, monitor POS collections, issue virtual cards, and run your business from one unified platform.",
+      keywords: "business management platform Nigeria, retail pos, financial tools",
+      canonicalUrl: "https://payroxa.com.ng/business",
+      ogTitle: "Business Management Platform for African Businesses | Payroxa",
+      ogDescription:
+        "Manage cash flow, monitor POS collections, issue virtual cards, and run your business from one unified platform.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "SoftwareApplication",
+      priority: 0.9,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    store: {
+      pageSlug: "/store",
+      pageTitle: "Online Store",
+      metaTitle: "Create an Online Store for Your Business | Payroxa",
+      metaDescription:
+        "Launch an online store in minutes, list products, accept instant payments, and manage orders with Payroxa Store.",
+      keywords: "create online store Nigeria, ecommerce store, sell products online",
+      canonicalUrl: "https://payroxa.com.ng/store",
+      ogTitle: "Create an Online Store for Your Business | Payroxa",
+      ogDescription:
+        "Launch an online store in minutes, list products, accept instant payments, and manage orders with Payroxa Store.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "SoftwareApplication",
+      priority: 0.9,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    cards: {
+      pageSlug: "/cards",
+      pageTitle: "Cards",
+      metaTitle: "Payroxa Business & Virtual Cards",
+      metaDescription:
+        "Issue instant virtual dollar and local corporate debit cards for business expenses, software subscriptions, and ad spend.",
+      keywords: "virtual dollar card Nigeria, business debit cards, corporate card",
+      canonicalUrl: "https://payroxa.com.ng/cards",
+      ogTitle: "Payroxa Business & Virtual Cards",
+      ogDescription:
+        "Issue instant virtual dollar and local corporate debit cards for business expenses, software subscriptions, and ad spend.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "FinancialService",
+      priority: 0.9,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    wallet: {
+      pageSlug: "/wallet",
+      pageTitle: "Business Wallet",
+      metaTitle: "Multi-Currency Business Wallet & Virtual Accounts | Payroxa",
+      metaDescription:
+        "Hold, convert and manage Naira and USD business balances with dedicated virtual account numbers.",
+      keywords: "business wallet, virtual accounts Nigeria, FX business wallet",
+      canonicalUrl: "https://payroxa.com.ng/wallet",
+      ogTitle: "Multi-Currency Business Wallet & Virtual Accounts | Payroxa",
+      ogDescription:
+        "Hold, convert and manage Naira and USD business balances with dedicated virtual account numbers.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "FinancialService",
+      priority: 0.8,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    transfers: {
+      pageSlug: "/transfers",
+      pageTitle: "Transfers & Payouts",
+      metaTitle: "Instant Business Transfers & Bulk Payouts | Payroxa",
+      metaDescription:
+        "Send money to all Nigerian commercial banks instantly with guaranteed real-time settlement and automated payroll payouts.",
+      keywords: "business bank transfers Nigeria, instant settlement, bulk payroll",
+      canonicalUrl: "https://payroxa.com.ng/transfers",
+      ogTitle: "Instant Business Transfers & Bulk Payouts | Payroxa",
+      ogDescription:
+        "Send money to all Nigerian commercial banks instantly with guaranteed real-time settlement and automated payroll payouts.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "FinancialService",
+      priority: 0.8,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    "payment-links": {
+      pageSlug: "/payment-links",
+      pageTitle: "Payment Links",
+      metaTitle: "Payment Links for Businesses | Payroxa",
+      metaDescription:
+        "Create payment links and make it easier for customers to pay your business with Payroxa.",
+      keywords: "payment links Nigeria, WhatsApp checkout, get paid online without website",
+      canonicalUrl: "https://payroxa.com.ng/payment-links",
+      ogTitle: "Payment Links for Businesses | Payroxa",
+      ogDescription:
+        "Create payment links and make it easier for customers to pay your business with Payroxa.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "SoftwareApplication",
+      priority: 0.8,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    "payment-requests": {
+      pageSlug: "/payment-requests",
+      pageTitle: "Payment Requests",
+      metaTitle: "Digital Invoicing & Payment Requests | Payroxa",
+      metaDescription:
+        "Send professional payment requests and digital invoices to clients with automated customer payment reminders.",
+      keywords: "payment request link Nigeria, invoice clients, digital bills",
+      canonicalUrl: "https://payroxa.com.ng/payment-requests",
+      ogTitle: "Digital Invoicing & Payment Requests | Payroxa",
+      ogDescription:
+        "Send professional payment requests and digital invoices to clients with automated customer payment reminders.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "SoftwareApplication",
+      priority: 0.8,
+      changefreq: "weekly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    pricing: {
+      pageSlug: "/pricing",
+      pageTitle: "Pricing",
+      metaTitle: "Transparent Pricing & Transaction Fees | Payroxa",
+      metaDescription:
+        "Fair, transparent pricing with no hidden charges, zero maintenance fees, and competitive merchant rates across Africa.",
+      keywords: "payroxa pricing, fintech fees Nigeria, merchant rates",
+      canonicalUrl: "https://payroxa.com.ng/pricing",
+      ogTitle: "Transparent Pricing & Transaction Fees | Payroxa",
+      ogDescription:
+        "Fair, transparent pricing with no hidden charges, zero maintenance fees, and competitive merchant rates across Africa.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "WebSite",
+      priority: 0.7,
+      changefreq: "monthly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    about: {
+      pageSlug: "/about",
+      pageTitle: "About Us",
+      metaTitle: "About Payroxa — Building Financial Infrastructure for Africa",
+      metaDescription:
+        "Discover our mission to empower African entrepreneurs and growing enterprises with seamless financial technology.",
+      keywords: "about payroxa, fintech startup Nigeria, African commerce",
+      canonicalUrl: "https://payroxa.com.ng/about",
+      ogTitle: "About Payroxa — Building Financial Infrastructure for Africa",
+      ogDescription:
+        "Discover our mission to empower African entrepreneurs and growing enterprises with seamless financial technology.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "Organization",
+      priority: 0.7,
+      changefreq: "monthly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    contact: {
+      pageSlug: "/contact",
+      pageTitle: "Contact Support",
+      metaTitle: "Contact Payroxa — 24/7 Merchant Support & Inquiries",
+      metaDescription:
+        "Reach out to our customer operations team for merchant onboarding, technical support, and partnership inquiries.",
+      keywords: "payroxa contact, customer support, merchant help Nigeria",
+      canonicalUrl: "https://payroxa.com.ng/contact",
+      ogTitle: "Contact Payroxa — 24/7 Merchant Support & Inquiries",
+      ogDescription:
+        "Reach out to our customer operations team for merchant onboarding, technical support, and partnership inquiries.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "Organization",
+      priority: 0.7,
+      changefreq: "monthly",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+    resources: {
+      pageSlug: "/resources",
+      pageTitle: "Resources & Guides",
+      metaTitle: "Payroxa Business & Financial Growth Resources | Payroxa",
+      metaDescription:
+        "Actionable guides, business insights, fintech tutorials, and payment best practices for African entrepreneurs.",
+      keywords: "fintech guides Nigeria, business tips Africa, accept online payments",
+      canonicalUrl: "https://payroxa.com.ng/resources",
+      ogTitle: "Payroxa Business & Financial Growth Resources | Payroxa",
+      ogDescription:
+        "Actionable guides, business insights, fintech tutorials, and payment best practices for African entrepreneurs.",
+      ogImageUrl: "/hero-payroxa.jpg",
+      twitterCard: "summary_large_image",
+      robotsDirective: "index, follow",
+      schemaType: "WebSite",
+      priority: 0.8,
+      changefreq: "daily",
+      updatedAt: new Date().toISOString(),
+      updatedBy: "System",
+    },
+  },
+  blogCategories: [
+    {
+      id: "cat-1",
+      name: "Payments & Invoicing",
+      slug: "payments",
+      description:
+        "Guides on collecting customer money, payment gateways, and checkout best practices.",
+      color: "purple",
+    },
+    {
+      id: "cat-2",
+      name: "E-commerce & Store",
+      slug: "commerce",
+      description: "Practical strategies for launching storefronts and scaling digital sales.",
+      color: "emerald",
+    },
+    {
+      id: "cat-3",
+      name: "Financial Tools & Cards",
+      slug: "financial-tools",
+      description: "Managing corporate cards, foreign exchange, virtual accounts, and cash flow.",
+      color: "blue",
+    },
+    {
+      id: "cat-4",
+      name: "Business Growth",
+      slug: "business-growth",
+      description:
+        "Actionable tips for small businesses and merchants scaling in Nigeria and Africa.",
+      color: "amber",
+    },
+  ],
+  blogAuthors: [
+    {
+      id: "auth-1",
+      name: "Payroxa Editorial Team",
+      role: "Fintech & Commerce Specialists",
+      bio: "The official research and content team at Payroxa, creating practical business guides.",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "auth-2",
+      name: "Adaeze Okafor",
+      role: "Head of Merchant Growth",
+      bio: "Advising retail businesses and tech startups across Lagos and Abuja on digital commerce.",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
+    },
+  ],
+  blogPosts: [
+    {
+      id: "post-1",
+      title: "How to Accept Payments From Customers in Nigeria (Complete 2026 Guide)",
+      slug: "how-to-accept-online-payments-in-nigeria",
+      excerpt:
+        "Discover the most reliable, secure payment methods for Nigerian businesses — from payment links to instant bank transfers and QR codes.",
+      content: `### The Modern Payment Landscape in Nigeria
+
+Running a business in Nigeria requires offering payment options that fit customer habits. With cash-on-delivery declining and mobile transfers dominating, your business must be equipped to collect payments friction-free.
+
+#### 1. Bank Transfers & Dedicated Virtual Accounts
+Bank transfers represent over 70% of digital transactions in Nigeria. By issuing dedicated virtual accounts to your customers or for specific orders, confirmation is instantaneous. No manual screenshot verification required.
+
+#### 2. One-Click Payment Links
+If you sell on WhatsApp, Instagram, or Twitter, sending a payment link is the fastest way to close a sale. The customer clicks, chooses their preferred channel (Card, USSD, Bank Transfer, or Apple Pay), and your balance updates in real-time.
+
+#### 3. In-Store POS & QR Codes
+Physical merchants need reliable terminal hardware that doesn't suffer frequent network downtime. Dual-connectivity SIM cards and dynamic QR codes keep checkouts moving during peak business hours.
+
+#### Key Takeaway
+Equipping your business with unified tools lowers abandoned checkouts and accelerates cash settlement. With Payroxa, you get instant settlement, clear audit trails, and zero maintenance fees.`,
+      featuredImageUrl:
+        "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=1200&auto=format&fit=crop&q=80",
+      featuredImageAlt: "Nigerian business owner accepting digital payments on tablet",
+      authorId: "auth-1",
+      authorName: "Payroxa Editorial Team",
+      authorRole: "Fintech & Commerce Specialists",
+      categoryId: "cat-1",
+      categoryName: "Payments & Invoicing",
+      tags: ["online payments", "Nigeria", "payment links", "fintech"],
+      readTimeMinutes: 5,
+      seoTitle: "How to Accept Payments From Customers in Nigeria | Payroxa",
+      metaDescription:
+        "Learn how Nigerian businesses collect payments easily with payment links, virtual accounts, and POS tools without reconciliation headaches.",
+      canonicalUrl: "https://payroxa.com.ng/resources/how-to-accept-online-payments-in-nigeria",
+      ogImageUrl:
+        "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=1200&auto=format&fit=crop&q=80",
+      status: "published",
+      publishedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+      updatedAt: new Date().toISOString(),
+      featured: true,
+      relatedProduct: "payments",
+    },
+    {
+      id: "post-2",
+      title: "What Is a Payment Link and How Does It Work for Social Commerce?",
+      slug: "what-is-a-payment-link-how-it-works",
+      excerpt:
+        "Learn how payment links allow Instagram, WhatsApp, and service businesses to collect customer payments instantly without an expensive website.",
+      content: `### Selling on Social Media Without a Full Website
+
+A payment link is a secure, unique URL generated by your payment provider that directs a customer to a hosted checkout page. Instead of asking customers to manually type your bank account number and send back a blurry receipt, a payment link handles everything automatically.
+
+#### How It Works in 3 Simple Steps:
+1. **Create the Link:** Specify the amount, item name, and optional description in your Payroxa dashboard.
+2. **Share with Customer:** Send the link via WhatsApp DM, Instagram Direct, SMS, or paste it in your social bio.
+3. **Instant Confirmation:** The customer pays via their bank app or card; both you and the buyer receive instant SMS and email receipts.
+
+#### Benefits for Small Merchants:
+- **Zero Coding Required:** You don't need to hire a web developer or maintain a server.
+- **Prevents Fake Transfer Fraud:** Funds are deposited directly to your verified Payroxa account before goods are dispatched.
+- **Faster Checkout:** Customers complete payment in under 30 seconds.`,
+      featuredImageUrl:
+        "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&auto=format&fit=crop&q=80",
+      featuredImageAlt: "Customer completing payment on smartphone via payment link",
+      authorId: "auth-2",
+      authorName: "Adaeze Okafor",
+      authorRole: "Head of Merchant Growth",
+      categoryId: "cat-1",
+      categoryName: "Payments & Invoicing",
+      tags: ["payment links", "social commerce", "WhatsApp sales"],
+      readTimeMinutes: 4,
+      seoTitle: "What Is a Payment Link and How Does It Work? | Payroxa",
+      metaDescription:
+        "Everything you need to know about payment links: how they work, why they protect against transfer fraud, and how to create one in seconds.",
+      canonicalUrl: "https://payroxa.com.ng/resources/what-is-a-payment-link-how-it-works",
+      ogImageUrl:
+        "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&auto=format&fit=crop&q=80",
+      status: "published",
+      publishedAt: new Date(Date.now() - 86400000 * 3).toISOString(),
+      updatedAt: new Date().toISOString(),
+      featured: false,
+      relatedProduct: "payment-links",
+    },
+    {
+      id: "post-3",
+      title: "How to Create an Online Store for Your Business in Under 10 Minutes",
+      slug: "how-to-create-an-online-store-for-your-business",
+      excerpt:
+        "Step-by-step guide to setting up an e-commerce storefront, adding product catalogs, enabling instant checkout, and managing orders seamlessly.",
+      content: `### Why Every African Business Needs a Digital Storefront
+
+Traditional e-commerce platforms like Shopify or WooCommerce often require USD subscriptions, complicated hosting setups, and external payment gateway plugins that fail frequently.
+
+Payroxa Store was built specifically for African merchants who want a beautiful, mobile-optimized catalog that works out of the box.
+
+#### Setting Up in Minutes:
+1. **Name Your Store:** Choose your unique web address (e.g., payroxa.com.ng/store/yourbusiness).
+2. **Add Products & Photos:** Upload high-resolution product photos, variants (sizes/colors), and stock quantities.
+3. **Connect Delivery & Payment:** Payments are automatically processed through your Payroxa balance, and customer delivery addresses are captured during checkout.
+
+#### Managing Orders on Mobile:
+Every time an order is placed, you receive an instant push notification with customer details, order summary, and shipping preference.`,
+      featuredImageUrl:
+        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format&fit=crop&q=80",
+      featuredImageAlt: "Modern boutique store with online inventory and digital checkout",
+      authorId: "auth-2",
+      authorName: "Adaeze Okafor",
+      authorRole: "Head of Merchant Growth",
+      categoryId: "cat-2",
+      categoryName: "E-commerce & Store",
+      tags: ["online store", "ecommerce", "retail", "sell online"],
+      readTimeMinutes: 6,
+      seoTitle: "How to Create an Online Store for Your Business | Payroxa",
+      metaDescription:
+        "Step-by-step guide on launching your online store with Payroxa Store. Sell physical products, collect payments, and manage shipping easily.",
+      canonicalUrl:
+        "https://payroxa.com.ng/resources/how-to-create-an-online-store-for-your-business",
+      ogImageUrl:
+        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format&fit=crop&q=80",
+      status: "published",
+      publishedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+      updatedAt: new Date().toISOString(),
+      featured: true,
+      relatedProduct: "store",
+    },
+    {
+      id: "post-4",
+      title: "Virtual Dollar Cards for Nigerian Businesses: Solving International Spending",
+      slug: "virtual-cards-for-nigerian-businesses-international-spending",
+      excerpt:
+        "How modern virtual business cards solve global software payment failures (AWS, Google Workspace, Meta Ads) for African tech and retail teams.",
+      content: `### The Challenge with International Subscriptions
+
+Running a business in 2026 relies on global software: Google Workspace for email, Zoom for client meetings, Meta Ads for customer acquisition, and cloud servers like AWS. However, local Naira debit cards frequently have strict international spending limits or are blocked entirely.
+
+#### The Virtual Card Solution
+A virtual card exists digitally with its own 16-digit PAN, CVV, expiry date, and billing address. You can generate multiple virtual cards for different team members or expenses:
+- **Marketing Card:** Dedicated to Meta and Google Ads with a fixed monthly limit.
+- **Software Card:** Dedicated to recurring SaaS subscriptions.
+- **Vendor Card:** One-time use card for single supplier payments.
+
+#### Instant Freezing and Security
+If an unfamiliar transaction occurs, freeze the card with one tap in your Payroxa app. Your core bank balance remains completely insulated.`,
+      featuredImageUrl:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&auto=format&fit=crop&q=80",
+      featuredImageAlt: "Virtual debit card illustration on smartphone screen",
+      authorId: "auth-1",
+      authorName: "Payroxa Editorial Team",
+      authorRole: "Fintech & Commerce Specialists",
+      categoryId: "cat-3",
+      categoryName: "Financial Tools & Cards",
+      tags: ["virtual cards", "dollar card", "corporate expenses"],
+      readTimeMinutes: 5,
+      seoTitle: "Virtual Cards for Nigerian Businesses & International Spend | Payroxa",
+      metaDescription:
+        "Solve international subscription and advertisement payment declines with Payroxa instant virtual cards with custom spending limits.",
+      canonicalUrl:
+        "https://payroxa.com.ng/resources/virtual-cards-for-nigerian-businesses-international-spending",
+      ogImageUrl:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&auto=format&fit=crop&q=80",
+      status: "published",
+      publishedAt: new Date(Date.now() - 86400000).toISOString(),
+      updatedAt: new Date().toISOString(),
+      featured: false,
+      relatedProduct: "cards",
+    },
+  ],
+  redirects: [
+    {
+      id: "red-1",
+      sourcePath: "/online-payments",
+      targetPath: "/payments",
+      statusCode: 301,
+      enabled: true,
+      hitCount: 14,
+      lastHitAt: new Date(Date.now() - 3600000 * 4).toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: "red-2",
+      sourcePath: "/pos",
+      targetPath: "/business",
+      statusCode: 301,
+      enabled: true,
+      hitCount: 28,
+      lastHitAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: "red-3",
+      sourcePath: "/virtual-cards",
+      targetPath: "/cards",
+      statusCode: 301,
+      enabled: true,
+      hitCount: 9,
+      lastHitAt: new Date(Date.now() - 3600000 * 8).toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ],
+  searchConsole: {
+    googleVerificationTag: "google-site-verification=payroxa_prod_search_console_token_demo",
+    sitemapSubmittedUrl: "https://payroxa.com.ng/sitemap.xml",
+    lastVerifiedAt: new Date().toISOString(),
+    notes: "Google Search Console verified. Auto-sitemap ping configured for published content.",
   },
   activities: [
     {
