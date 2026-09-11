@@ -29,8 +29,8 @@ if (fs.existsSync(outputDir)) {
     const files = fs.readdirSync(assetsDir);
     const cssFile = files.find((f) => f.endsWith(".css"));
     const jsFile =
-      files.find((f) => f.startsWith("index") && f.endsWith(".js")) ||
       files.find((f) => f.startsWith("client") && f.endsWith(".js")) ||
+      files.find((f) => f.startsWith("index") && f.endsWith(".js")) ||
       files.find((f) => f.endsWith(".js"));
 
     if (cssFile) {
