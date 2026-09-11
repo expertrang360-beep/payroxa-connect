@@ -86,6 +86,45 @@ const trust = [
   { icon: Landmark, title: "Built for Africa", copy: "Made for African businesses and customers." },
 ];
 
+const coreFeatures = [
+  {
+    icon: CreditCard,
+    title: "Payments",
+    badge: "Instant settlements",
+    description:
+      "Accept card payments, bank transfers, USSD, and QR codes from local and global customers. Generate secure, shareable payment links without writing code.",
+    points: [
+      "Accept global debit & credit cards",
+      "Generate custom shareable payment links",
+      "Integrate USSD, bank transfers, and QR codes",
+    ],
+  },
+  {
+    icon: Wallet,
+    title: "Wallet",
+    badge: "Multi-currency accounts",
+    description:
+      "Manage funds across dual-currency NGN and USD wallets. Transfer to any bank, pay bills, buy airtime, and execute instant currency conversions.",
+    points: [
+      "Dual-currency balances (Naira & Dollars)",
+      "Instant, secure withdrawals to any bank",
+      "Full transparency & detailed history trails",
+    ],
+  },
+  {
+    icon: BarChart3,
+    title: "Business Dashboard",
+    badge: "Smart analytics",
+    description:
+      "Understand your cashflow with comprehensive visual reports on inflows, outflows, best-selling products, and repeat customer retention rates.",
+    points: [
+      "Real-time visual performance charts",
+      "Granular team access & role management",
+      "One-click statement export for accounting",
+    ],
+  },
+];
+
 const pillars = [
   {
     icon: Send,
@@ -187,7 +226,8 @@ function HomePage() {
   const cms = usePublicCms();
   const hero = cms.hero || {};
   const activeProducts = cms.products?.filter((p) => p.published) || [];
-  const activeBusinessTypes = cms.businessTypes?.filter((b) => b.active).map((b) => b.name) || businessTypes;
+  const activeBusinessTypes =
+    cms.businessTypes?.filter((b) => b.active).map((b) => b.name) || businessTypes;
   const activeFaqs = cms.faqs?.filter((f) => f.status === "published") || [];
 
   return (
@@ -210,10 +250,7 @@ function HomePage() {
                 "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account."}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PayroxaButton
-                href={hero.primaryCtaUrl || PAYROXA_LINKS.register}
-                size="lg"
-              >
+              <PayroxaButton href={hero.primaryCtaUrl || PAYROXA_LINKS.register} size="lg">
                 {hero.primaryCtaLabel || "Get Started"}{" "}
                 <ArrowRight className="size-4" aria-hidden="true" />
               </PayroxaButton>
@@ -237,7 +274,10 @@ function HomePage() {
             />
             <img
               src={hero.heroImageUrl || heroImage}
-              alt={hero.heroImageAlt || "Payroxa mobile wallet app shown with a Payroxa payment card and coins"}
+              alt={
+                hero.heroImageAlt ||
+                "Payroxa mobile wallet app shown with a Payroxa payment card and coins"
+              }
               width={1280}
               height={1280}
               className="relative mx-auto w-full max-w-lg rounded-4xl"
@@ -261,6 +301,56 @@ function HomePage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* Core Offerings Features Grid */}
+      <Section className="py-16 sm:py-24" id="features">
+        <SectionHeading
+          eyebrow="Core Offerings"
+          title="Designed for modern African businesses"
+          description="Everything you need to accept payments, manage your balances, and monitor your cashflow from a single integrated platform."
+        />
+        <div className="mt-14 grid gap-8 sm:grid-cols-1 md:grid-cols-3">
+          {coreFeatures.map((feat) => {
+            const Icon = feat.icon;
+            return (
+              <div
+                key={feat.title}
+                className="surface-card group flex flex-col justify-between p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card border border-border/80"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <Icon className="size-6" aria-hidden="true" />
+                    </span>
+                    <span className="rounded-full bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                      {feat.badge}
+                    </span>
+                  </div>
+                  <h3 className="mt-6 text-xl font-bold text-foreground leading-tight">
+                    {feat.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {feat.description}
+                  </p>
+                </div>
+                <ul className="mt-8 space-y-3 border-t border-border/60 pt-6">
+                  {feat.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex items-start gap-2.5 text-xs text-muted-foreground leading-normal"
+                    >
+                      <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+                        <span className="block size-1.5 rounded-full bg-emerald-500" />
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </Section>
 
       {/* 4. More than payments */}
@@ -325,7 +415,7 @@ function HomePage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {activeProducts.length > 0
             ? activeProducts.map((item) => {
-                const IconComp = (item.icon && iconMap[item.icon]) ? iconMap[item.icon] : Package;
+                const IconComp = item.icon && iconMap[item.icon] ? iconMap[item.icon] : Package;
                 return (
                   <ProductCard
                     key={item.id}
