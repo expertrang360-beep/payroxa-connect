@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -13,7 +14,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { siteConfig } from "@/config/siteConfig";
+import { PublicCmsProvider } from "@/cms/context/PublicCmsContext";
 
 function NotFoundComponent() {
   return (
@@ -132,17 +135,26 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isCmsRoute = pathname.startsWith("/cms");
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background">
-        <Navbar />
-        <main className="flex-1">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <PublicCmsProvider>
+        {isCmsRoute ? (
           <Outlet />
-        </main>
-        <Footer />
-      </div>
+        ) : (
+          <div className="flex min-h-screen flex-col bg-background">
+            <AnnouncementBar />
+            <Navbar />
+            <main className="flex-1">
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+              <Outlet />
+            </main>
+            <Footer />
+          </div>
+        )}
+      </PublicCmsProvider>
     </QueryClientProvider>
   );
 }

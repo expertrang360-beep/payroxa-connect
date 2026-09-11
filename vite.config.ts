@@ -12,4 +12,16 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    preset: "node-server",
+  },
+  vite: {
+    environments: {
+      ssr: {
+        define: {
+          "process.env.NODE_ENV": JSON.stringify("production"),
+        },
+      },
+    },
+  },
 });

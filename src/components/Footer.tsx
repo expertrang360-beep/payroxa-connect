@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import BrandLogo from "@/components/BrandLogo";
 import { PAYROXA_LINKS } from "@/config/links";
 import { siteConfig } from "@/config/siteConfig";
+import { usePublicCms } from "@/cms/context/PublicCmsContext";
 
 type FooterLink = {
   label: string;
@@ -25,6 +26,15 @@ const companyLinks = [
 ];
 
 export function Footer() {
+  const { settings, social, links } = usePublicCms();
+
+  const socialLinks = [
+    { label: "Instagram", href: social?.instagram || "https://instagram.com/payroxaapp" },
+    { label: "X", href: social?.twitter || "https://x.com/payroxaapp" },
+    { label: "LinkedIn", href: social?.linkedin || "https://linkedin.com/company/payroxa" },
+    { label: "Facebook", href: social?.facebook || "https://facebook.com/payroxaapp" },
+  ];
+
   return (
     <footer className="gradient-navy text-navy-foreground">
       <div className="mx-auto w-full max-w-6xl px-5 py-14">
@@ -32,7 +42,7 @@ export function Footer() {
           <div>
             <BrandLogo tone="dark" />
             <p className="mt-4 max-w-xs text-sm text-navy-foreground/70">
-              {siteConfig.description}
+              {settings?.siteDescription || siteConfig.description}
             </p>
             <p className="mt-4 text-sm text-navy-foreground/70">{siteConfig.contact.handle}</p>
           </div>
@@ -79,7 +89,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm text-navy-foreground/70">
               <li>
                 <a
-                  href={PAYROXA_LINKS.register}
+                  href={links?.register || PAYROXA_LINKS.register}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-navy-foreground"
@@ -89,7 +99,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={PAYROXA_LINKS.login}
+                  href={links?.login || PAYROXA_LINKS.login}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-navy-foreground"
@@ -99,7 +109,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={PAYROXA_LINKS.app}
+                  href={links?.app || PAYROXA_LINKS.app}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-navy-foreground"
@@ -118,10 +128,11 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-navy-foreground/15 pt-6 text-sm text-navy-foreground/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {new Date().getFullYear()} {siteConfig.legalName}. Safe. Fast. Reliable.
+            &copy; {new Date().getFullYear()} {settings?.siteName || siteConfig.legalName}. Safe.
+            Fast. Reliable.
           </p>
           <ul className="flex flex-wrap gap-4">
-            {siteConfig.social.map((s) => (
+            {socialLinks.map((s) => (
               <li key={s.label}>
                 <a
                   href={s.href}

@@ -5,8 +5,9 @@ import { useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PayroxaButton from "@/components/PayroxaButton";
 import { PAYROXA_LINKS } from "@/config/links";
+import { usePublicCms } from "@/cms/context/PublicCmsContext";
 
-const navItems = [
+const fallbackNavItems = [
   { to: "/payments", label: "Payments" },
   { to: "/store", label: "Store" },
   { to: "/cards", label: "Cards" },
@@ -16,6 +17,23 @@ const navItems = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { navigation, links } = usePublicCms();
+
+  const activeNav =
+    navigation && navigation.length > 0
+      ? navigation.filter((n) => n.enabled)
+      : fallbackNavItems.map((item, idx) => ({
+          id: `fb_${idx}`,
+          label: item.label,
+          url: item.to,
+          type: "internal" as const,
+          displayOrder: idx + 1,
+          enabled: true,
+          section: "header" as const,
+        }));
+
+  const loginUrl = links?.login || PAYROXA_LINKS.login;
+  const registerUrl = links?.register || PAYROXA_LINKS.register;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
@@ -23,23 +41,35 @@ export function Navbar() {
         <BrandLogo />
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              activeProps={{ className: "bg-accent text-accent-foreground" }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {activeNav.map((item) =>
+            item.url.startsWith("http") ? (
+              <a
+                key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.id}
+                to={item.url}
+                className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                activeProps={{ className: "bg-accent text-accent-foreground" }}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <PayroxaButton href={PAYROXA_LINKS.login} variant="outline" size="sm">
+          <PayroxaButton href={loginUrl} variant="outline" size="sm">
             Sign In
           </PayroxaButton>
-          <PayroxaButton href={PAYROXA_LINKS.register} size="sm">
+          <PayroxaButton href={registerUrl} size="sm">
             Get Started
           </PayroxaButton>
         </div>
@@ -58,16 +88,29 @@ export function Navbar() {
       {open ? (
         <div className="border-t border-border bg-background px-5 py-4 lg:hidden">
           <nav aria-label="Mobile" className="flex flex-col gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {activeNav.map((item) =>
+              item.url.startsWith("http") ? (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.id}
+                  to={item.url}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <Link
               to="/about"
               onClick={() => setOpen(false)}
@@ -84,10 +127,10 @@ export function Navbar() {
             </Link>
           </nav>
           <div className="mt-4 flex flex-col gap-2">
-            <PayroxaButton href={PAYROXA_LINKS.login} variant="outline">
+            <PayroxaButton href={loginUrl} variant="outline">
               Sign In
             </PayroxaButton>
-            <PayroxaButton href={PAYROXA_LINKS.register}>Get Started</PayroxaButton>
+            <PayroxaButton href={registerUrl}>Get Started</PayroxaButton>
           </div>
         </div>
       ) : null}

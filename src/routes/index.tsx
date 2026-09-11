@@ -10,6 +10,7 @@ import {
   Headphones,
   Landmark,
   Lock,
+  Package,
   Send,
   ShieldCheck,
   ShoppingBag,
@@ -27,6 +28,24 @@ import ProductCard from "@/components/ProductCard";
 import Section, { SectionHeading } from "@/components/Section";
 import { PAYROXA_LINKS } from "@/config/links";
 import { siteConfig } from "@/config/siteConfig";
+import { usePublicCms } from "@/cms/context/PublicCmsContext";
+
+const iconMap: Record<string, any> = {
+  Send,
+  Wallet,
+  ShoppingBag,
+  Briefcase,
+  Truck,
+  Smartphone,
+  Gauge,
+  CreditCard,
+  Bike,
+  Package,
+  ShieldCheck,
+  Zap,
+  Headphones,
+  Landmark,
+};
 
 const title = "Payroxa — Payments, Wallet, Cards & Store for African Businesses";
 const description =
@@ -165,6 +184,12 @@ const faqs = [
 ];
 
 function HomePage() {
+  const cms = usePublicCms();
+  const hero = cms.hero || {};
+  const activeProducts = cms.products?.filter((p) => p.published) || [];
+  const activeBusinessTypes = cms.businessTypes?.filter((b) => b.active).map((b) => b.name) || businessTypes;
+  const activeFaqs = cms.faqs?.filter((f) => f.status === "published") || [];
+
   return (
     <>
       {/* 2. Hero */}
@@ -172,26 +197,36 @@ function HomePage() {
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-2">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 text-xs font-semibold text-primary">
-              {siteConfig.tagline}
+              {hero.eyebrow || siteConfig.tagline}
             </span>
             <h1 className="mt-6 text-4xl font-bold leading-[1.08] sm:text-5xl lg:text-6xl">
-              Everything your business needs to{" "}
-              <span className="text-gradient-brand">move, sell and grow.</span>
+              {hero.headline || "Everything your business needs to"}{" "}
+              <span className="text-gradient-brand">
+                {hero.highlightedText || "move, sell and grow."}
+              </span>
             </h1>
             <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Send, receive, save and manage your money with confidence — then sell to customers,
-              issue cards and run the whole business from one Payroxa account.
+              {hero.description ||
+                "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account."}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PayroxaButton href={PAYROXA_LINKS.register} size="lg">
-                Get Started <ArrowRight className="size-4" aria-hidden="true" />
+              <PayroxaButton
+                href={hero.primaryCtaUrl || PAYROXA_LINKS.register}
+                size="lg"
+              >
+                {hero.primaryCtaLabel || "Get Started"}{" "}
+                <ArrowRight className="size-4" aria-hidden="true" />
               </PayroxaButton>
-              <PayroxaButton href={PAYROXA_LINKS.login} variant="outline" size="lg">
-                Sign In
+              <PayroxaButton
+                href={hero.secondaryCtaUrl || PAYROXA_LINKS.login}
+                variant="outline"
+                size="lg"
+              >
+                {hero.secondaryCtaLabel || "Sign In"}
               </PayroxaButton>
             </div>
             <p className="mt-5 text-sm text-muted-foreground">
-              Your Money. Your Control. Your Payroxa.
+              {hero.footnote || "Your Money. Your Control. Your Payroxa."}
             </p>
           </div>
 
@@ -201,8 +236,8 @@ function HomePage() {
               aria-hidden="true"
             />
             <img
-              src={heroImage}
-              alt="Payroxa mobile wallet app shown with a Payroxa payment card and coins"
+              src={hero.heroImageUrl || heroImage}
+              alt={hero.heroImageAlt || "Payroxa mobile wallet app shown with a Payroxa payment card and coins"}
               width={1280}
               height={1280}
               className="relative mx-auto w-full max-w-lg rounded-4xl"
@@ -248,9 +283,12 @@ function HomePage() {
           <div>
             <SectionHeading
               align="left"
-              eyebrow="Payroxa Store"
-              title="Shop smarter — and sell smarter"
-              description="Open a storefront, list your products and let customers discover and pay you inside Payroxa. No website required."
+              eyebrow={cms.storeSection?.eyebrow || "Payroxa Store"}
+              title={cms.storeSection?.title || "Shop smarter — and sell smarter"}
+              description={
+                cms.storeSection?.description ||
+                "Open a storefront, list your products and let customers discover and pay you inside Payroxa. No website required."
+              }
             />
             <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
               <li>• Product listings, categories and store profile</li>
@@ -285,14 +323,26 @@ function HomePage() {
           description="From airtime to bank transfers, Payroxa covers the payments your business and customers make daily."
         />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {ecosystem.map((item) => (
-            <ProductCard
-              key={item.title}
-              icon={item.icon}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
+          {activeProducts.length > 0
+            ? activeProducts.map((item) => {
+                const IconComp = (item.icon && iconMap[item.icon]) ? iconMap[item.icon] : Package;
+                return (
+                  <ProductCard
+                    key={item.id}
+                    icon={IconComp}
+                    title={item.name}
+                    description={item.shortDescription}
+                  />
+                );
+              })
+            : ecosystem.map((item) => (
+                <ProductCard
+                  key={item.title}
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
+              ))}
         </div>
         <div className="mt-10 flex justify-center">
           <PayroxaButton to="/payments" variant="outline">
@@ -327,8 +377,11 @@ function HomePage() {
             <SectionHeading
               align="left"
               eyebrow="Wallet"
-              title="A secure wallet for your funds"
-              description="Hold, move and track your money with balances you can see at a glance and controls you actually understand."
+              title={cms.walletSection?.title || "A secure wallet for your funds"}
+              description={
+                cms.walletSection?.description ||
+                "Hold, move and track your money with balances you can see at a glance and controls you actually understand."
+              }
             />
             <div className="mt-8">
               <PayroxaButton href={PAYROXA_LINKS.wallet}>Open your wallet</PayroxaButton>
@@ -378,7 +431,7 @@ function HomePage() {
           title="Built for the businesses that keep Africa moving"
         />
         <ul className="mt-10 flex flex-wrap justify-center gap-3">
-          {businessTypes.map((type) => (
+          {activeBusinessTypes.map((type) => (
             <li
               key={type}
               className="rounded-full border border-border bg-muted/60 px-5 py-2.5 text-sm font-medium"
@@ -429,8 +482,11 @@ function HomePage() {
             <SectionHeading
               align="left"
               eyebrow="Cards"
-              title="Virtual and physical cards for real spending"
-              description="Spend online and in store, set limits, freeze a card instantly and keep every transaction visible."
+              title={cms.cardsSection?.title || "Virtual and physical cards for real spending"}
+              description={
+                cms.cardsSection?.description ||
+                "Spend online and in store, set limits, freeze a card instantly and keep every transaction visible."
+              }
             />
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PayroxaButton href={PAYROXA_LINKS.cards}>Get a card</PayroxaButton>
@@ -454,12 +510,23 @@ function HomePage() {
       <Section>
         <SectionHeading eyebrow="FAQ" title="Questions, answered" />
         <div className="mx-auto mt-10 max-w-3xl space-y-4">
-          {faqs.map((f) => (
-            <details key={f.q} className="surface-card group p-6">
-              <summary className="cursor-pointer list-none text-base font-semibold">{f.q}</summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
-          ))}
+          {activeFaqs.length > 0
+            ? activeFaqs.map((f) => (
+                <details key={f.id} className="surface-card group p-6">
+                  <summary className="cursor-pointer list-none text-base font-semibold">
+                    {f.question}
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.answer}</p>
+                </details>
+              ))
+            : faqs.map((f) => (
+                <details key={f.q} className="surface-card group p-6">
+                  <summary className="cursor-pointer list-none text-base font-semibold">
+                    {f.q}
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
         </div>
       </Section>
 
