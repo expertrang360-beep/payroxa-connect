@@ -60,6 +60,10 @@ if (fs.existsSync(outputDir)) {
 
   fs.writeFileSync(path.join(distDir, "index.html"), htmlContent, "utf-8");
 
+  // Create entrypoint fallbacks in dist root for deployment runners
+  fs.writeFileSync(path.join(distDir, "index.js"), "import('./server/index.mjs');\n", "utf-8");
+  fs.writeFileSync(path.join(distDir, "server.js"), "import('./server/index.mjs');\n", "utf-8");
+
   const distPublicDir = path.join(distDir, "public");
   if (!fs.existsSync(distPublicDir)) {
     fs.mkdirSync(distPublicDir, { recursive: true });
