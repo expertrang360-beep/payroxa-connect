@@ -19,7 +19,7 @@ export interface SeoHealthReport {
 
 export function generateSitemapXml(
   db: CmsDatabaseState,
-  baseUrl: string = "https://payroxa.com.ng",
+  baseUrl: string = process.env.VITE_PAYROXA_WEBSITE_URL || "https://payroxa.com.ng",
 ): string {
   const cleanBase = baseUrl.replace(/\/$/, "");
   const urls: Array<{ loc: string; lastmod: string; changefreq: string; priority: number }> = [];
@@ -80,7 +80,9 @@ ${xmlItems}
 </urlset>`;
 }
 
-export function generateRobotsTxt(baseUrl: string = "https://payroxa.com.ng"): string {
+export function generateRobotsTxt(
+  baseUrl: string = process.env.VITE_PAYROXA_WEBSITE_URL || "https://payroxa.com.ng",
+): string {
   const cleanBase = baseUrl.replace(/\/$/, "");
   return `# robots.txt for Payroxa (Production Engine)
 User-agent: *

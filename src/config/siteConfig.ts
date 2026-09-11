@@ -23,6 +23,12 @@ export const WEBSITE_URL = read("VITE_PAYROXA_WEBSITE_URL", "https://payroxa.com
 /** Authenticated product application origin. */
 export const APP_URL = read("VITE_PAYROXA_APP_URL", "https://app.payroxa.com.ng");
 
+/** Public API base URL. */
+export const PUBLIC_API_BASE_URL = read(
+  "VITE_PAYROXA_PUBLIC_API_BASE_URL",
+  `${APP_URL.replace(/\/$/, "")}/api/v1/public/marketplace`,
+);
+
 const appPath = (path: string) => `${APP_URL.replace(/\/$/, "")}${path}`;
 
 /**
@@ -38,6 +44,9 @@ export const PAYROXA_LINKS = {
   cards: read("VITE_PAYROXA_CARDS_URL", appPath("/cards")),
   store: read("VITE_PAYROXA_STORE_URL", appPath("/store")),
   business: read("VITE_PAYROXA_BUSINESS_URL", appPath("/business")),
+  transfers: read("VITE_PAYROXA_TRANSFERS_URL", appPath("/transfers")),
+  delivery: read("VITE_PAYROXA_DELIVERY_URL", appPath("/delivery")),
+  ride: read("VITE_PAYROXA_RIDE_URL", appPath("/ride")),
 } as const;
 
 export type PayroxaLinkKey = keyof typeof PAYROXA_LINKS;

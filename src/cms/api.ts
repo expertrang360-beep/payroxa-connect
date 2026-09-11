@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { siteConfig } from "@/config/siteConfig";
 import {
   findUserByEmail,
   findUserById,
@@ -937,7 +938,7 @@ export const saveBlogPostFn = createServerFn({ method: "POST" })
           Math.max(2, Math.ceil(data.post.content.split(/\s+/).length / 200)),
         seoTitle: data.post.seoTitle || `${data.post.title} | Payroxa`,
         metaDescription: data.post.metaDescription || data.post.excerpt || data.post.title,
-        canonicalUrl: data.post.canonicalUrl || `https://payroxa.com.ng/resources/${baseSlug}`,
+        canonicalUrl: data.post.canonicalUrl || `${siteConfig.websiteUrl}/resources/${baseSlug}`,
         ogImageUrl: data.post.ogImageUrl || data.post.featuredImageUrl || "/hero-payroxa.jpg",
         status: data.post.status || "draft",
         publishedAt: data.post.publishedAt || new Date().toISOString(),

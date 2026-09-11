@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 import { useCmsAuth, CmsAuthProvider } from "@/cms/context/CmsAuthContext";
 
+import { APP_URL } from "@/config/siteConfig";
+
 export const Route = createFileRoute("/cms-admin/login")({
   component: CmsLoginWrapper,
 });
@@ -36,7 +38,7 @@ function CmsLoginPage() {
         navigate({ to: "/cms-admin" });
       } else {
         setError(
-          "Authentication failed. If you are a standard user, please login via the User Portal at app.payroxa.com.ng",
+          `Authentication failed. If you are a standard user, please login via the User Portal at ${APP_URL.replace(/^https?:\/\//, "")}`,
         );
       }
     } catch {
@@ -70,9 +72,9 @@ function CmsLoginPage() {
                 <AlertCircle className="size-4 shrink-0 text-rose-400" />
                 <div className="flex-1">{error}</div>
               </div>
-              {error.includes("app.payroxa.com.ng") && (
+              {error.includes(APP_URL.replace(/^https?:\/\//, "")) && (
                 <a
-                  href="https://app.payroxa.com.ng"
+                  href={APP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-lg bg-rose-500/20 px-3 py-1.5 font-bold text-rose-200 transition-colors hover:bg-rose-500/30"
@@ -101,7 +103,7 @@ function CmsLoginPage() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@payroxa.com.ng"
+                  placeholder="email@payroxa.com.ng"
                   className="w-full rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-2.5 pl-10 text-sm text-white placeholder-slate-500 transition-all focus:border-purple-500 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
                 />
               </div>
@@ -141,7 +143,7 @@ function CmsLoginPage() {
                 </>
               ) : (
                 <>
-                  <span>Sign In to Dashboard</span>
+                  <span>Continue to Dashboard</span>
                   <ArrowRight className="size-4" />
                 </>
               )}

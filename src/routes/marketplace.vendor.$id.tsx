@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { getVendor } from "@/services/payroxa-public-api/client";
 import { PayroxaVendor } from "@/services/payroxa-public-api/types";
+import { APP_URL } from "@/config/siteConfig";
 
 export const Route = createFileRoute("/marketplace/vendor/$id")({
   component: VendorDetailPage,
@@ -109,7 +110,7 @@ function VendorDetailPage() {
             </div>
           </div>
           <a
-            href={vendor.appUrl || "https://app.payroxa.com.ng"}
+            href={vendor.appUrl || APP_URL}
             target="_blank"
             rel="noreferrer"
             className="rounded-2xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
@@ -151,7 +152,7 @@ function VendorDetailPage() {
                 This merchant's live inventory syncs in real-time from the Payroxa database.
               </p>
               <a
-                href={vendor.appUrl || "https://app.payroxa.com.ng"}
+                href={vendor.appUrl || APP_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground shadow-soft"

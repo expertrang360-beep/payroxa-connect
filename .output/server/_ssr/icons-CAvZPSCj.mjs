@@ -1,6 +1,6 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { _ as Sparkles, t as lucide_react_exports } from "../_libs/lucide-react.mjs";
+import { b as Sparkles, t as lucide_react_exports } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/icons-CAvZPSCj.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var ICON_CATEGORIES = [

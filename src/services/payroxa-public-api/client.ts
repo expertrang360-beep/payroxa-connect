@@ -7,14 +7,10 @@ import {
   FeaturedPayload,
   ApiResponse,
 } from "./types";
-
-const DEFAULT_API_BASE = "https://app.payroxa.com.ng/api/v1/public/marketplace";
+import { APP_URL, PUBLIC_API_BASE_URL } from "@/config/siteConfig";
 
 export function getApiBaseUrl(): string {
-  // @ts-expect-error Vite env injection
-  return typeof import.meta !== "undefined" && import.meta.env?.VITE_PAYROXA_PUBLIC_API_BASE_URL
-    ? import.meta.env.VITE_PAYROXA_PUBLIC_API_BASE_URL
-    : DEFAULT_API_BASE;
+  return PUBLIC_API_BASE_URL;
 }
 
 // Mock fallback database for offline sandbox testing
@@ -52,7 +48,7 @@ const MOCK_VENDORS: PayroxaVendor[] = [
     location: "Ikeja, Lagos, Nigeria",
     verified: true,
     productCount: 14,
-    appUrl: "https://app.payroxa.com.ng/marketplace/vendor/urban-styles",
+    appUrl: `${APP_URL}/marketplace/vendor/urban-styles`,
   },
   {
     id: "ven_2",
@@ -66,7 +62,7 @@ const MOCK_VENDORS: PayroxaVendor[] = [
     location: "Computer Village, Ikeja, Lagos",
     verified: true,
     productCount: 22,
-    appUrl: "https://app.payroxa.com.ng/marketplace/vendor/tehila-gadgets",
+    appUrl: `${APP_URL}/marketplace/vendor/tehila-gadgets`,
   },
   {
     id: "ven_3",
@@ -80,7 +76,7 @@ const MOCK_VENDORS: PayroxaVendor[] = [
     location: "Lekki Phase 1, Lagos, Nigeria",
     verified: true,
     productCount: 9,
-    appUrl: "https://app.payroxa.com.ng/marketplace/vendor/aura-organics",
+    appUrl: `${APP_URL}/marketplace/vendor/aura-organics`,
   },
 ];
 
@@ -108,7 +104,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/premium-ankara-bomber-jacket",
+    appUrl: `${APP_URL}/marketplace/product/premium-ankara-bomber-jacket`,
   },
   {
     id: "prod_2",
@@ -129,7 +125,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/apple-iphone-15-pro-max-256gb",
+    appUrl: `${APP_URL}/marketplace/product/apple-iphone-15-pro-max-256gb`,
   },
   {
     id: "prod_3",
@@ -150,7 +146,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/raw-shea-butter-glow-face-cream",
+    appUrl: `${APP_URL}/marketplace/product/raw-shea-butter-glow-face-cream`,
   },
   {
     id: "prod_4",
@@ -171,7 +167,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: false,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/minimalist-leather-tote-bag",
+    appUrl: `${APP_URL}/marketplace/product/minimalist-leather-tote-bag`,
   },
   {
     id: "prod_5",
@@ -192,7 +188,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/macbook-pro-16-m3-max",
+    appUrl: `${APP_URL}/marketplace/product/macbook-pro-16-m3-max`,
   },
   {
     id: "prod_6",
@@ -213,7 +209,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: false,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/organic-hibiscus-zobo-concentrate",
+    appUrl: `${APP_URL}/marketplace/product/organic-hibiscus-zobo-concentrate`,
   },
   {
     id: "prod_7",
@@ -234,7 +230,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/wireless-noise-cancelling-headphones",
+    appUrl: `${APP_URL}/marketplace/product/wireless-noise-cancelling-headphones`,
   },
   {
     id: "prod_8",
@@ -255,7 +251,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: false,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/handmade-terracotta-ceramic-vase",
+    appUrl: `${APP_URL}/marketplace/product/handmade-terracotta-ceramic-vase`,
   },
   {
     id: "prod_9",
@@ -276,7 +272,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/smart-fitness-watch-series-x",
+    appUrl: `${APP_URL}/marketplace/product/smart-fitness-watch-series-x`,
   },
   {
     id: "prod_10",
@@ -297,7 +293,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: true,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/traditional-adire-silk-caftan",
+    appUrl: `${APP_URL}/marketplace/product/traditional-adire-silk-caftan`,
   },
   {
     id: "prod_11",
@@ -318,7 +314,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: false,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/organic-cold-pressed-coconut-oil",
+    appUrl: `${APP_URL}/marketplace/product/organic-cold-pressed-coconut-oil`,
   },
   {
     id: "prod_12",
@@ -339,7 +335,7 @@ const MOCK_PRODUCTS: PayroxaProduct[] = [
     availability: "in_stock",
     isFeatured: false,
     updatedAt: new Date().toISOString(),
-    appUrl: "https://app.payroxa.com.ng/marketplace/product/gourmet-aged-chili-pepper-sauce",
+    appUrl: `${APP_URL}/marketplace/product/gourmet-aged-chili-pepper-sauce`,
   },
 ];
 
@@ -357,7 +353,7 @@ const MOCK_STORES: Record<string, PayroxaStore> = {
     categories: [MOCK_CATEGORIES[0]],
     publishedProductCount: 14,
     products: MOCK_PRODUCTS.filter((p) => p.vendor.slug === "urban-styles"),
-    appUrl: "https://app.payroxa.com.ng/marketplace/store/urban-styles",
+    appUrl: `${APP_URL}/marketplace/store/urban-styles`,
   },
   "tehila-gadgets": {
     id: "store_2",
@@ -372,7 +368,7 @@ const MOCK_STORES: Record<string, PayroxaStore> = {
     categories: [MOCK_CATEGORIES[1], MOCK_CATEGORIES[2]],
     publishedProductCount: 22,
     products: MOCK_PRODUCTS.filter((p) => p.vendor.slug === "tehila-gadgets"),
-    appUrl: "https://app.payroxa.com.ng/marketplace/store/tehila-gadgets",
+    appUrl: `${APP_URL}/marketplace/store/tehila-gadgets`,
   },
 };
 

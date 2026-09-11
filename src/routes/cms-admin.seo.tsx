@@ -23,6 +23,7 @@ import {
   Share2,
 } from "lucide-react";
 import { useCmsAuth } from "@/cms/context/CmsAuthContext";
+import { WEBSITE_URL } from "@/config/siteConfig";
 import {
   getSeoFn,
   saveSeoFn,
@@ -126,7 +127,7 @@ function CmsSeoPage() {
     metaTitle: "Payroxa — Financial Platform for African Businesses",
     metaDescription: "Accept payments, issue cards, and run your business with Payroxa.",
     keywords: "fintech, payments, Nigeria, Africa",
-    canonicalUrl: `https://payroxa.com.ng${PAGE_KEYS.find((p) => p.key === currentSlug)?.path || ""}`,
+    canonicalUrl: `${WEBSITE_URL}${PAGE_KEYS.find((p) => p.key === currentSlug)?.path || ""}`,
     ogTitle: "Payroxa — Financial Platform for African Businesses",
     ogDescription: "Accept payments, issue cards, and run your business with Payroxa.",
     ogImageUrl: "/hero-payroxa.jpg",
@@ -631,7 +632,7 @@ function CmsSeoPage() {
                   <span className="font-semibold text-slate-900">Payroxa</span>
                   <span className="text-slate-400 mx-1">›</span>
                   <span className="text-slate-500 font-mono text-[11px]">
-                    {currentData.canonicalUrl || "https://payroxa.com.ng"}
+                    {currentData.canonicalUrl || WEBSITE_URL}
                   </span>
                 </div>
               </div>
@@ -709,7 +710,7 @@ function CmsSeoPage() {
                     value={currentData.canonicalUrl}
                     onChange={(e) => handlePageFieldChange("canonicalUrl", e.target.value)}
                     className="w-full font-mono rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
-                    placeholder="https://payroxa.com.ng/..."
+                    placeholder={`${WEBSITE_URL}/...`}
                   />
                   <p className="mt-1 text-[11px] text-slate-400">
                     Consolidates duplicate ranking signals for Google
@@ -909,7 +910,7 @@ function CmsSeoPage() {
   "provider": {
     "@type": "Organization",
     "name": "Payroxa",
-    "url": "https://payroxa.com.ng"
+    "url": "${WEBSITE_URL}"
   }
 }`}
                 </pre>
@@ -1053,7 +1054,7 @@ function CmsSeoPage() {
               action={
                 <button
                   type="button"
-                  onClick={() => copyToClipboard("https://payroxa.com.ng/sitemap.xml", "sitemap")}
+                  onClick={() => copyToClipboard(`${WEBSITE_URL}/sitemap.xml`, "sitemap")}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-600 hover:text-purple-800"
                 >
                   {copiedUrl === "sitemap" ? (
@@ -1071,7 +1072,7 @@ function CmsSeoPage() {
                     Live URL
                   </div>
                   <div className="mt-0.5 font-mono text-purple-700 font-semibold">
-                    https://payroxa.com.ng/sitemap.xml
+                    ${WEBSITE_URL}/sitemap.xml
                   </div>
                 </div>
 
@@ -1080,27 +1081,27 @@ function CmsSeoPage() {
                     {`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://payroxa.com.ng</loc>
+    <loc>${WEBSITE_URL}</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://payroxa.com.ng/payments</loc>
+    <loc>${WEBSITE_URL}/payments</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://payroxa.com.ng/store</loc>
+    <loc>${WEBSITE_URL}/store</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://payroxa.com.ng/cards</loc>
+    <loc>${WEBSITE_URL}/cards</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://payroxa.com.ng/resources</loc>
+    <loc>${WEBSITE_URL}/resources</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1117,7 +1118,7 @@ function CmsSeoPage() {
               action={
                 <button
                   type="button"
-                  onClick={() => copyToClipboard("https://payroxa.com.ng/robots.txt", "robots")}
+                  onClick={() => copyToClipboard(`${WEBSITE_URL}/robots.txt`, "robots")}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-600 hover:text-purple-800"
                 >
                   {copiedUrl === "robots" ? (
@@ -1135,7 +1136,7 @@ function CmsSeoPage() {
                     Live URL
                   </div>
                   <div className="mt-0.5 font-mono text-purple-700 font-semibold">
-                    https://payroxa.com.ng/robots.txt
+                    ${WEBSITE_URL}/robots.txt
                   </div>
                 </div>
 
@@ -1148,10 +1149,10 @@ Disallow: /cms-admin/
 Disallow: /api/
 
 # Host configuration
-Host: https://payroxa.com.ng
+Host: ${WEBSITE_URL}
 
 # Canonical XML Sitemap
-Sitemap: https://payroxa.com.ng/sitemap.xml`}
+Sitemap: ${WEBSITE_URL}/sitemap.xml`}
                   </pre>
                 </div>
               </div>
@@ -1231,13 +1232,13 @@ Sitemap: https://payroxa.com.ng/sitemap.xml`}
                     >
                       search.google.com/search-console
                     </a>{" "}
-                    and add property `https://payroxa.com.ng`.
+                    and add property {WEBSITE_URL}.
                   </li>
                   <li>
                     Copy the HTML tag token into the input above and click "Save Verification Tags".
                   </li>
                   <li>
-                    In Google Search Console, submit `https://payroxa.com.ng/sitemap.xml` under
+                    In Google Search Console, submit {`${WEBSITE_URL}/sitemap.xml`} under
                     Sitemaps for automatic crawl discovery.
                   </li>
                 </ol>

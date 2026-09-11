@@ -5,15 +5,15 @@ import type {
   SocialSettings,
   HeroContent,
 } from "./types";
+import { siteConfig } from "@/config/siteConfig";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  name: "Payroxa",
+  name: siteConfig.name,
   legalName: "Payroxa Technologies Limited",
-  tagline: "More than payments.",
-  description:
-    "Payroxa is the operating system for African businesses — move money, get paid, sell online and run your business from one secure platform.",
-  websiteUrl: "https://payroxa.com.ng",
-  appUrl: "https://app.payroxa.com.ng",
+  tagline: siteConfig.tagline,
+  description: siteConfig.description,
+  websiteUrl: siteConfig.websiteUrl,
+  appUrl: siteConfig.appUrl,
   defaultLanguage: "English (en)",
   contactEmail: "support@payroxa.com.ng",
   contactPhone: "+234 800 PAYROXA",
@@ -34,17 +34,17 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
 };
 
 export const DEFAULT_APPLICATION_LINKS: ApplicationLinks = {
-  app: "https://app.payroxa.com.ng",
-  login: "https://app.payroxa.com.ng/login",
-  register: "https://app.payroxa.com.ng/register",
-  wallet: "https://app.payroxa.com.ng/wallet",
-  payments: "https://app.payroxa.com.ng/payments",
-  cards: "https://app.payroxa.com.ng/cards",
-  store: "https://app.payroxa.com.ng/store",
-  business: "https://app.payroxa.com.ng/business",
-  transfers: "https://app.payroxa.com.ng/transfers",
-  delivery: "https://app.payroxa.com.ng/delivery",
-  ride: "https://app.payroxa.com.ng/ride",
+  app: siteConfig.links.app,
+  login: siteConfig.links.login,
+  register: siteConfig.links.register,
+  wallet: siteConfig.links.wallet,
+  payments: siteConfig.links.payments,
+  cards: siteConfig.links.cards,
+  store: siteConfig.links.store,
+  business: siteConfig.links.business,
+  transfers: siteConfig.links.transfers,
+  delivery: siteConfig.links.delivery,
+  ride: siteConfig.links.ride,
   updatedAt: new Date().toISOString(),
   updatedBy: "System",
 };
@@ -106,9 +106,9 @@ export const DEFAULT_HERO_CONTENT: HeroContent = {
     "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account.",
   footnote: "Your Money. Your Control. Your Payroxa.",
   primaryCtaLabel: "Get Started",
-  primaryCtaUrl: "https://app.payroxa.com.ng/register",
+  primaryCtaUrl: siteConfig.links.register,
   secondaryCtaLabel: "Sign In",
-  secondaryCtaUrl: "https://app.payroxa.com.ng/login",
+  secondaryCtaUrl: siteConfig.links.login,
   heroImageUrl: "/src/assets/hero-payroxa.jpg",
   heroImageAlt: "Payroxa mobile wallet app shown with a Payroxa payment card and coins",
   visibility: true,
@@ -394,7 +394,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       "Orders, delivery and customer records in one view",
     ],
     ctaLabel: "Create Your Store",
-    ctaUrl: "https://app.payroxa.com.ng/store",
+    ctaUrl: siteConfig.links.store,
     secondaryCtaLabel: "Learn more",
     secondaryCtaUrl: "/store",
     cardHeadline: "Discover great products from trusted businesses.",
@@ -420,7 +420,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       "Clear limits and spending controls",
     ],
     ctaLabel: "Open your wallet",
-    ctaUrl: "https://app.payroxa.com.ng/wallet",
+    ctaUrl: siteConfig.links.wallet,
     visibility: true,
     updatedAt: new Date().toISOString(),
     updatedBy: "System",
@@ -449,7 +449,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       },
     ],
     ctaLabel: "Start with Payroxa Business",
-    ctaUrl: "https://app.payroxa.com.ng/business",
+    ctaUrl: siteConfig.links.business,
     visibility: true,
     updatedAt: new Date().toISOString(),
     updatedBy: "System",
@@ -529,7 +529,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
     description:
       "Spend online and in store, set limits, freeze a card instantly and keep every transaction visible.",
     ctaLabel: "Get a card",
-    ctaUrl: "https://app.payroxa.com.ng/cards",
+    ctaUrl: siteConfig.links.cards,
     secondaryCtaLabel: "See how cards work",
     secondaryCtaUrl: "/cards",
     cardPlaceholderNumber: "•••• •••• •••• 7528",
@@ -639,7 +639,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       title: "Payroxa Cards",
       message: "Virtual & Physical cards are officially rolling out for Nigerian businesses.",
       ctaLabel: "Learn More",
-      ctaUrl: "https://app.payroxa.com.ng/cards",
+      ctaUrl: siteConfig.links.cards,
       enabled: false,
       updatedAt: new Date().toISOString(),
       updatedBy: "System",
@@ -653,7 +653,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Everything your business needs to move money, get paid, sell online and grow. Payroxa is the operating system for African businesses.",
       keywords: "payments, wallet, cards, store, Nigeria, Africa, fintech, POS",
-      canonicalUrl: "https://payroxa.com.ng/",
+      canonicalUrl: `${siteConfig.websiteUrl}/`,
       ogTitle: "Payroxa — Payments, Wallet, Cards & Store for African Businesses",
       ogDescription:
         "Everything your business needs to move money, get paid, sell online and grow. Payroxa is the operating system for African businesses.",
@@ -673,7 +673,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Accept payments, send payment requests and manage your business transactions with Payroxa.",
       keywords: "payment solutions Nigeria, online payments, payment links, merchant checkout",
-      canonicalUrl: "https://payroxa.com.ng/payments",
+      canonicalUrl: `${siteConfig.websiteUrl}/payments`,
       ogTitle: "Payment Solutions for African Businesses | Payroxa",
       ogDescription:
         "Accept payments, send payment requests and manage your business transactions with Payroxa.",
@@ -693,7 +693,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Manage cash flow, monitor POS collections, issue virtual cards, and run your business from one unified platform.",
       keywords: "business management platform Nigeria, retail pos, financial tools",
-      canonicalUrl: "https://payroxa.com.ng/business",
+      canonicalUrl: `${siteConfig.websiteUrl}/business`,
       ogTitle: "Business Management Platform for African Businesses | Payroxa",
       ogDescription:
         "Manage cash flow, monitor POS collections, issue virtual cards, and run your business from one unified platform.",
@@ -713,7 +713,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Launch an online store in minutes, list products, accept instant payments, and manage orders with Payroxa Store.",
       keywords: "create online store Nigeria, ecommerce store, sell products online",
-      canonicalUrl: "https://payroxa.com.ng/store",
+      canonicalUrl: `${siteConfig.websiteUrl}/store`,
       ogTitle: "Create an Online Store for Your Business | Payroxa",
       ogDescription:
         "Launch an online store in minutes, list products, accept instant payments, and manage orders with Payroxa Store.",
@@ -733,7 +733,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Issue instant virtual dollar and local corporate debit cards for business expenses, software subscriptions, and ad spend.",
       keywords: "virtual dollar card Nigeria, business debit cards, corporate card",
-      canonicalUrl: "https://payroxa.com.ng/cards",
+      canonicalUrl: `${siteConfig.websiteUrl}/cards`,
       ogTitle: "Payroxa Business & Virtual Cards",
       ogDescription:
         "Issue instant virtual dollar and local corporate debit cards for business expenses, software subscriptions, and ad spend.",
@@ -753,7 +753,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Hold, convert and manage Naira and USD business balances with dedicated virtual account numbers.",
       keywords: "business wallet, virtual accounts Nigeria, FX business wallet",
-      canonicalUrl: "https://payroxa.com.ng/wallet",
+      canonicalUrl: `${siteConfig.websiteUrl}/wallet`,
       ogTitle: "Multi-Currency Business Wallet & Virtual Accounts | Payroxa",
       ogDescription:
         "Hold, convert and manage Naira and USD business balances with dedicated virtual account numbers.",
@@ -773,7 +773,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Send money to all Nigerian commercial banks instantly with guaranteed real-time settlement and automated payroll payouts.",
       keywords: "business bank transfers Nigeria, instant settlement, bulk payroll",
-      canonicalUrl: "https://payroxa.com.ng/transfers",
+      canonicalUrl: `${siteConfig.websiteUrl}/transfers`,
       ogTitle: "Instant Business Transfers & Bulk Payouts | Payroxa",
       ogDescription:
         "Send money to all Nigerian commercial banks instantly with guaranteed real-time settlement and automated payroll payouts.",
@@ -793,7 +793,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Create payment links and make it easier for customers to pay your business with Payroxa.",
       keywords: "payment links Nigeria, WhatsApp checkout, get paid online without website",
-      canonicalUrl: "https://payroxa.com.ng/payment-links",
+      canonicalUrl: `${siteConfig.websiteUrl}/payment-links`,
       ogTitle: "Payment Links for Businesses | Payroxa",
       ogDescription:
         "Create payment links and make it easier for customers to pay your business with Payroxa.",
@@ -813,7 +813,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Send professional payment requests and digital invoices to clients with automated customer payment reminders.",
       keywords: "payment request link Nigeria, invoice clients, digital bills",
-      canonicalUrl: "https://payroxa.com.ng/payment-requests",
+      canonicalUrl: `${siteConfig.websiteUrl}/payment-requests`,
       ogTitle: "Digital Invoicing & Payment Requests | Payroxa",
       ogDescription:
         "Send professional payment requests and digital invoices to clients with automated customer payment reminders.",
@@ -833,7 +833,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Fair, transparent pricing with no hidden charges, zero maintenance fees, and competitive merchant rates across Africa.",
       keywords: "payroxa pricing, fintech fees Nigeria, merchant rates",
-      canonicalUrl: "https://payroxa.com.ng/pricing",
+      canonicalUrl: `${siteConfig.websiteUrl}/pricing`,
       ogTitle: "Transparent Pricing & Transaction Fees | Payroxa",
       ogDescription:
         "Fair, transparent pricing with no hidden charges, zero maintenance fees, and competitive merchant rates across Africa.",
@@ -853,7 +853,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Discover our mission to empower African entrepreneurs and growing enterprises with seamless financial technology.",
       keywords: "about payroxa, fintech startup Nigeria, African commerce",
-      canonicalUrl: "https://payroxa.com.ng/about",
+      canonicalUrl: `${siteConfig.websiteUrl}/about`,
       ogTitle: "About Payroxa — Building Financial Infrastructure for Africa",
       ogDescription:
         "Discover our mission to empower African entrepreneurs and growing enterprises with seamless financial technology.",
@@ -873,7 +873,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Reach out to our customer operations team for merchant onboarding, technical support, and partnership inquiries.",
       keywords: "payroxa contact, customer support, merchant help Nigeria",
-      canonicalUrl: "https://payroxa.com.ng/contact",
+      canonicalUrl: `${siteConfig.websiteUrl}/contact`,
       ogTitle: "Contact Payroxa — 24/7 Merchant Support & Inquiries",
       ogDescription:
         "Reach out to our customer operations team for merchant onboarding, technical support, and partnership inquiries.",
@@ -893,7 +893,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       metaDescription:
         "Actionable guides, business insights, fintech tutorials, and payment best practices for African entrepreneurs.",
       keywords: "fintech guides Nigeria, business tips Africa, accept online payments",
-      canonicalUrl: "https://payroxa.com.ng/resources",
+      canonicalUrl: `${siteConfig.websiteUrl}/resources`,
       ogTitle: "Payroxa Business & Financial Growth Resources | Payroxa",
       ogDescription:
         "Actionable guides, business insights, fintech tutorials, and payment best practices for African entrepreneurs.",
@@ -992,7 +992,7 @@ Equipping your business with unified tools lowers abandoned checkouts and accele
       seoTitle: "How to Accept Payments From Customers in Nigeria | Payroxa",
       metaDescription:
         "Learn how Nigerian businesses collect payments easily with payment links, virtual accounts, and POS tools without reconciliation headaches.",
-      canonicalUrl: "https://payroxa.com.ng/resources/how-to-accept-online-payments-in-nigeria",
+      canonicalUrl: `${siteConfig.websiteUrl}/resources/how-to-accept-online-payments-in-nigeria`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=1200&auto=format&fit=crop&q=80",
       status: "published",
@@ -1033,7 +1033,7 @@ A payment link is a secure, unique URL generated by your payment provider that d
       seoTitle: "What Is a Payment Link and How Does It Work? | Payroxa",
       metaDescription:
         "Everything you need to know about payment links: how they work, why they protect against transfer fraud, and how to create one in seconds.",
-      canonicalUrl: "https://payroxa.com.ng/resources/what-is-a-payment-link-how-it-works",
+      canonicalUrl: `${siteConfig.websiteUrl}/resources/what-is-a-payment-link-how-it-works`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&auto=format&fit=crop&q=80",
       status: "published",
@@ -1075,7 +1075,7 @@ Every time an order is placed, you receive an instant push notification with cus
       metaDescription:
         "Step-by-step guide on launching your online store with Payroxa Store. Sell physical products, collect payments, and manage shipping easily.",
       canonicalUrl:
-        "https://payroxa.com.ng/resources/how-to-create-an-online-store-for-your-business",
+        `${siteConfig.websiteUrl}/resources/how-to-create-an-online-store-for-your-business`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format&fit=crop&q=80",
       status: "published",
@@ -1116,7 +1116,7 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
       metaDescription:
         "Solve international subscription and advertisement payment declines with Payroxa instant virtual cards with custom spending limits.",
       canonicalUrl:
-        "https://payroxa.com.ng/resources/virtual-cards-for-nigerian-businesses-international-spending",
+        `${siteConfig.websiteUrl}/resources/virtual-cards-for-nigerian-businesses-international-spending`,
       ogImageUrl:
         "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&auto=format&fit=crop&q=80",
       status: "published",
@@ -1163,7 +1163,7 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
   ],
   searchConsole: {
     googleVerificationTag: "google-site-verification=payroxa_prod_search_console_token_demo",
-    sitemapSubmittedUrl: "https://payroxa.com.ng/sitemap.xml",
+    sitemapSubmittedUrl: `${siteConfig.websiteUrl}/sitemap.xml`,
     lastVerifiedAt: new Date().toISOString(),
     notes: "Google Search Console verified. Auto-sitemap ping configured for published content.",
   },
@@ -1171,7 +1171,7 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
     {
       id: "act-init",
       action: "settings_updated",
-      description: "Payroxa Website CMS initialized with production configurations.",
+      description: "Payroxa Platform initialized with production configurations.",
       userName: "System",
       userEmail: "system@payroxa.com.ng",
       timestamp: new Date().toISOString(),

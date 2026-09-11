@@ -2,15 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Sparkles, Save, ShieldCheck, CheckCircle2, Globe, Database } from "lucide-react";
 import { CmsLayout } from "@/cms/components/CmsLayout";
+import { PUBLIC_API_BASE_URL } from "@/config/siteConfig";
 
 export const Route = createFileRoute("/cms-admin/marketplace")({
   component: CmsAdminMarketplacePage,
 });
 
 function CmsAdminMarketplacePage() {
-  const [apiBaseUrl, setApiBaseUrl] = useState(
-    "https://app.payroxa.com.ng/api/v1/public/marketplace",
-  );
+  const [apiBaseUrl, setApiBaseUrl] = useState(PUBLIC_API_BASE_URL);
   const [featuredBanner, setFeaturedBanner] = useState(
     "Discover Verified African Merchants & Products",
   );

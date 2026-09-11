@@ -2,12 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Megaphone, Save, CheckCircle2, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useCmsAuth } from "@/cms/context/CmsAuthContext";
+import { APP_URL } from "@/config/siteConfig";
 import { getAnnouncementsFn, saveAnnouncementsFn } from "@/cms/api";
 import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { AnnouncementItem } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/announcements")({
+export const Route = createFileRoute("/cms-admin/announcements")({
   component: CmsAnnouncementsPage,
 });
 
@@ -187,7 +188,7 @@ function CmsAnnouncementsPage() {
                   type="text"
                   value={activeAnnouncement.ctaUrl || ""}
                   onChange={(e) => handleChange(activeAnnouncement.id, "ctaUrl", e.target.value)}
-                  placeholder="e.g. /cards or https://app.payroxa.com.ng"
+                  placeholder={`e.g. /cards or ${APP_URL}`}
                   className="w-full font-mono rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:border-purple-500 focus:outline-none"
                 />
               </div>

@@ -100,7 +100,7 @@ var DEFAULT_SITE_SETTINGS = {
 	tagline: "More than payments.",
 	description: "Payroxa is the operating system for African businesses — move money, get paid, sell online and run your business from one secure platform.",
 	websiteUrl: "https://payroxa.com.ng",
-	appUrl: "https://app.payroxa.com.ng",
+	appUrl: "https://payroxa-connect.vercel.app",
 	defaultLanguage: "English (en)",
 	contactEmail: "support@payroxa.com.ng",
 	contactPhone: "+234 800 PAYROXA",
@@ -120,17 +120,17 @@ var DEFAULT_SITE_SETTINGS = {
 	updatedBy: "System"
 };
 var DEFAULT_APPLICATION_LINKS = {
-	app: "https://app.payroxa.com.ng",
-	login: "https://app.payroxa.com.ng/login",
-	register: "https://app.payroxa.com.ng/register",
-	wallet: "https://app.payroxa.com.ng/wallet",
-	payments: "https://app.payroxa.com.ng/payments",
-	cards: "https://app.payroxa.com.ng/cards",
-	store: "https://app.payroxa.com.ng/store",
-	business: "https://app.payroxa.com.ng/business",
-	transfers: "https://app.payroxa.com.ng/transfers",
-	delivery: "https://app.payroxa.com.ng/delivery",
-	ride: "https://app.payroxa.com.ng/ride",
+	app: "https://payroxa-connect.vercel.app",
+	login: "https://payroxa-connect.vercel.app/login",
+	register: "https://payroxa-connect.vercel.app/register",
+	wallet: "https://payroxa-connect.vercel.app/wallet",
+	payments: "https://payroxa-connect.vercel.app/payments",
+	cards: "https://payroxa-connect.vercel.app/cards",
+	store: "https://payroxa-connect.vercel.app/store",
+	business: "https://payroxa-connect.vercel.app/business",
+	transfers: "https://payroxa-connect.vercel.app/transfers",
+	delivery: "https://payroxa-connect.vercel.app/delivery",
+	ride: "https://payroxa-connect.vercel.app/ride",
 	updatedAt: (/* @__PURE__ */ new Date()).toISOString(),
 	updatedBy: "System"
 };
@@ -189,9 +189,9 @@ var DEFAULT_HERO_CONTENT = {
 	description: "Send, receive, save and manage your money with confidence — then sell to customers, issue cards and run the whole business from one Payroxa account.",
 	footnote: "Your Money. Your Control. Your Payroxa.",
 	primaryCtaLabel: "Get Started",
-	primaryCtaUrl: "https://app.payroxa.com.ng/register",
+	primaryCtaUrl: "https://payroxa-connect.vercel.app/register",
 	secondaryCtaLabel: "Sign In",
-	secondaryCtaUrl: "https://app.payroxa.com.ng/login",
+	secondaryCtaUrl: "https://payroxa-connect.vercel.app/login",
 	heroImageUrl: "/src/assets/hero-payroxa.jpg",
 	heroImageAlt: "Payroxa mobile wallet app shown with a Payroxa payment card and coins",
 	visibility: true,
@@ -206,7 +206,7 @@ var INITIAL_CMS_DATABASE = {
 		name: "Payroxa Super Admin",
 		email: "admin@payroxa.com.ng",
 		role: "Super Admin",
-		passwordHash: "$2a$10$E3KkYwWvM7mK7ZkQf2x.8.YtWpPn8V1Vq5Y.fJ0fU.M4w3A0vUe3W",
+		passwordHash: "$2b$10$HdUiiQbQMD3NP1OtNhubouKnXuUnKgZGHzh4vyP9ZS8Jsvl673P7W",
 		createdAt: (/* @__PURE__ */ new Date()).toISOString(),
 		lastLoginAt: void 0
 	}, {
@@ -214,7 +214,7 @@ var INITIAL_CMS_DATABASE = {
 		name: "Payroxa Content Editor",
 		email: "editor@payroxa.com.ng",
 		role: "Editor",
-		passwordHash: "$2a$10$K9Wn0E9YwD5jA6G7H8J9KuFw1C2D3E4F5G6H7J8K9L0M1N2P3Q4R5",
+		passwordHash: "$2b$10$7iHV4Mv9tX7g.szmhN75RuyJdJ0o8b8jO.3j0dGBH9fckJpLiflbm",
 		createdAt: (/* @__PURE__ */ new Date()).toISOString(),
 		lastLoginAt: void 0
 	}],
@@ -1547,7 +1547,7 @@ function escapeXml(unsafe) {
 }
 var serverEntryPromise;
 async function getServerEntry() {
-	if (!serverEntryPromise) serverEntryPromise = import("./server-BtuPZpLD.mjs").then((m) => m.default ?? m);
+	if (!serverEntryPromise) serverEntryPromise = import("./server-B12CgLL1.mjs").then((m) => m.default ?? m);
 	return serverEntryPromise;
 }
 async function normalizeCatastrophicSsrResponse(response) {

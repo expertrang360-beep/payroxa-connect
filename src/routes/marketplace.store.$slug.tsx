@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { getStore } from "@/services/payroxa-public-api/client";
 import { PayroxaStore } from "@/services/payroxa-public-api/types";
+import { APP_URL } from "@/config/siteConfig";
 
 export const Route = createFileRoute("/marketplace/store/$slug")({
   component: StoreDetailPage,
@@ -109,7 +110,7 @@ function StoreDetailPage() {
             </div>
           </div>
           <a
-            href={store.appUrl || "https://app.payroxa.com.ng"}
+            href={store.appUrl || APP_URL}
             target="_blank"
             rel="noreferrer"
             className="rounded-2xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
@@ -172,7 +173,7 @@ function StoreDetailPage() {
                 Visit the Payroxa app to view the complete catalog for this store.
               </p>
               <a
-                href={store.appUrl || "https://app.payroxa.com.ng"}
+                href={store.appUrl || APP_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"

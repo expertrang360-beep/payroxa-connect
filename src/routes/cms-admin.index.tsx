@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { WEBSITE_URL, APP_URL } from "@/config/siteConfig";
 import {
   Sparkles,
   Package,
@@ -163,7 +164,7 @@ function CmsDashboardPage() {
               <p className="mt-2 text-xs text-slate-600">
                 Connected to:{" "}
                 <span className="font-semibold">
-                  {settings?.websiteUrl || "https://payroxa.com.ng"}
+                  {settings?.websiteUrl || WEBSITE_URL}
                 </span>
               </p>
             </div>
@@ -196,7 +197,7 @@ function CmsDashboardPage() {
               <p className="text-xs text-purple-700">
                 All marketing CTAs currently direct to:{" "}
                 <span className="font-semibold underline">
-                  {links?.app || "https://app.payroxa.com.ng"}
+                  {links?.app || APP_URL}
                 </span>
               </p>
             </div>

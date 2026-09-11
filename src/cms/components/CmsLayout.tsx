@@ -104,7 +104,7 @@ export function CmsLayout({ children }: CmsLayoutProps) {
         { label: "General Settings", href: "/cms-admin/settings", icon: Settings, exact: true },
         { label: "Application Links", href: "/cms-admin/settings/links", icon: Link2 },
         { label: "Social Media", href: "/cms-admin/settings/social", icon: Share2 },
-        { label: "Admin Users", href: "/cms-admin/settings/admins", icon: Users },
+        { label: "Team Access", href: "/cms-admin/settings/admins", icon: Users },
         { label: "Activity Audit Log", href: "/cms-admin/activity", icon: Activity },
       ],
     },
@@ -135,11 +135,8 @@ export function CmsLayout({ children }: CmsLayoutProps) {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-base font-bold tracking-tight text-slate-900">Payroxa</span>
-                <span className="rounded-md bg-purple-100 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-purple-700 uppercase">
-                  CMS
-                </span>
               </div>
-              <p className="text-[11px] text-slate-500">Website Management</p>
+              <p className="text-[11px] text-slate-500">Platform Overview</p>
             </div>
           </Link>
           <button
@@ -204,7 +201,7 @@ export function CmsLayout({ children }: CmsLayoutProps) {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-xs font-semibold text-slate-900">
-                  {user?.name || "Admin"}
+                  {user?.name || "Member"}
                 </p>
                 <div className="flex items-center gap-1.5">
                   <span
@@ -242,7 +239,7 @@ export function CmsLayout({ children }: CmsLayoutProps) {
               <Menu className="size-5" />
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
-              <span>Payroxa Website CMS</span>
+              <span>Website Management</span>
               <span>/</span>
               <span className="font-semibold text-slate-800 capitalize">
                 {currentPath === "/cms-admin"
