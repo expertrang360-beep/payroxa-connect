@@ -30,7 +30,7 @@ type BaseProps = VariantProps<typeof buttonStyles> & {
   /** Absolute URL — opens the external Payroxa application. */
   href?: string;
   /** Internal marketing route handled by this website's router. */
-  to?: string;
+  to?: "/" | "/business" | "/payments" | "/store" | "/cards" | "/pricing" | "/about" | "/contact";
   ariaLabel?: string;
 };
 
