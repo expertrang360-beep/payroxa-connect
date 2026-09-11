@@ -117,14 +117,26 @@ const businessTypes = [
 
 const security = [
   { icon: Lock, title: "Encryption everywhere", copy: "Data is encrypted in transit and at rest." },
-  { icon: Fingerprint, title: "Verified identities", copy: "Tiered verification keeps accounts real." },
+  {
+    icon: Fingerprint,
+    title: "Verified identities",
+    copy: "Tiered verification keeps accounts real.",
+  },
   { icon: ShieldCheck, title: "Fraud monitoring", copy: "Suspicious activity is flagged early." },
-  { icon: BarChart3, title: "Full audit trail", copy: "Every transaction is recorded and traceable." },
+  {
+    icon: BarChart3,
+    title: "Full audit trail",
+    copy: "Every transaction is recorded and traceable.",
+  },
 ];
 
 const steps = [
   { step: "01", title: "Create your account", copy: "Sign up with your phone number or email." },
-  { step: "02", title: "Verify your business", copy: "Complete verification to unlock full limits." },
+  {
+    step: "02",
+    title: "Verify your business",
+    copy: "Complete verification to unlock full limits.",
+  },
   { step: "03", title: "Fund your wallet", copy: "Add money by transfer, card or agent." },
   { step: "04", title: "Start transacting", copy: "Pay, get paid, sell and grow from one place." },
 ];
@@ -184,7 +196,10 @@ function HomePage() {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-8 rounded-full bg-lavender-strong/50 blur-3xl" aria-hidden="true" />
+            <div
+              className="absolute inset-8 rounded-full bg-lavender-strong/50 blur-3xl"
+              aria-hidden="true"
+            />
             <img
               src={heroImage}
               alt="Payroxa mobile wallet app shown with a Payroxa payment card and coins"
@@ -255,8 +270,8 @@ function HomePage() {
               Discover great products from trusted businesses.
             </p>
             <p className="mt-3 text-sm text-navy-foreground/75">
-              Payroxa Store puts your business in front of customers already moving money on
-              Payroxa every day.
+              Payroxa Store puts your business in front of customers already moving money on Payroxa
+              every day.
             </p>
           </div>
         </div>
@@ -332,7 +347,10 @@ function HomePage() {
         />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { label: "Inflow & outflow", copy: "See money in and money out per day, week or month." },
+            {
+              label: "Inflow & outflow",
+              copy: "See money in and money out per day, week or month.",
+            },
             { label: "Order insights", copy: "Best sellers, repeat buyers and fulfilment status." },
             { label: "Team access", copy: "Give staff the access they need, nothing more." },
             { label: "Exportable records", copy: "Download statements for accounting and audits." },

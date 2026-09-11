@@ -56,7 +56,12 @@ export function SectionHeading({
       ) : null}
       <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{title}</h2>
       {description ? (
-        <p className={cn("mt-4 text-base", navy ? "text-navy-foreground/75" : "text-muted-foreground")}>
+        <p
+          className={cn(
+            "mt-4 text-base",
+            navy ? "text-navy-foreground/75" : "text-muted-foreground",
+          )}
+        >
           {description}
         </p>
       ) : null}
