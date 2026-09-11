@@ -126,7 +126,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       email: "admin@payroxa.com.ng",
       role: "Super Admin",
       // bcrypt hash for "PayroxaAdmin2026!"
-      passwordHash: "$2a$10$E3KkYwWvM7mK7ZkQf2x.8.YtWpPn8V1Vq5Y.fJ0fU.M4w3A0vUe3W",
+      passwordHash: "$2b$10$HdUiiQbQMD3NP1OtNhubouKnXuUnKgZGHzh4vyP9ZS8Jsvl673P7W",
       createdAt: new Date().toISOString(),
       lastLoginAt: undefined,
     },
@@ -136,7 +136,7 @@ export const INITIAL_CMS_DATABASE: CmsDatabaseState = {
       email: "editor@payroxa.com.ng",
       role: "Editor",
       // bcrypt hash for "PayroxaEditor2026!"
-      passwordHash: "$2a$10$K9Wn0E9YwD5jA6G7H8J9KuFw1C2D3E4F5G6H7J8K9L0M1N2P3Q4R5",
+      passwordHash: "$2b$10$7iHV4Mv9tX7g.szmhN75RuyJdJ0o8b8jO.3j0dGBH9fckJpLiflbm",
       createdAt: new Date().toISOString(),
       lastLoginAt: undefined,
     },
