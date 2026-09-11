@@ -163,9 +163,7 @@ function CmsDashboardPage() {
               </div>
               <p className="mt-2 text-xs text-slate-600">
                 Connected to:{" "}
-                <span className="font-semibold">
-                  {settings?.websiteUrl || WEBSITE_URL}
-                </span>
+                <span className="font-semibold">{settings?.websiteUrl || WEBSITE_URL}</span>
               </p>
             </div>
 
@@ -196,9 +194,7 @@ function CmsDashboardPage() {
               </h4>
               <p className="text-xs text-purple-700">
                 All marketing CTAs currently direct to:{" "}
-                <span className="font-semibold underline">
-                  {links?.app || APP_URL}
-                </span>
+                <span className="font-semibold underline">{links?.app || APP_URL}</span>
               </p>
             </div>
             <Link

@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/siteConfig";
 import type { CmsDatabaseState, SeoMetadata, BlogPost, RedirectRule } from "./types";
 
 export interface SeoHealthIssue {
@@ -17,10 +18,7 @@ export interface SeoHealthReport {
   issues: SeoHealthIssue[];
 }
 
-export function generateSitemapXml(
-  db: CmsDatabaseState,
-  baseUrl: string = process.env.VITE_PAYROXA_WEBSITE_URL || "https://payroxa.com.ng",
-): string {
+export function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteConfig.websiteUrl) {
   const cleanBase = baseUrl.replace(/\/$/, "");
   const urls: Array<{ loc: string; lastmod: string; changefreq: string; priority: number }> = [];
 
@@ -80,9 +78,7 @@ ${xmlItems}
 </urlset>`;
 }
 
-export function generateRobotsTxt(
-  baseUrl: string = process.env.VITE_PAYROXA_WEBSITE_URL || "https://payroxa.com.ng",
-): string {
+export function generateRobotsTxt(baseUrl: string = siteConfig.websiteUrl) {
   const cleanBase = baseUrl.replace(/\/$/, "");
   return `# robots.txt for Payroxa (Production Engine)
 User-agent: *

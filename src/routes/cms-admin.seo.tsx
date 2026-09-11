@@ -1238,8 +1238,8 @@ Sitemap: ${WEBSITE_URL}/sitemap.xml`}
                     Copy the HTML tag token into the input above and click "Save Verification Tags".
                   </li>
                   <li>
-                    In Google Search Console, submit {`${WEBSITE_URL}/sitemap.xml`} under
-                    Sitemaps for automatic crawl discovery.
+                    In Google Search Console, submit {`${WEBSITE_URL}/sitemap.xml`} under Sitemaps
+                    for automatic crawl discovery.
                   </li>
                 </ol>
               </div>

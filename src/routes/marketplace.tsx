@@ -51,7 +51,7 @@ import {
 } from "@/services/payroxa-public-api/types";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import { updateSEO } from "@/utils/seo";
-import { TEMU_CIRCLE_CATEGORIES, FLASH_PROMO_SLIDES, GENERAL_FAQS } from "./marketplace.data";
+import { TEMU_CIRCLE_CATEGORIES, FLASH_PROMO_SLIDES, GENERAL_FAQS } from "@/data/marketplace.data";
 import { useCart } from "@/hooks/useCart";
 
 export const Route = createFileRoute("/marketplace")({
