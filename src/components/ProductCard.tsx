@@ -276,6 +276,11 @@ export function ProductCard(props: ProductCardProps) {
           <Icon className="size-5" aria-hidden="true" />
         </span>
       )}
+      {badge ? (
+        <p className="mt-4 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary">
+          {badge}
+        </p>
+      ) : null}
       <h3 className="mt-5 text-lg font-semibold">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
     </article>
