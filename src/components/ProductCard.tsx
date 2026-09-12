@@ -263,7 +263,7 @@ export function ProductCard(props: ProductCardProps) {
     );
   }
 
-  const { icon: Icon, title, description, className } = props;
+  const { icon: Icon, title, description, badge, className } = props;
   return (
     <article
       className={cn(

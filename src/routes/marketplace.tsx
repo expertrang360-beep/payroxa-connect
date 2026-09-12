@@ -125,6 +125,7 @@ function MarketplacePage() {
       }, 5000);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [toastMessage]);
 
   // 4. Initial Load & SEO Registration
