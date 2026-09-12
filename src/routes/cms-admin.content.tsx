@@ -17,7 +17,7 @@ import { getContentSectionsFn, saveContentSectionsFn } from "@/cms/api";
 import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 
-export const Route = createFileRoute("/cms/content")({
+export const Route = createFileRoute("/cms-admin/content")({
   component: CmsContentSectionsPage,
 });
 

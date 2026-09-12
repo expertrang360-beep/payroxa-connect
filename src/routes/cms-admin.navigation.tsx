@@ -7,7 +7,7 @@ import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { NavigationItem } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/navigation")({
+export const Route = createFileRoute("/cms-admin/navigation")({
   component: CmsNavigationPage,
 });
 

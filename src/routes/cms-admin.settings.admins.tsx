@@ -19,7 +19,7 @@ import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { CmsUser, AdminRole } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/settings/admins")({
+export const Route = createFileRoute("/cms-admin/settings/admins")({
   component: CmsAdminUsersPage,
 });
 
