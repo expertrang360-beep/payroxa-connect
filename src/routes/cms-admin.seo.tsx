@@ -488,7 +488,7 @@ function CmsSeoPage() {
           <CmsCard
             title="SEO Health Audit & Warnings"
             subtitle="Automated checks for character counts, meta tags, schema markup, and crawlability"
-            actions={
+            action={
               <button
                 type="button"
                 onClick={loadAllData}
@@ -1063,7 +1063,7 @@ function CmsSeoPage() {
             <CmsCard
               title="Automated XML Sitemap (sitemap.xml)"
               subtitle="Dynamically rendered for Googlebot, Bingbot, and other crawlers"
-              actions={
+              action={
                 <button
                   type="button"
                   onClick={() => copyToClipboard(`${WEBSITE_URL}/sitemap.xml`, "sitemap")}
@@ -1127,7 +1127,7 @@ function CmsSeoPage() {
             <CmsCard
               title="Robots Configuration (robots.txt)"
               subtitle="Directs search engine crawlers and protects /cms-admin from search indexing"
-              actions={
+              action={
                 <button
                   type="button"
                   onClick={() => copyToClipboard(`${WEBSITE_URL}/robots.txt`, "robots")}
