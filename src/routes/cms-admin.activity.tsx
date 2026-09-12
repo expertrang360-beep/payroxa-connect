@@ -8,7 +8,7 @@ import { CmsCard } from "@/cms/components/CmsCard";
 import { CmsActivityFeed } from "@/cms/components/CmsActivityFeed";
 import type { CmsActivityLog } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/activity")({
+export const Route = createFileRoute("/cms-admin/activity")({
   component: CmsActivityAuditPage,
 });
 

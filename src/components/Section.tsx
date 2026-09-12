@@ -30,28 +30,32 @@ export function Section({
 
 export function SectionHeading({
   eyebrow,
+  badge,
   title,
   description,
   tone = "default",
   align = "center",
 }: {
   eyebrow?: string;
+  /** Alias for eyebrow, used by several product pages. */
+  badge?: string;
   title: string;
   description?: string;
   tone?: "default" | "navy";
   align?: "center" | "left";
 }) {
   const navy = tone === "navy";
+  const label = eyebrow ?? badge;
   return (
     <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
-      {eyebrow ? (
+      {label ? (
         <p
           className={cn(
             "text-xs font-semibold uppercase tracking-[0.18em]",
             navy ? "text-lavender-strong" : "text-primary",
           )}
         >
-          {eyebrow}
+          {label}
         </p>
       ) : null}
       <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{title}</h2>

@@ -267,7 +267,7 @@ function CmsSeoPage() {
       <CmsHeader
         title="SEO & Growth Engine"
         description="Comprehensive technical SEO, crawlability auditor, per-page meta tags, 301 redirects, and XML sitemap generator for Payroxa."
-        action={
+        actions={
           <div className="flex items-center gap-2">
             <a
               href="/sitemap.xml"
@@ -723,7 +723,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.robotsDirective || "index, follow"}
-                    onChange={(e) => handlePageFieldChange("robotsDirective", e.target.value)}
+                    onChange={(e) => handlePageFieldChange(
+                        "robotsDirective",
+                        e.target.value as PageSeoSettings["robotsDirective"],
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="index, follow">
@@ -782,7 +785,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.changefreq || "weekly"}
-                    onChange={(e) => handlePageFieldChange("changefreq", e.target.value)}
+                    onChange={(e) => handlePageFieldChange(
+                        "changefreq",
+                        e.target.value as PageSeoSettings["changefreq"],
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="daily">Daily</option>
@@ -819,7 +825,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.twitterCard || "summary_large_image"}
-                    onChange={(e) => handlePageFieldChange("twitterCard", e.target.value)}
+                    onChange={(e) => handlePageFieldChange(
+                        "twitterCard",
+                        e.target.value as PageSeoSettings["twitterCard"],
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="summary_large_image">Large Image Card (Recommended)</option>
@@ -844,7 +853,7 @@ function CmsSeoPage() {
                 label="Social Share Image (og:image) - Recommended 1200x630px"
                 value={currentData.ogImageUrl || "/hero-payroxa.jpg"}
                 onChange={(val) => handlePageFieldChange("ogImageUrl", val)}
-                category="heroes"
+                categoryFilter="heroes"
               />
 
               {/* Social Card Preview */}
@@ -882,7 +891,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.schemaType || "SoftwareApplication"}
-                    onChange={(e) => handlePageFieldChange("schemaType", e.target.value)}
+                    onChange={(e) => handlePageFieldChange(
+                        "schemaType",
+                        e.target.value as PageSeoSettings["schemaType"],
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="Organization">Organization (Brand, Contact, Socials)</option>

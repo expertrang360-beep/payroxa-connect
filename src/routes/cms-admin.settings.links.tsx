@@ -7,7 +7,7 @@ import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { ApplicationLinks } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/settings/links")({
+export const Route = createFileRoute("/cms-admin/settings/links")({
   component: CmsApplicationLinksPage,
 });
 

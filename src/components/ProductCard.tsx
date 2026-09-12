@@ -7,6 +7,8 @@ interface FeatureCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
+  /** Optional small label shown above the feature title. */
+  badge?: string;
   className?: string;
   product?: never;
 }
@@ -261,7 +263,7 @@ export function ProductCard(props: ProductCardProps) {
     );
   }
 
-  const { icon: Icon, title, description, className } = props;
+  const { icon: Icon, title, description, badge, className } = props;
   return (
     <article
       className={cn(
@@ -274,6 +276,11 @@ export function ProductCard(props: ProductCardProps) {
           <Icon className="size-5" aria-hidden="true" />
         </span>
       )}
+      {badge ? (
+        <p className="mt-4 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary">
+          {badge}
+        </p>
+      ) : null}
       <h3 className="mt-5 text-lg font-semibold">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
     </article>

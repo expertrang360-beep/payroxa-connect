@@ -7,7 +7,7 @@ import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { SocialSettings, SocialLink } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/settings/social")({
+export const Route = createFileRoute("/cms-admin/settings/social")({
   component: CmsSocialSettingsPage,
 });
 

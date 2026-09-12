@@ -222,7 +222,7 @@ function CmsBlogAdminPage() {
       <CmsHeader
         title="Blog & Resources Publishing Suite"
         description="Publish educational guides, technical comparisons, and SEO-driven content targeting high-intent Nigerian search queries."
-        action={
+        actions={
           <div className="flex items-center gap-2">
             <a
               href="/resources"
@@ -786,7 +786,7 @@ function CmsBlogAdminPage() {
                   label="Featured Article Image"
                   value={editingPost.featuredImageUrl || "/hero-payroxa.jpg"}
                   onChange={(val) => setEditingPost({ ...editingPost, featuredImageUrl: val })}
-                  category="heroes"
+                  categoryFilter="heroes"
                 />
                 <input
                   type="text"

@@ -10,33 +10,544 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as BusinessRouteImport } from './routes/business'
+import { Route as CardsRouteImport } from './routes/cards'
+import { Route as CmsAdminRouteImport } from './routes/cms-admin'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as PaymentLinksRouteImport } from './routes/payment-links'
+import { Route as PaymentRequestsRouteImport } from './routes/payment-requests'
+import { Route as PaymentsRouteImport } from './routes/payments'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SecurityRouteImport } from './routes/security'
+import { Route as StoreRouteImport } from './routes/store'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TransfersRouteImport } from './routes/transfers'
+import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as CmsAdminIndexRouteImport } from './routes/cms-admin.index'
+import { Route as CmsAdminActivityRouteImport } from './routes/cms-admin.activity'
+import { Route as CmsAdminAnnouncementsRouteImport } from './routes/cms-admin.announcements'
+import { Route as CmsAdminBlogRouteImport } from './routes/cms-admin.blog'
+import { Route as CmsAdminBusinessRouteImport } from './routes/cms-admin.business'
+import { Route as CmsAdminContentRouteImport } from './routes/cms-admin.content'
+import { Route as CmsAdminFaqRouteImport } from './routes/cms-admin.faq'
+import { Route as CmsAdminHeroRouteImport } from './routes/cms-admin.hero'
+import { Route as CmsAdminLoginRouteImport } from './routes/cms-admin.login'
+import { Route as CmsAdminMarketplaceRouteImport } from './routes/cms-admin.marketplace'
+import { Route as CmsAdminMediaRouteImport } from './routes/cms-admin.media'
+import { Route as CmsAdminNavigationRouteImport } from './routes/cms-admin.navigation'
+import { Route as CmsAdminPagesRouteImport } from './routes/cms-admin.pages'
+import { Route as CmsAdminProductsRouteImport } from './routes/cms-admin.products'
+import { Route as CmsAdminSeoRouteImport } from './routes/cms-admin.seo'
+import { Route as CmsAdminTestimonialsRouteImport } from './routes/cms-admin.testimonials'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
+import { Route as CmsAdminSettingsIndexRouteImport } from './routes/cms-admin.settings.index'
+import { Route as CmsAdminSettingsAdminsRouteImport } from './routes/cms-admin.settings.admins'
+import { Route as CmsAdminSettingsLinksRouteImport } from './routes/cms-admin.settings.links'
+import { Route as CmsAdminSettingsSocialRouteImport } from './routes/cms-admin.settings.social'
+import { Route as MarketplaceProductSlugRouteImport } from './routes/marketplace.product.$slug'
+import { Route as MarketplaceStoreSlugRouteImport } from './routes/marketplace.store.$slug'
+import { Route as MarketplaceVendorIdRouteImport } from './routes/marketplace.vendor.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardsRoute = CardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CmsAdminRoute = CmsAdminRouteImport.update({
+  id: '/cms-admin',
+  path: '/cms-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentLinksRoute = PaymentLinksRouteImport.update({
+  id: '/payment-links',
+  path: '/payment-links',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentRequestsRoute = PaymentRequestsRouteImport.update({
+  id: '/payment-requests',
+  path: '/payment-requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsRoute = PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoreRoute = StoreRouteImport.update({
+  id: '/store',
+  path: '/store',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransfersRoute = TransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CmsAdminIndexRoute = CmsAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminActivityRoute = CmsAdminActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminAnnouncementsRoute = CmsAdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminBlogRoute = CmsAdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminBusinessRoute = CmsAdminBusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminContentRoute = CmsAdminContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminFaqRoute = CmsAdminFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminHeroRoute = CmsAdminHeroRouteImport.update({
+  id: '/hero',
+  path: '/hero',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminLoginRoute = CmsAdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminMarketplaceRoute = CmsAdminMarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminMediaRoute = CmsAdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminNavigationRoute = CmsAdminNavigationRouteImport.update({
+  id: '/navigation',
+  path: '/navigation',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminPagesRoute = CmsAdminPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminProductsRoute = CmsAdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminSeoRoute = CmsAdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminTestimonialsRoute = CmsAdminTestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const CmsAdminSettingsIndexRoute = CmsAdminSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminSettingsAdminsRoute = CmsAdminSettingsAdminsRouteImport.update({
+  id: '/settings/admins',
+  path: '/settings/admins',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminSettingsLinksRoute = CmsAdminSettingsLinksRouteImport.update({
+  id: '/settings/links',
+  path: '/settings/links',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const CmsAdminSettingsSocialRoute = CmsAdminSettingsSocialRouteImport.update({
+  id: '/settings/social',
+  path: '/settings/social',
+  getParentRoute: () => CmsAdminRoute,
+} as any)
+const MarketplaceProductSlugRoute = MarketplaceProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
+const MarketplaceStoreSlugRoute = MarketplaceStoreSlugRouteImport.update({
+  id: '/store/$slug',
+  path: '/store/$slug',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
+const MarketplaceVendorIdRoute = MarketplaceVendorIdRouteImport.update({
+  id: '/vendor/$id',
+  path: '/vendor/$id',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/cards': typeof CardsRoute
+  '/cms-admin': typeof CmsAdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/payment-links': typeof PaymentLinksRoute
+  '/payment-requests': typeof PaymentRequestsRoute
+  '/payments': typeof PaymentsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/security': typeof SecurityRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/transfers': typeof TransfersRoute
+  '/wallet': typeof WalletRoute
+  '/cms-admin/activity': typeof CmsAdminActivityRoute
+  '/cms-admin/announcements': typeof CmsAdminAnnouncementsRoute
+  '/cms-admin/blog': typeof CmsAdminBlogRoute
+  '/cms-admin/business': typeof CmsAdminBusinessRoute
+  '/cms-admin/content': typeof CmsAdminContentRoute
+  '/cms-admin/faq': typeof CmsAdminFaqRoute
+  '/cms-admin/hero': typeof CmsAdminHeroRoute
+  '/cms-admin/login': typeof CmsAdminLoginRoute
+  '/cms-admin/marketplace': typeof CmsAdminMarketplaceRoute
+  '/cms-admin/media': typeof CmsAdminMediaRoute
+  '/cms-admin/navigation': typeof CmsAdminNavigationRoute
+  '/cms-admin/pages': typeof CmsAdminPagesRoute
+  '/cms-admin/products': typeof CmsAdminProductsRoute
+  '/cms-admin/seo': typeof CmsAdminSeoRoute
+  '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/cms-admin/': typeof CmsAdminIndexRoute
+  '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
+  '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
+  '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
+  '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
+  '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
+  '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
+  '/cms-admin/settings/': typeof CmsAdminSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/cards': typeof CardsRoute
+  '/contact': typeof ContactRoute
+  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/payment-links': typeof PaymentLinksRoute
+  '/payment-requests': typeof PaymentRequestsRoute
+  '/payments': typeof PaymentsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/security': typeof SecurityRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/transfers': typeof TransfersRoute
+  '/wallet': typeof WalletRoute
+  '/cms-admin/activity': typeof CmsAdminActivityRoute
+  '/cms-admin/announcements': typeof CmsAdminAnnouncementsRoute
+  '/cms-admin/blog': typeof CmsAdminBlogRoute
+  '/cms-admin/business': typeof CmsAdminBusinessRoute
+  '/cms-admin/content': typeof CmsAdminContentRoute
+  '/cms-admin/faq': typeof CmsAdminFaqRoute
+  '/cms-admin/hero': typeof CmsAdminHeroRoute
+  '/cms-admin/login': typeof CmsAdminLoginRoute
+  '/cms-admin/marketplace': typeof CmsAdminMarketplaceRoute
+  '/cms-admin/media': typeof CmsAdminMediaRoute
+  '/cms-admin/navigation': typeof CmsAdminNavigationRoute
+  '/cms-admin/pages': typeof CmsAdminPagesRoute
+  '/cms-admin/products': typeof CmsAdminProductsRoute
+  '/cms-admin/seo': typeof CmsAdminSeoRoute
+  '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/cms-admin': typeof CmsAdminIndexRoute
+  '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
+  '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
+  '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
+  '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
+  '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
+  '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
+  '/cms-admin/settings': typeof CmsAdminSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/cards': typeof CardsRoute
+  '/cms-admin': typeof CmsAdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/payment-links': typeof PaymentLinksRoute
+  '/payment-requests': typeof PaymentRequestsRoute
+  '/payments': typeof PaymentsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/security': typeof SecurityRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/transfers': typeof TransfersRoute
+  '/wallet': typeof WalletRoute
+  '/cms-admin/activity': typeof CmsAdminActivityRoute
+  '/cms-admin/announcements': typeof CmsAdminAnnouncementsRoute
+  '/cms-admin/blog': typeof CmsAdminBlogRoute
+  '/cms-admin/business': typeof CmsAdminBusinessRoute
+  '/cms-admin/content': typeof CmsAdminContentRoute
+  '/cms-admin/faq': typeof CmsAdminFaqRoute
+  '/cms-admin/hero': typeof CmsAdminHeroRoute
+  '/cms-admin/login': typeof CmsAdminLoginRoute
+  '/cms-admin/marketplace': typeof CmsAdminMarketplaceRoute
+  '/cms-admin/media': typeof CmsAdminMediaRoute
+  '/cms-admin/navigation': typeof CmsAdminNavigationRoute
+  '/cms-admin/pages': typeof CmsAdminPagesRoute
+  '/cms-admin/products': typeof CmsAdminProductsRoute
+  '/cms-admin/seo': typeof CmsAdminSeoRoute
+  '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/cms-admin/': typeof CmsAdminIndexRoute
+  '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
+  '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
+  '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
+  '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
+  '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
+  '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
+  '/cms-admin/settings/': typeof CmsAdminSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/business'
+    | '/cards'
+    | '/cms-admin'
+    | '/contact'
+    | '/marketplace'
+    | '/payment-links'
+    | '/payment-requests'
+    | '/payments'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/security'
+    | '/store'
+    | '/terms'
+    | '/transfers'
+    | '/wallet'
+    | '/cms-admin/activity'
+    | '/cms-admin/announcements'
+    | '/cms-admin/blog'
+    | '/cms-admin/business'
+    | '/cms-admin/content'
+    | '/cms-admin/faq'
+    | '/cms-admin/hero'
+    | '/cms-admin/login'
+    | '/cms-admin/marketplace'
+    | '/cms-admin/media'
+    | '/cms-admin/navigation'
+    | '/cms-admin/pages'
+    | '/cms-admin/products'
+    | '/cms-admin/seo'
+    | '/cms-admin/testimonials'
+    | '/resources/$slug'
+    | '/cms-admin/'
+    | '/cms-admin/settings/admins'
+    | '/cms-admin/settings/links'
+    | '/cms-admin/settings/social'
+    | '/marketplace/product/$slug'
+    | '/marketplace/store/$slug'
+    | '/marketplace/vendor/$id'
+    | '/cms-admin/settings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/business'
+    | '/cards'
+    | '/contact'
+    | '/marketplace'
+    | '/payment-links'
+    | '/payment-requests'
+    | '/payments'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/security'
+    | '/store'
+    | '/terms'
+    | '/transfers'
+    | '/wallet'
+    | '/cms-admin/activity'
+    | '/cms-admin/announcements'
+    | '/cms-admin/blog'
+    | '/cms-admin/business'
+    | '/cms-admin/content'
+    | '/cms-admin/faq'
+    | '/cms-admin/hero'
+    | '/cms-admin/login'
+    | '/cms-admin/marketplace'
+    | '/cms-admin/media'
+    | '/cms-admin/navigation'
+    | '/cms-admin/pages'
+    | '/cms-admin/products'
+    | '/cms-admin/seo'
+    | '/cms-admin/testimonials'
+    | '/resources/$slug'
+    | '/cms-admin'
+    | '/cms-admin/settings/admins'
+    | '/cms-admin/settings/links'
+    | '/cms-admin/settings/social'
+    | '/marketplace/product/$slug'
+    | '/marketplace/store/$slug'
+    | '/marketplace/vendor/$id'
+    | '/cms-admin/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/business'
+    | '/cards'
+    | '/cms-admin'
+    | '/contact'
+    | '/marketplace'
+    | '/payment-links'
+    | '/payment-requests'
+    | '/payments'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/security'
+    | '/store'
+    | '/terms'
+    | '/transfers'
+    | '/wallet'
+    | '/cms-admin/activity'
+    | '/cms-admin/announcements'
+    | '/cms-admin/blog'
+    | '/cms-admin/business'
+    | '/cms-admin/content'
+    | '/cms-admin/faq'
+    | '/cms-admin/hero'
+    | '/cms-admin/login'
+    | '/cms-admin/marketplace'
+    | '/cms-admin/media'
+    | '/cms-admin/navigation'
+    | '/cms-admin/pages'
+    | '/cms-admin/products'
+    | '/cms-admin/seo'
+    | '/cms-admin/testimonials'
+    | '/resources/$slug'
+    | '/cms-admin/'
+    | '/cms-admin/settings/admins'
+    | '/cms-admin/settings/links'
+    | '/cms-admin/settings/social'
+    | '/marketplace/product/$slug'
+    | '/marketplace/store/$slug'
+    | '/marketplace/vendor/$id'
+    | '/cms-admin/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BusinessRoute: typeof BusinessRoute
+  CardsRoute: typeof CardsRoute
+  CmsAdminRoute: typeof CmsAdminRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  MarketplaceRoute: typeof MarketplaceRouteWithChildren
+  PaymentLinksRoute: typeof PaymentLinksRoute
+  PaymentRequestsRoute: typeof PaymentRequestsRoute
+  PaymentsRoute: typeof PaymentsRoute
+  PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResourcesRoute: typeof ResourcesRouteWithChildren
+  SecurityRoute: typeof SecurityRoute
+  StoreRoute: typeof StoreRoute
+  TermsRoute: typeof TermsRoute
+  TransfersRoute: typeof TransfersRoute
+  WalletRoute: typeof WalletRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +559,393 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cards': {
+      id: '/cards'
+      path: '/cards'
+      fullPath: '/cards'
+      preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cms-admin': {
+      id: '/cms-admin'
+      path: '/cms-admin'
+      fullPath: '/cms-admin'
+      preLoaderRoute: typeof CmsAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-links': {
+      id: '/payment-links'
+      path: '/payment-links'
+      fullPath: '/payment-links'
+      preLoaderRoute: typeof PaymentLinksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-requests': {
+      id: '/payment-requests'
+      path: '/payment-requests'
+      fullPath: '/payment-requests'
+      preLoaderRoute: typeof PaymentRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments': {
+      id: '/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store': {
+      id: '/store'
+      path: '/store'
+      fullPath: '/store'
+      preLoaderRoute: typeof StoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfers': {
+      id: '/transfers'
+      path: '/transfers'
+      fullPath: '/transfers'
+      preLoaderRoute: typeof TransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cms-admin/': {
+      id: '/cms-admin/'
+      path: '/'
+      fullPath: '/cms-admin/'
+      preLoaderRoute: typeof CmsAdminIndexRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/activity': {
+      id: '/cms-admin/activity'
+      path: '/activity'
+      fullPath: '/cms-admin/activity'
+      preLoaderRoute: typeof CmsAdminActivityRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/announcements': {
+      id: '/cms-admin/announcements'
+      path: '/announcements'
+      fullPath: '/cms-admin/announcements'
+      preLoaderRoute: typeof CmsAdminAnnouncementsRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/blog': {
+      id: '/cms-admin/blog'
+      path: '/blog'
+      fullPath: '/cms-admin/blog'
+      preLoaderRoute: typeof CmsAdminBlogRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/business': {
+      id: '/cms-admin/business'
+      path: '/business'
+      fullPath: '/cms-admin/business'
+      preLoaderRoute: typeof CmsAdminBusinessRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/content': {
+      id: '/cms-admin/content'
+      path: '/content'
+      fullPath: '/cms-admin/content'
+      preLoaderRoute: typeof CmsAdminContentRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/faq': {
+      id: '/cms-admin/faq'
+      path: '/faq'
+      fullPath: '/cms-admin/faq'
+      preLoaderRoute: typeof CmsAdminFaqRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/hero': {
+      id: '/cms-admin/hero'
+      path: '/hero'
+      fullPath: '/cms-admin/hero'
+      preLoaderRoute: typeof CmsAdminHeroRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/login': {
+      id: '/cms-admin/login'
+      path: '/login'
+      fullPath: '/cms-admin/login'
+      preLoaderRoute: typeof CmsAdminLoginRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/marketplace': {
+      id: '/cms-admin/marketplace'
+      path: '/marketplace'
+      fullPath: '/cms-admin/marketplace'
+      preLoaderRoute: typeof CmsAdminMarketplaceRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/media': {
+      id: '/cms-admin/media'
+      path: '/media'
+      fullPath: '/cms-admin/media'
+      preLoaderRoute: typeof CmsAdminMediaRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/navigation': {
+      id: '/cms-admin/navigation'
+      path: '/navigation'
+      fullPath: '/cms-admin/navigation'
+      preLoaderRoute: typeof CmsAdminNavigationRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/pages': {
+      id: '/cms-admin/pages'
+      path: '/pages'
+      fullPath: '/cms-admin/pages'
+      preLoaderRoute: typeof CmsAdminPagesRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/products': {
+      id: '/cms-admin/products'
+      path: '/products'
+      fullPath: '/cms-admin/products'
+      preLoaderRoute: typeof CmsAdminProductsRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/seo': {
+      id: '/cms-admin/seo'
+      path: '/seo'
+      fullPath: '/cms-admin/seo'
+      preLoaderRoute: typeof CmsAdminSeoRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/testimonials': {
+      id: '/cms-admin/testimonials'
+      path: '/testimonials'
+      fullPath: '/cms-admin/testimonials'
+      preLoaderRoute: typeof CmsAdminTestimonialsRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/cms-admin/settings/': {
+      id: '/cms-admin/settings/'
+      path: '/settings'
+      fullPath: '/cms-admin/settings/'
+      preLoaderRoute: typeof CmsAdminSettingsIndexRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/settings/admins': {
+      id: '/cms-admin/settings/admins'
+      path: '/settings/admins'
+      fullPath: '/cms-admin/settings/admins'
+      preLoaderRoute: typeof CmsAdminSettingsAdminsRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/settings/links': {
+      id: '/cms-admin/settings/links'
+      path: '/settings/links'
+      fullPath: '/cms-admin/settings/links'
+      preLoaderRoute: typeof CmsAdminSettingsLinksRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/cms-admin/settings/social': {
+      id: '/cms-admin/settings/social'
+      path: '/settings/social'
+      fullPath: '/cms-admin/settings/social'
+      preLoaderRoute: typeof CmsAdminSettingsSocialRouteImport
+      parentRoute: typeof CmsAdminRoute
+    }
+    '/marketplace/product/$slug': {
+      id: '/marketplace/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/marketplace/product/$slug'
+      preLoaderRoute: typeof MarketplaceProductSlugRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/marketplace/store/$slug': {
+      id: '/marketplace/store/$slug'
+      path: '/store/$slug'
+      fullPath: '/marketplace/store/$slug'
+      preLoaderRoute: typeof MarketplaceStoreSlugRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/marketplace/vendor/$id': {
+      id: '/marketplace/vendor/$id'
+      path: '/vendor/$id'
+      fullPath: '/marketplace/vendor/$id'
+      preLoaderRoute: typeof MarketplaceVendorIdRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
   }
 }
 
+interface CmsAdminRouteChildren {
+  CmsAdminActivityRoute: typeof CmsAdminActivityRoute
+  CmsAdminAnnouncementsRoute: typeof CmsAdminAnnouncementsRoute
+  CmsAdminBlogRoute: typeof CmsAdminBlogRoute
+  CmsAdminBusinessRoute: typeof CmsAdminBusinessRoute
+  CmsAdminContentRoute: typeof CmsAdminContentRoute
+  CmsAdminFaqRoute: typeof CmsAdminFaqRoute
+  CmsAdminHeroRoute: typeof CmsAdminHeroRoute
+  CmsAdminLoginRoute: typeof CmsAdminLoginRoute
+  CmsAdminMarketplaceRoute: typeof CmsAdminMarketplaceRoute
+  CmsAdminMediaRoute: typeof CmsAdminMediaRoute
+  CmsAdminNavigationRoute: typeof CmsAdminNavigationRoute
+  CmsAdminPagesRoute: typeof CmsAdminPagesRoute
+  CmsAdminProductsRoute: typeof CmsAdminProductsRoute
+  CmsAdminSeoRoute: typeof CmsAdminSeoRoute
+  CmsAdminTestimonialsRoute: typeof CmsAdminTestimonialsRoute
+  CmsAdminIndexRoute: typeof CmsAdminIndexRoute
+  CmsAdminSettingsAdminsRoute: typeof CmsAdminSettingsAdminsRoute
+  CmsAdminSettingsLinksRoute: typeof CmsAdminSettingsLinksRoute
+  CmsAdminSettingsSocialRoute: typeof CmsAdminSettingsSocialRoute
+  CmsAdminSettingsIndexRoute: typeof CmsAdminSettingsIndexRoute
+}
+
+const CmsAdminRouteChildren: CmsAdminRouteChildren = {
+  CmsAdminActivityRoute: CmsAdminActivityRoute,
+  CmsAdminAnnouncementsRoute: CmsAdminAnnouncementsRoute,
+  CmsAdminBlogRoute: CmsAdminBlogRoute,
+  CmsAdminBusinessRoute: CmsAdminBusinessRoute,
+  CmsAdminContentRoute: CmsAdminContentRoute,
+  CmsAdminFaqRoute: CmsAdminFaqRoute,
+  CmsAdminHeroRoute: CmsAdminHeroRoute,
+  CmsAdminLoginRoute: CmsAdminLoginRoute,
+  CmsAdminMarketplaceRoute: CmsAdminMarketplaceRoute,
+  CmsAdminMediaRoute: CmsAdminMediaRoute,
+  CmsAdminNavigationRoute: CmsAdminNavigationRoute,
+  CmsAdminPagesRoute: CmsAdminPagesRoute,
+  CmsAdminProductsRoute: CmsAdminProductsRoute,
+  CmsAdminSeoRoute: CmsAdminSeoRoute,
+  CmsAdminTestimonialsRoute: CmsAdminTestimonialsRoute,
+  CmsAdminIndexRoute: CmsAdminIndexRoute,
+  CmsAdminSettingsAdminsRoute: CmsAdminSettingsAdminsRoute,
+  CmsAdminSettingsLinksRoute: CmsAdminSettingsLinksRoute,
+  CmsAdminSettingsSocialRoute: CmsAdminSettingsSocialRoute,
+  CmsAdminSettingsIndexRoute: CmsAdminSettingsIndexRoute,
+}
+
+const CmsAdminRouteWithChildren = CmsAdminRoute._addFileChildren(
+  CmsAdminRouteChildren,
+)
+
+interface MarketplaceRouteChildren {
+  MarketplaceProductSlugRoute: typeof MarketplaceProductSlugRoute
+  MarketplaceStoreSlugRoute: typeof MarketplaceStoreSlugRoute
+  MarketplaceVendorIdRoute: typeof MarketplaceVendorIdRoute
+}
+
+const MarketplaceRouteChildren: MarketplaceRouteChildren = {
+  MarketplaceProductSlugRoute: MarketplaceProductSlugRoute,
+  MarketplaceStoreSlugRoute: MarketplaceStoreSlugRoute,
+  MarketplaceVendorIdRoute: MarketplaceVendorIdRoute,
+}
+
+const MarketplaceRouteWithChildren = MarketplaceRoute._addFileChildren(
+  MarketplaceRouteChildren,
+)
+
+interface ResourcesRouteChildren {
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
+}
+
+const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesSlugRoute: ResourcesSlugRoute,
+}
+
+const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
+  ResourcesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BusinessRoute: BusinessRoute,
+  CardsRoute: CardsRoute,
+  CmsAdminRoute: CmsAdminRouteWithChildren,
+  ContactRoute: ContactRoute,
+  MarketplaceRoute: MarketplaceRouteWithChildren,
+  PaymentLinksRoute: PaymentLinksRoute,
+  PaymentRequestsRoute: PaymentRequestsRoute,
+  PaymentsRoute: PaymentsRoute,
+  PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResourcesRoute: ResourcesRouteWithChildren,
+  SecurityRoute: SecurityRoute,
+  StoreRoute: StoreRoute,
+  TermsRoute: TermsRoute,
+  TransfersRoute: TransfersRoute,
+  WalletRoute: WalletRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

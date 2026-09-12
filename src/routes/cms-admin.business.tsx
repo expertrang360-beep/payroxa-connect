@@ -16,7 +16,7 @@ import { CmsHeader } from "@/cms/components/CmsHeader";
 import { CmsCard } from "@/cms/components/CmsCard";
 import type { BusinessTypeItem } from "@/cms/types";
 
-export const Route = createFileRoute("/cms/business")({
+export const Route = createFileRoute("/cms-admin/business")({
   component: CmsBusinessTypesPage,
 });
 

@@ -51,8 +51,13 @@ function CmsTestimonialsPage() {
   const handleAdd = () => {
     const newItem: TestimonialItem = {
       id: `test_${Date.now()}`,
+      customerName: "Client or Business Owner",
       clientName: "Client or Business Owner",
+      businessName: "Merchant Store",
+      role: "CEO",
       roleOrBusiness: "CEO, Merchant Store",
+      testimonial:
+        "Payroxa transformed the way we collect payments from our customers across Nigeria.",
       quote: "Payroxa transformed the way we collect payments from our customers across Nigeria.",
       rating: 5,
       status: "published",
