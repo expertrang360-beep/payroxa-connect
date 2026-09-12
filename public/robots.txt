@@ -1,8 +1,18 @@
+# robots.txt for Payroxa — https://payroxa.com.ng
+User-agent: *
+Allow: /
+Disallow: /cms-admin
+Disallow: /cms-admin/
+Disallow: /api/
+Disallow: /_build/
+
 User-agent: Googlebot
 Allow: /
+Disallow: /cms-admin/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /cms-admin/
 
 User-agent: Twitterbot
 Allow: /
@@ -10,5 +20,4 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+Sitemap: https://payroxa.com.ng/sitemap.xml
