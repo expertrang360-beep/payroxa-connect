@@ -267,7 +267,7 @@ function CmsSeoPage() {
       <CmsHeader
         title="SEO & Growth Engine"
         description="Comprehensive technical SEO, crawlability auditor, per-page meta tags, 301 redirects, and XML sitemap generator for Payroxa."
-        action={
+        actions={
           <div className="flex items-center gap-2">
             <a
               href="/sitemap.xml"
@@ -488,7 +488,7 @@ function CmsSeoPage() {
           <CmsCard
             title="SEO Health Audit & Warnings"
             subtitle="Automated checks for character counts, meta tags, schema markup, and crawlability"
-            action={
+            actions={
               <button
                 type="button"
                 onClick={loadAllData}
@@ -844,7 +844,7 @@ function CmsSeoPage() {
                 label="Social Share Image (og:image) - Recommended 1200x630px"
                 value={currentData.ogImageUrl || "/hero-payroxa.jpg"}
                 onChange={(val) => handlePageFieldChange("ogImageUrl", val)}
-                category="heroes"
+                categoryFilter="heroes"
               />
 
               {/* Social Card Preview */}
@@ -1051,7 +1051,7 @@ function CmsSeoPage() {
             <CmsCard
               title="Automated XML Sitemap (sitemap.xml)"
               subtitle="Dynamically rendered for Googlebot, Bingbot, and other crawlers"
-              action={
+              actions={
                 <button
                   type="button"
                   onClick={() => copyToClipboard(`${WEBSITE_URL}/sitemap.xml`, "sitemap")}
@@ -1115,7 +1115,7 @@ function CmsSeoPage() {
             <CmsCard
               title="Robots Configuration (robots.txt)"
               subtitle="Directs search engine crawlers and protects /cms-admin from search indexing"
-              action={
+              actions={
                 <button
                   type="button"
                   onClick={() => copyToClipboard(`${WEBSITE_URL}/robots.txt`, "robots")}

@@ -278,7 +278,7 @@ function BusinessPage() {
               <div className="mt-8 pt-6">
                 <PayroxaButton
                   href={registerUrl}
-                  variant={tier.highlight ? "default" : "outline"}
+                  variant={tier.highlight ? "primary" : "outline"}
                   className="w-full"
                 >
                   Get Started

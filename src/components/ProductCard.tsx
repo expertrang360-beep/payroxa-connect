@@ -7,6 +7,8 @@ interface FeatureCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
+  /** Optional small label shown above the feature title. */
+  badge?: string;
   className?: string;
   product?: never;
 }

@@ -55,7 +55,7 @@ export function SectionHeading({
             navy ? "text-lavender-strong" : "text-primary",
           )}
         >
-          {eyebrow}
+          {label}
         </p>
       ) : null}
       <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{title}</h2>
