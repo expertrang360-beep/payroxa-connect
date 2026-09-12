@@ -20,6 +20,10 @@ export type ContentStatus = "draft" | "published" | "archived";
 
 export interface SiteSettings {
   name: string;
+  /** Aliases used by public site components. */
+  siteName?: string;
+  siteDescription?: string;
+  supportPhone?: string;
   legalName: string;
   tagline: string;
   description: string;
@@ -71,6 +75,13 @@ export interface SocialLink {
 
 export interface SocialSettings {
   links: SocialLink[];
+  /** Optional direct handles, used by the public footer. */
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+  facebook?: string;
+  youtube?: string;
+  tiktok?: string;
   updatedAt: string;
   updatedBy: string;
 }
@@ -242,6 +253,11 @@ export interface TestimonialItem {
   role: string;
   testimonial: string;
   photoUrl?: string;
+  /** Aliases used by some CMS editing screens. */
+  clientName?: string;
+  roleOrBusiness?: string;
+  quote?: string;
+  avatarUrl?: string;
   rating: number;
   displayOrder: number;
   status: "published" | "draft" | "hidden";
@@ -277,6 +293,9 @@ export interface AnnouncementBanner {
   updatedAt: string;
   updatedBy: string;
 }
+
+/** Alias kept for CMS screens that refer to banners as announcement items. */
+export type AnnouncementItem = AnnouncementBanner;
 
 export interface SeoMetadata {
   pageSlug: string;
