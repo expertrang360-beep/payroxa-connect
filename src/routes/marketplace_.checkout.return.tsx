@@ -4,7 +4,7 @@ import { getMarketplaceOrderFn } from "../cms/marketplace-api";
 import { CheckCircle2, XCircle, Clock, ArrowRight, Loader2, Package } from "lucide-react";
 import type { MarketplaceOrder } from "../cms/marketplace.server";
 
-export const Route = createFileRoute("/marketplace/checkout/return")({
+export const Route = createFileRoute("/marketplace_/checkout/return")({
   component: CheckoutReturn,
 });
 

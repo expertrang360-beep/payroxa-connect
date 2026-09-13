@@ -13,7 +13,7 @@ import { getStore } from "@/services/payroxa-public-api/client";
 import { PayroxaStore } from "@/services/payroxa-public-api/types";
 import { APP_URL } from "@/config/siteConfig";
 
-export const Route = createFileRoute("/marketplace/store/$slug")({
+export const Route = createFileRoute("/marketplace_/store/$slug")({
   component: StoreDetailPage,
 });
 

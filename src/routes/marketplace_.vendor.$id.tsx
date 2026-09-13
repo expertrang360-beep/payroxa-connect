@@ -12,7 +12,7 @@ import { getVendor } from "@/services/payroxa-public-api/client";
 import { PayroxaVendor } from "@/services/payroxa-public-api/types";
 import { APP_URL } from "@/config/siteConfig";
 
-export const Route = createFileRoute("/marketplace/vendor/$id")({
+export const Route = createFileRoute("/marketplace_/vendor/$id")({
   component: VendorDetailPage,
 });
 

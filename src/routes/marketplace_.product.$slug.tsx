@@ -32,7 +32,7 @@ import { PayroxaButton } from "@/components/PayroxaButton";
 import { updateSEO } from "@/utils/seo";
 import { useCart } from "@/hooks/useCart";
 
-export const Route = createFileRoute("/marketplace/product/$slug")({
+export const Route = createFileRoute("/marketplace_/product/$slug")({
   component: ProductDetailPage,
 });
 
@@ -49,8 +49,6 @@ function ProductDetailPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Custom User Interaction States
-  const [selectedSize, setSelectedSize] = useState<string>("M");
-  const [selectedColor, setSelectedColor] = useState<string>("Classic Edition");
   const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [showShareTooltip, setShowShareTooltip] = useState(false);
@@ -501,70 +499,30 @@ function ProductDetailPage() {
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   {product.description || "Premium verified cargo direct from sovereign craftsmen."}
                 </p>
-              </div>
-
-              {/* Sizing Picker (Interactive standard Temu selector) */}
-              <div className="space-y-2.5 pt-2">
-                <div className="flex items-center justify-between text-xs font-bold text-foreground">
-                  <span>
-                    Select Size:{" "}
-                    <strong className="text-primary uppercase ml-1">{selectedSize}</strong>
+                
+                {/* Available details from API */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <span className="text-[11px] font-bold text-muted-foreground bg-muted/40 px-2 py-1 rounded">
+                    Category: <span className="text-foreground">{product.category?.name}</span>
                   </span>
-                  <span className="text-muted-foreground font-semibold underline cursor-pointer hover:text-primary transition-colors">
-                    Sizing Charts
+                  <span className={`text-[11px] font-bold px-2 py-1 rounded ${
+                    product.availability === 'in_stock' ? 'bg-emerald-500/10 text-emerald-600' :
+                    product.availability === 'pre_order' ? 'bg-blue-500/10 text-blue-600' :
+                    'bg-red-500/10 text-red-600'
+                  }`}>
+                    {product.availability === 'in_stock' ? 'In Stock' :
+                     product.availability === 'pre_order' ? 'Pre-Order' : 'Out of Stock'}
                   </span>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {["XS", "S", "M", "L", "XL", "XXL"].map((sz) => (
-                    <button
-                      key={sz}
-                      type="button"
-                      onClick={() => setSelectedSize(sz)}
-                      className={`rounded-xl border py-2.5 px-4 text-xs font-black transition-all ${
-                        selectedSize === sz
-                          ? "bg-primary border-primary text-white shadow-soft scale-102"
-                          : "bg-muted/30 border-border text-muted-foreground hover:bg-muted hover:text-foreground"
-                      }`}
-                    >
-                      {sz}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Color Edition Picker */}
-              <div className="space-y-2.5 pt-2">
-                <div className="flex items-center justify-between text-xs font-bold text-foreground">
-                  <span>
-                    Edition Color: <strong className="text-primary ml-1">{selectedColor}</strong>
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { name: "Classic Edition", color: "bg-navy" },
-                    { name: "Sovereign Gold", color: "bg-yellow-500" },
-                  ].map((col) => (
-                    <button
-                      key={col.name}
-                      type="button"
-                      onClick={() => setSelectedColor(col.name)}
-                      className={`rounded-xl border p-3 text-xs font-black flex items-center gap-2 transition-all ${
-                        selectedColor === col.name
-                          ? "bg-primary/5 border-primary text-primary shadow-soft"
-                          : "bg-muted/30 border-border text-muted-foreground hover:bg-muted"
-                      }`}
-                    >
-                      <div
-                        className={`size-4.5 rounded-full ${col.color} border border-black/10 shrink-0`}
-                      />
-                      <span className="truncate">{col.name}</span>
-                    </button>
-                  ))}
+                  {product.isFeatured && (
+                    <span className="text-[11px] font-bold text-amber-600 bg-amber-500/10 px-2 py-1 rounded flex items-center gap-1">
+                      <Star className="size-3" /> Featured Item
+                    </span>
+                  )}
                 </div>
               </div>
 
               {/* Quantity Select tool */}
-              <div className="space-y-2.5 pt-2">
+              <div className="space-y-2.5 pt-4 border-t border-border/30 mt-4">
                 <span className="text-xs font-bold text-foreground">Specify Quantity:</span>
                 <div className="flex items-center rounded-xl border border-border bg-muted/40 w-max p-1 gap-1">
                   <button
@@ -588,12 +546,12 @@ function ProductDetailPage() {
               </div>
 
               {/* Estimated DHL Express Delivery Map Box */}
-              <div className="rounded-2xl border border-border/60 bg-[#FDFDFE] p-4 space-y-3 shadow-soft">
+              <div className="rounded-2xl border border-border/60 bg-[#FDFDFE] p-4 space-y-3 shadow-soft mt-4">
                 <div className="flex items-start gap-3">
                   <Truck className="size-5 text-primary shrink-0 mt-0.5" />
                   <div className="space-y-0.5">
                     <h4 className="text-xs font-black text-foreground uppercase tracking-wide">
-                      Estimated Delivery Delivery
+                      Estimated Delivery
                     </h4>
                     <p className="text-xs font-extrabold text-emerald-600">{shippingDates.range}</p>
                     <p className="text-[10px] text-muted-foreground leading-normal">
@@ -601,7 +559,6 @@ function ProductDetailPage() {
                     </p>
                   </div>
                 </div>
-
                 <div className="pt-2 border-t border-border/40 flex items-center justify-between text-[11px] font-bold text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <MapPin className="size-3.5 text-primary" /> Shipping to:{" "}
@@ -624,7 +581,6 @@ function ProductDetailPage() {
                   <ShoppingBag className="size-4" /> Buy Now{" "}
                   <ExternalLink className="size-4" />
                 </a>
-
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
@@ -640,8 +596,8 @@ function ProductDetailPage() {
                             slug: product.slug,
                           },
                           selectedQuantity,
-                          selectedSize,
-                          selectedColor,
+                          "Default",
+                          "Default",
                         );
                       }
                       setIsAddedToCart(true);

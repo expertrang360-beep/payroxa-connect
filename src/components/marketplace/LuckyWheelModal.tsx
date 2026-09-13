@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { RotateCw, X } from "lucide-react";
-import { useCart } from "@/hooks/useCart";
+import { useLuckyWheelTrigger } from "@/hooks/useLuckyWheelTrigger";
 
 export function LuckyWheelModal() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { shouldShowWheel, closeWheel } = useLuckyWheelTrigger({ itemCountThreshold: 1 });
   const [isSpinning, setIsSpinning] = useState(false);
   const [wheelRotation, setWheelRotation] = useState(0);
   const [wheelRewards, setWheelRewards] = useState<any[]>([]);
@@ -13,9 +13,6 @@ export function LuckyWheelModal() {
     discountPercent: number;
   } | null>(null);
   
-  // To avoid spamming, let's only show it once per session when adding to cart
-  const [hasBeenTriggered, setHasBeenTriggered] = useState(false);
-
   useEffect(() => {
     // Load rewards
     const loadRewards = async () => {
@@ -30,19 +27,9 @@ export function LuckyWheelModal() {
       }
     };
     loadRewards();
+  }, []);
 
-    const handleTrigger = () => {
-      if (!hasBeenTriggered) {
-        setIsOpen(true);
-        setHasBeenTriggered(true);
-      }
-    };
-
-    window.addEventListener("trigger-lucky-wheel", handleTrigger);
-    return () => window.removeEventListener("trigger-lucky-wheel", handleTrigger);
-  }, [hasBeenTriggered]);
-
-  if (!isOpen) return null;
+  if (!shouldShowWheel) return null;
 
   const handleSpinWheel = () => {
     if (isSpinning) return;
@@ -72,7 +59,7 @@ export function LuckyWheelModal() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-xl relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-6 animate-scale-in">
         <button 
-          onClick={() => setIsOpen(false)}
+          onClick={closeWheel}
           className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10 bg-white/80 rounded-full p-1"
         >
           <X className="size-5" />

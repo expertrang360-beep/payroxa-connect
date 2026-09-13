@@ -726,27 +726,33 @@ function MarketplacePage() {
                     key={p.id}
                     className="flex bg-white rounded-2xl border border-border/50 overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300"
                   >
-                    <div className="relative w-32 sm:w-44 aspect-square bg-muted shrink-0 overflow-hidden">
+                    <Link
+                      to="/marketplace/product/$slug"
+                      params={{ slug: p.slug }}
+                      className="relative w-32 sm:w-44 aspect-square bg-muted shrink-0 overflow-hidden block"
+                    >
                       <img
                         src={imageSource}
                         alt={p.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         referrerPolicy="no-referrer"
                       />
                       <div className="absolute top-2 left-2 bg-primary text-white text-[8px] font-black tracking-wider px-2 py-0.5 rounded shadow-soft">
                         -{savingPct}%
                       </div>
-                    </div>
+                    </Link>
                     <div className="p-4 flex flex-col justify-between flex-1">
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[10px] text-muted-foreground font-bold">
                           <span>{p.category?.name}</span>
                           <span className="text-emerald-600 shrink-0">✔ {p.vendor?.name}</span>
                         </div>
-                        <h4 className="text-sm font-black text-foreground group-hover:text-primary transition-colors">
-                          {p.name}
-                        </h4>
+                        <Link to="/marketplace/product/$slug" params={{ slug: p.slug }} className="block hover:underline">
+                          <h4 className="text-sm font-black text-foreground transition-colors">
+                            {p.name}
+                          </h4>
+                        </Link>
                         <p className="text-xs text-muted-foreground line-clamp-2 hidden sm:block">
                           {p.description ||
                             "Premium verified escrow drop cataloged directly from sovereign workshops."}
@@ -760,7 +766,6 @@ function MarketplacePage() {
                           </span>
                         </div>
                       </div>
-
                       <div className="flex items-center justify-between pt-3 border-t border-border/40 mt-2">
                         <Link
                           to="/marketplace/product/$slug"
@@ -790,7 +795,11 @@ function MarketplacePage() {
                     viewMode === "dense" ? "p-1 sm:p-2" : "p-0"
                   }`}
                 >
-                  <div className="relative aspect-square bg-muted overflow-hidden rounded-xl">
+                  <Link
+                    to="/marketplace/product/$slug"
+                    params={{ slug: p.slug }}
+                    className="relative aspect-square bg-muted overflow-hidden rounded-xl block"
+                  >
                     <img
                       src={imageSource}
                       alt={p.name}
@@ -801,8 +810,7 @@ function MarketplacePage() {
                     <div className="absolute top-2 left-2 bg-primary text-white text-[8px] font-black tracking-wider px-2 py-0.5 rounded shadow-soft">
                       -{savingPct}%
                     </div>
-                  </div>
-
+                  </Link>
                   <div
                     className={`flex flex-col justify-between flex-1 space-y-2 ${viewMode === "dense" ? "p-2 pt-3" : "p-3.5"}`}
                   >
@@ -811,9 +819,11 @@ function MarketplacePage() {
                         <span className="truncate max-w-[80px]">{p.category?.name}</span>
                         <span className="text-emerald-600 shrink-0">✔ {p.vendor?.name}</span>
                       </div>
-                      <h4 className="text-xs font-black text-foreground group-hover:text-primary line-clamp-1 leading-snug">
-                        {p.name}
-                      </h4>
+                      <Link to="/marketplace/product/$slug" params={{ slug: p.slug }} className="block hover:underline">
+                        <h4 className="text-xs font-black text-foreground group-hover:text-primary line-clamp-1 leading-snug">
+                          {p.name}
+                        </h4>
+                      </Link>
                       <div className="flex items-baseline gap-1.5 pt-0.5">
                         <span className="text-xs font-black text-primary">
                           {p.currency} {p.price.toLocaleString()}
@@ -1130,8 +1140,8 @@ function MarketplacePage() {
                             customerPhone: shippingPhone,
                             deliveryAddress: shippingAddress,
                             deliveryMethod: "Standard",
-                            cartItems: cart.map(item => ({
-                              productId: item.product.id,
+                            cartItems: cartItems.map((item: any) => ({
+                              productId: item.id,
                               quantity: item.quantity
                             }))
                           }

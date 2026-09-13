@@ -40,7 +40,11 @@ export function ProductCard(props: ProductCardProps) {
             className,
           )}
         >
-          <div className="sm:w-56 aspect-[4/3] sm:aspect-auto shrink-0 overflow-hidden bg-muted relative">
+          <Link
+            to="/marketplace/product/$slug"
+            params={{ slug: product.slug }}
+            className="sm:w-56 aspect-[4/3] sm:aspect-auto shrink-0 overflow-hidden bg-muted relative block"
+          >
             <img
               src={imageUrl}
               alt={product.images?.[0]?.alt || product.name}
@@ -50,7 +54,7 @@ export function ProductCard(props: ProductCardProps) {
             <div className="absolute top-3 left-3 rounded-full bg-background/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-foreground shadow-soft sm:hidden">
               {product.currency} {product.price.toLocaleString()}
             </div>
-          </div>
+          </Link>
           <div className="flex flex-1 flex-col justify-between p-5">
             <div>
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
@@ -63,9 +67,11 @@ export function ProductCard(props: ProductCardProps) {
                   </span>
                 )}
               </div>
-              <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-                {product.name}
-              </h3>
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
+                <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+              </Link>
               <p className="mt-1.5 text-xs text-muted-foreground line-clamp-2">
                 {product.description}
               </p>
@@ -105,7 +111,11 @@ export function ProductCard(props: ProductCardProps) {
             className,
           )}
         >
-          <div className="aspect-[16/10] w-full overflow-hidden bg-muted relative">
+          <Link
+            to="/marketplace/product/$slug"
+            params={{ slug: product.slug }}
+            className="aspect-[16/10] w-full overflow-hidden bg-muted relative block"
+          >
             <img
               src={imageUrl}
               alt={product.images?.[0]?.alt || product.name}
@@ -120,7 +130,7 @@ export function ProductCard(props: ProductCardProps) {
                 Featured Item
               </div>
             )}
-          </div>
+          </Link>
           <div className="flex flex-1 flex-col justify-between p-6">
             <div>
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
@@ -131,9 +141,11 @@ export function ProductCard(props: ProductCardProps) {
                   </span>
                 )}
               </div>
-              <h3 className="text-lg font-extrabold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                {product.name}
-              </h3>
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
+                <h3 className="text-lg font-extrabold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                  {product.name}
+                </h3>
+              </Link>
               <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-3">
                 {product.description}
               </p>
@@ -168,7 +180,11 @@ export function ProductCard(props: ProductCardProps) {
             className,
           )}
         >
-          <div className="aspect-square w-full overflow-hidden bg-muted relative">
+          <Link
+            to="/marketplace/product/$slug"
+            params={{ slug: product.slug }}
+            className="aspect-square w-full overflow-hidden bg-muted relative block"
+          >
             <img
               src={imageUrl}
               alt={product.images?.[0]?.alt || product.name}
@@ -178,13 +194,15 @@ export function ProductCard(props: ProductCardProps) {
             <div className="absolute bottom-2 left-2 rounded-md bg-background/90 backdrop-blur-md px-2 py-0.5 text-[11px] font-bold text-foreground shadow-soft">
               {product.currency} {product.price.toLocaleString()}
             </div>
-          </div>
+          </Link>
           <div className="flex flex-1 flex-col justify-between p-3">
             <div>
               <p className="text-[10px] text-muted-foreground truncate">{product.category?.name}</p>
-              <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1 mt-0.5">
-                {product.name}
-              </h3>
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline mt-0.5">
+                <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                  {product.name}
+                </h3>
+              </Link>
             </div>
             <div className="mt-2.5 flex items-center justify-between pt-2 border-t border-border/50">
               <Link
@@ -215,7 +233,11 @@ export function ProductCard(props: ProductCardProps) {
           className,
         )}
       >
-        <div className="aspect-[4/3] w-full overflow-hidden bg-muted relative">
+        <Link
+          to="/marketplace/product/$slug"
+          params={{ slug: product.slug }}
+          className="aspect-[4/3] w-full overflow-hidden bg-muted relative block"
+        >
           <img
             src={imageUrl}
             alt={product.images?.[0]?.alt || product.name}
@@ -225,7 +247,7 @@ export function ProductCard(props: ProductCardProps) {
           <div className="absolute top-3 left-3 rounded-full bg-background/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-foreground shadow-soft">
             {product.currency} {product.price.toLocaleString()}
           </div>
-        </div>
+        </Link>
         <div className="flex flex-1 flex-col justify-between p-5">
           <div>
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
@@ -236,9 +258,11 @@ export function ProductCard(props: ProductCardProps) {
                 </span>
               )}
             </div>
-            <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-              {product.name}
-            </h3>
+            <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
+              <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                {product.name}
+              </h3>
+            </Link>
             <p className="mt-2 text-xs text-muted-foreground line-clamp-2">{product.description}</p>
           </div>
           <div className="mt-6 flex items-center justify-between pt-4 border-t border-border/60">
