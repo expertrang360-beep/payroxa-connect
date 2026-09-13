@@ -90,6 +90,11 @@ export function useCart() {
       });
     }
     saveCartItems(current);
+    
+    // Trigger Gamification Modal on add to cart
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("trigger-lucky-wheel"));
+    }
   };
 
   const updateQuantity = (id: string, size: string, color: string, quantity: number) => {

@@ -17,6 +17,7 @@ import Footer from "@/components/Footer";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import { siteConfig } from "@/config/siteConfig";
 import { PublicCmsProvider } from "@/cms/context/PublicCmsContext";
+import { LuckyWheelModal } from "@/components/marketplace/LuckyWheelModal";
 
 function NotFoundComponent() {
   return (
@@ -156,6 +157,7 @@ function RootComponent() {
             <Footer />
           </div>
         )}
+        <LuckyWheelModal />
       </PublicCmsProvider>
     </QueryClientProvider>
   );

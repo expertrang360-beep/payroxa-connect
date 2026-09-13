@@ -201,7 +201,7 @@ function ProductDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F5F5F7] py-24 px-5 text-center">
-        <div className="mx-auto size-12 rounded-full border-2 border-orange-600 border-t-transparent animate-spin mb-4" />
+        <div className="mx-auto size-12 rounded-full border-2 border-primary border-t-transparent animate-spin mb-4" />
         <p className="text-sm font-semibold text-muted-foreground">
           Establishing secure ledger sync for {slug}...
         </p>
@@ -221,7 +221,7 @@ function ProductDetailPage() {
           </p>
           <button
             onClick={() => navigate({ to: "/marketplace" })}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-700 px-6 py-3 text-xs font-black text-white shadow-soft transition-all"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary/90 px-6 py-3 text-xs font-black text-white shadow-soft transition-all"
           >
             <ArrowLeft className="size-4" /> Return to Catalog
           </button>
@@ -233,7 +233,7 @@ function ProductDetailPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F7] text-foreground font-sans">
       {/* 1. High-Density Urgency Subheader banner */}
-      <div className="bg-orange-600 py-2.5 px-4 text-white text-xs font-bold border-b border-orange-700 tracking-wide select-none">
+      <div className="bg-primary py-2.5 px-4 text-white text-xs font-bold border-b border-primary/90 tracking-wide select-none">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Zap className="size-4 text-yellow-300 fill-yellow-300" />
@@ -264,7 +264,7 @@ function ProductDetailPage() {
         <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
           <Link
             to="/marketplace"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-orange-600 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors"
           >
             <ArrowLeft className="size-4" /> Back to Marketplace Hub
           </Link>
@@ -287,15 +287,15 @@ function ProductDetailPage() {
                 className="h-full w-full object-cover group-hover:scale-102 transition-transform duration-500"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute top-4 left-4 bg-orange-600 text-white text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full shadow-soft">
+              <div className="absolute top-4 left-4 bg-primary text-white text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full shadow-soft">
                 {discountStats.discountPercent}% OFF DROP
               </div>
 
               {/* Scarcity social watermark */}
               <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md text-white rounded-xl p-3 max-w-[280px] shadow-medium flex items-center gap-3">
-                <Flame className="size-8 text-orange-500 fill-orange-500 shrink-0 animate-pulse" />
+                <Flame className="size-8 text-primary fill-primary shrink-0 animate-pulse" />
                 <div>
-                  <p className="text-[10px] font-extrabold uppercase tracking-wide text-orange-400">
+                  <p className="text-[10px] font-extrabold uppercase tracking-wide text-primary/80">
                     ⚡ HIGH DEMAND SPEED
                   </p>
                   <p className="text-[11px] text-white/90 leading-tight mt-0.5">
@@ -314,7 +314,7 @@ function ProductDetailPage() {
                     onClick={() => setActiveImageIndex(idx)}
                     className={`size-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 transition-all bg-white relative ${
                       activeImageIndex === idx
-                        ? "border-orange-500 ring-4 ring-orange-500/10 scale-102 shadow-soft"
+                        ? "border-primary ring-4 ring-primary/10 scale-102 shadow-soft"
                         : "border-border opacity-70 hover:opacity-100"
                     }`}
                   >
@@ -328,7 +328,7 @@ function ProductDetailPage() {
             <div className="bg-white border border-border/50 rounded-2xl p-4 flex items-center justify-between text-xs">
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  <div className="size-7 rounded-full bg-orange-200 border-2 border-white text-[10px] font-bold flex items-center justify-center">
+                  <div className="size-7 rounded-full bg-primary/20 border-2 border-white text-[10px] font-bold flex items-center justify-center">
                     O
                   </div>
                   <div className="size-7 rounded-full bg-emerald-200 border-2 border-white text-[10px] font-bold flex items-center justify-center">
@@ -343,7 +343,7 @@ function ProductDetailPage() {
                   recently activated checkout vaults.
                 </span>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md">
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-md">
                 Verified Drops
               </span>
             </div>
@@ -384,7 +384,7 @@ function ProductDetailPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-black text-foreground">{rev.author}</span>
-                        <span className="text-[9px] bg-orange-50 text-orange-600 border border-orange-100 px-1.5 py-0.2 rounded font-black uppercase">
+                        <span className="text-[9px] bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.2 rounded font-black uppercase">
                           {rev.badge}
                         </span>
                       </div>
@@ -402,7 +402,7 @@ function ProductDetailPage() {
                     <p className="text-xs text-muted-foreground leading-relaxed">{rev.comment}</p>
 
                     {rev.reply && (
-                      <div className="bg-muted/40 rounded-xl p-3 text-[11px] text-muted-foreground font-semibold border-l-2 border-orange-500">
+                      <div className="bg-muted/40 rounded-xl p-3 text-[11px] text-muted-foreground font-semibold border-l-2 border-primary">
                         {rev.reply}
                       </div>
                     )}
@@ -413,7 +413,7 @@ function ProductDetailPage() {
                         onClick={() => handleToggleHelpful(rev.id)}
                         className={`text-[10px] font-bold flex items-center gap-1.5 transition-colors ${
                           helpfulRatings[rev.id]
-                            ? "text-orange-600"
+                            ? "text-primary"
                             : "text-muted-foreground hover:text-foreground"
                         }`}
                       >
@@ -435,7 +435,7 @@ function ProductDetailPage() {
             {/* Purchase Control Container */}
             <div className="rounded-3xl border border-border bg-white p-6 sm:p-8 space-y-6 shadow-soft">
               {/* Price Urgency Banner block (Temu core design) */}
-              <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 rounded-2xl p-4 text-white relative overflow-hidden shadow-soft">
+              <div className="bg-gradient-to-r from-primary via-primary to-red-600 rounded-2xl p-4 text-white relative overflow-hidden shadow-soft">
                 <div className="absolute top-0 right-0 -translate-y-4 translate-x-4 w-20 h-20 bg-white/10 rounded-full blur-xl" />
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-[10px] bg-yellow-400 text-black px-2 py-0.5 rounded-md font-black uppercase tracking-wider">
@@ -487,7 +487,7 @@ function ProductDetailPage() {
                 </div>
                 <Link
                   to="/marketplace"
-                  className="rounded-xl border border-border hover:border-orange-500/30 text-[10px] font-black uppercase tracking-wider px-4 py-2 transition-colors text-muted-foreground hover:text-orange-600"
+                  className="rounded-xl border border-border hover:border-primary/30 text-[10px] font-black uppercase tracking-wider px-4 py-2 transition-colors text-muted-foreground hover:text-primary"
                 >
                   Visit Showroom
                 </Link>
@@ -508,9 +508,9 @@ function ProductDetailPage() {
                 <div className="flex items-center justify-between text-xs font-bold text-foreground">
                   <span>
                     Select Size:{" "}
-                    <strong className="text-orange-600 uppercase ml-1">{selectedSize}</strong>
+                    <strong className="text-primary uppercase ml-1">{selectedSize}</strong>
                   </span>
-                  <span className="text-muted-foreground font-semibold underline cursor-pointer hover:text-orange-600 transition-colors">
+                  <span className="text-muted-foreground font-semibold underline cursor-pointer hover:text-primary transition-colors">
                     Sizing Charts
                   </span>
                 </div>
@@ -522,7 +522,7 @@ function ProductDetailPage() {
                       onClick={() => setSelectedSize(sz)}
                       className={`rounded-xl border py-2.5 px-4 text-xs font-black transition-all ${
                         selectedSize === sz
-                          ? "bg-orange-600 border-orange-600 text-white shadow-soft scale-102"
+                          ? "bg-primary border-primary text-white shadow-soft scale-102"
                           : "bg-muted/30 border-border text-muted-foreground hover:bg-muted hover:text-foreground"
                       }`}
                     >
@@ -536,7 +536,7 @@ function ProductDetailPage() {
               <div className="space-y-2.5 pt-2">
                 <div className="flex items-center justify-between text-xs font-bold text-foreground">
                   <span>
-                    Edition Color: <strong className="text-orange-600 ml-1">{selectedColor}</strong>
+                    Edition Color: <strong className="text-primary ml-1">{selectedColor}</strong>
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -550,7 +550,7 @@ function ProductDetailPage() {
                       onClick={() => setSelectedColor(col.name)}
                       className={`rounded-xl border p-3 text-xs font-black flex items-center gap-2 transition-all ${
                         selectedColor === col.name
-                          ? "bg-orange-600/5 border-orange-600 text-orange-600 shadow-soft"
+                          ? "bg-primary/5 border-primary text-primary shadow-soft"
                           : "bg-muted/30 border-border text-muted-foreground hover:bg-muted"
                       }`}
                     >
@@ -590,7 +590,7 @@ function ProductDetailPage() {
               {/* Estimated DHL Express Delivery Map Box */}
               <div className="rounded-2xl border border-border/60 bg-[#FDFDFE] p-4 space-y-3 shadow-soft">
                 <div className="flex items-start gap-3">
-                  <Truck className="size-5 text-orange-600 shrink-0 mt-0.5" />
+                  <Truck className="size-5 text-primary shrink-0 mt-0.5" />
                   <div className="space-y-0.5">
                     <h4 className="text-xs font-black text-foreground uppercase tracking-wide">
                       Estimated Delivery Delivery
@@ -604,10 +604,10 @@ function ProductDetailPage() {
 
                 <div className="pt-2 border-t border-border/40 flex items-center justify-between text-[11px] font-bold text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <MapPin className="size-3.5 text-orange-600" /> Shipping to:{" "}
+                    <MapPin className="size-3.5 text-primary" /> Shipping to:{" "}
                     <strong className="text-foreground">Lagos, NG</strong>
                   </span>
-                  <span className="text-orange-600 underline cursor-pointer hover:text-orange-700">
+                  <span className="text-primary underline cursor-pointer hover:text-primary/90">
                     Change Location
                   </span>
                 </div>
@@ -619,9 +619,9 @@ function ProductDetailPage() {
                   href={product.appUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full rounded-2xl bg-orange-600 hover:bg-orange-700 text-white py-4 text-center text-xs font-black transition-all flex items-center justify-center gap-2 shadow-medium uppercase tracking-wider"
+                  className="w-full rounded-2xl bg-primary hover:bg-primary/90 text-white py-4 text-center text-xs font-black transition-all flex items-center justify-center gap-2 shadow-medium uppercase tracking-wider"
                 >
-                  <ShoppingBag className="size-4" /> Instantly Secure escrows Checkout{" "}
+                  <ShoppingBag className="size-4" /> Buy Now{" "}
                   <ExternalLink className="size-4" />
                 </a>
 
@@ -767,7 +767,7 @@ function ProductDetailPage() {
           <section className="mt-12 pt-12 border-t border-border/40">
             <div className="flex items-center justify-between gap-4 mb-6">
               <div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-black tracking-widest text-orange-600 bg-orange-100 rounded-full px-2.5 py-0.5 uppercase">
+                <span className="inline-flex items-center gap-1 text-[10px] font-black tracking-widest text-primary bg-primary/20 rounded-full px-2.5 py-0.5 uppercase">
                   <Package className="size-3" /> MORE ESCROW DEALS
                 </span>
                 <h3 className="text-lg font-black text-foreground mt-1">
@@ -776,7 +776,7 @@ function ProductDetailPage() {
               </div>
               <Link
                 to="/marketplace"
-                className="text-xs font-bold text-orange-600 hover:underline flex items-center gap-1"
+                className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
               >
                 View Complete Catalog <ChevronRight className="size-4" />
               </Link>
@@ -803,7 +803,7 @@ function ProductDetailPage() {
                         loading="lazy"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="absolute top-2 left-2 bg-orange-600 text-white text-[8px] font-black tracking-wider px-2 py-0.5 rounded shadow-soft">
+                      <div className="absolute top-2 left-2 bg-primary text-white text-[8px] font-black tracking-wider px-2 py-0.5 rounded shadow-soft">
                         -{savingPct}%
                       </div>
                     </div>
@@ -813,11 +813,11 @@ function ProductDetailPage() {
                         <div className="flex items-center justify-between text-[9px] text-muted-foreground font-bold">
                           <span>{p.category?.name}</span>
                         </div>
-                        <h4 className="text-xs font-black text-foreground group-hover:text-orange-600 line-clamp-1 transition-colors leading-tight">
+                        <h4 className="text-xs font-black text-foreground group-hover:text-primary line-clamp-1 transition-colors leading-tight">
                           {p.name}
                         </h4>
                         <div className="flex items-baseline gap-1.5 pt-0.5">
-                          <span className="text-xs font-black text-orange-600">
+                          <span className="text-xs font-black text-primary">
                             {p.currency} {p.price.toLocaleString()}
                           </span>
                           <span className="text-[9px] text-muted-foreground line-through font-semibold">
@@ -830,7 +830,7 @@ function ProductDetailPage() {
                         <Link
                           to="/marketplace/product/$slug"
                           params={{ slug: p.slug }}
-                          className="text-[9px] font-black text-orange-600 hover:underline flex items-center"
+                          className="text-[9px] font-black text-primary hover:underline flex items-center"
                         >
                           Details <ChevronRight className="size-3" />
                         </Link>
@@ -838,7 +838,7 @@ function ProductDetailPage() {
                           href={p.appUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="bg-orange-600 text-white text-[9px] font-black px-2.5 py-1 rounded transition-colors"
+                          className="bg-primary text-white text-[9px] font-black px-2.5 py-1 rounded transition-colors"
                         >
                           Claim
                         </a>

@@ -1245,6 +1245,12 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
     lastVerifiedAt: new Date().toISOString(),
     notes: "Google Search Console verified. Auto-sitemap ping configured for published content.",
   },
+  wheelRewards: [
+    { id: "rw-1", prize: "15% OFF Escrow Checkout", coupon: "SOVEREIGN15", discountPercent: 15, probability: 25, enabled: true },
+    { id: "rw-2", prize: "FREE Express Air DHL Cargo", coupon: "SHIPDHL", discountPercent: 5, probability: 25, enabled: true },
+    { id: "rw-3", prize: "Zero Safe-Vault Escrow Fees", coupon: "NOFEE", discountPercent: 10, probability: 25, enabled: true },
+    { id: "rw-4", prize: "NGN 25,000 / $50 Safe Wallet Credit", coupon: "VAULT50", discountPercent: 20, probability: 25, enabled: true },
+  ],
   activities: [
     {
       id: "act-init",

@@ -185,7 +185,7 @@ export function MarketplaceGrid({
         <div className="flex flex-col gap-3 rounded-3xl border border-border/40 bg-white p-4 shadow-soft">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground px-1">
-              <TrendingUp className="size-4 text-orange-600" />
+              <TrendingUp className="size-4 text-primary" />
               <span>
                 Showing{" "}
                 <strong className="text-foreground font-black">{processedProducts.length}</strong>{" "}
@@ -205,7 +205,7 @@ export function MarketplaceGrid({
                   maxPriceInput ||
                   onlyVerified ||
                   sortBy !== "default"
-                    ? "bg-orange-50 border-orange-500 text-orange-600 shadow-soft"
+                    ? "bg-primary/10 border-primary text-primary shadow-soft"
                     : "bg-white border-border/60 hover:bg-muted/10 text-muted-foreground"
                 }`}
               >
@@ -215,7 +215,7 @@ export function MarketplaceGrid({
                   minPriceInput ||
                   maxPriceInput ||
                   onlyVerified ||
-                  sortBy !== "default") && <span className="bg-orange-600 size-1.5 rounded-full" />}
+                  sortBy !== "default") && <span className="bg-primary size-1.5 rounded-full" />}
               </button>
 
               {/* Grid View Mode Switchers */}
@@ -226,7 +226,7 @@ export function MarketplaceGrid({
                   title="Comfort Grid"
                   className={`rounded-lg p-1.5 transition-all cursor-pointer ${
                     viewMode === "grid"
-                      ? "bg-white text-orange-600 shadow-soft font-black"
+                      ? "bg-white text-primary shadow-soft font-black"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -238,7 +238,7 @@ export function MarketplaceGrid({
                   title="High-Density Grid"
                   className={`rounded-lg p-1.5 transition-all cursor-pointer ${
                     viewMode === "dense"
-                      ? "bg-white text-orange-600 shadow-soft font-black"
+                      ? "bg-white text-primary shadow-soft font-black"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -250,7 +250,7 @@ export function MarketplaceGrid({
                   title="Double Showcase"
                   className={`rounded-lg p-1.5 transition-all cursor-pointer ${
                     viewMode === "showcase"
-                      ? "bg-white text-orange-600 shadow-soft font-black"
+                      ? "bg-white text-primary shadow-soft font-black"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -262,7 +262,7 @@ export function MarketplaceGrid({
                   title="List Rows"
                   className={`rounded-lg p-1.5 transition-all cursor-pointer ${
                     viewMode === "list"
-                      ? "bg-white text-orange-600 shadow-soft font-black"
+                      ? "bg-white text-primary shadow-soft font-black"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -283,7 +283,7 @@ export function MarketplaceGrid({
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:outline-none focus:border-orange-500 transition-all cursor-pointer"
+                  className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:outline-none focus:border-primary transition-all cursor-pointer"
                 >
                   <option value="default">Default Drops</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -304,7 +304,7 @@ export function MarketplaceGrid({
                       onClick={() => setCurrencyFilter(curr)}
                       className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase transition-all whitespace-nowrap cursor-pointer ${
                         currencyFilter === curr
-                          ? "bg-orange-600 text-white border-orange-600"
+                          ? "bg-primary text-white border-primary"
                           : "bg-[#F5F5F7] text-muted-foreground border-border/30 hover:bg-muted"
                       }`}
                     >
@@ -325,7 +325,7 @@ export function MarketplaceGrid({
                     value={minPriceInput}
                     onChange={(e) => setMinPriceInput(e.target.value)}
                     placeholder="Min"
-                    className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-2.5 py-1.5 text-xs font-bold text-foreground focus:outline-none focus:border-orange-500"
+                    className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-2.5 py-1.5 text-xs font-bold text-foreground focus:outline-none focus:border-primary"
                   />
                   <span className="text-muted-foreground">-</span>
                   <input
@@ -333,7 +333,7 @@ export function MarketplaceGrid({
                     value={maxPriceInput}
                     onChange={(e) => setMaxPriceInput(e.target.value)}
                     placeholder="Max"
-                    className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-2.5 py-1.5 text-xs font-bold text-foreground focus:outline-none focus:border-orange-500"
+                    className="w-full bg-[#F5F5F7] border border-border/40 rounded-xl px-2.5 py-1.5 text-xs font-bold text-foreground focus:outline-none focus:border-primary"
                   />
                 </div>
               </div>
@@ -385,7 +385,7 @@ export function MarketplaceGrid({
           <button
             onClick={fetchProducts}
             type="button"
-            className="mt-3 inline-flex items-center gap-1 rounded-xl bg-orange-600 px-4 py-2 text-[10px] font-black text-white hover:bg-orange-700 transition-all cursor-pointer uppercase tracking-wider"
+            className="mt-3 inline-flex items-center gap-1 rounded-xl bg-primary px-4 py-2 text-[10px] font-black text-white hover:bg-primary/90 transition-all cursor-pointer uppercase tracking-wider"
           >
             <RefreshCw className="size-3.5" /> Retry Sync
           </button>
@@ -400,7 +400,7 @@ export function MarketplaceGrid({
           <button
             onClick={handleReset}
             type="button"
-            className="mt-4 rounded-xl bg-orange-600 px-4 py-2 text-[10px] font-black text-white shadow-soft hover:bg-orange-700 transition-all cursor-pointer uppercase tracking-wider"
+            className="mt-4 rounded-xl bg-primary px-4 py-2 text-[10px] font-black text-white shadow-soft hover:bg-primary/90 transition-all cursor-pointer uppercase tracking-wider"
           >
             Clear All Criteria
           </button>

@@ -428,6 +428,15 @@ export interface ContentRevision {
   note?: string;
 }
 
+export interface WheelReward {
+  id: string;
+  prize: string;
+  coupon: string;
+  discountPercent: number;
+  probability: number;
+  enabled: boolean;
+}
+
 export interface CmsDatabaseState {
   version: number;
   users: Array<CmsUser & { passwordHash: string }>;
@@ -460,4 +469,5 @@ export interface CmsDatabaseState {
   searchConsole: SearchConsoleSettings;
   activities: CmsActivityLog[];
   revisions: ContentRevision[];
+  wheelRewards?: WheelReward[];
 }

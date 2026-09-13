@@ -51,7 +51,7 @@ export const FLASH_PROMO_SLIDES = [
     highlight: "Sovereign Savings Enabled",
     tagline: "Free Express DHL Air Cargo on all checkouts today!",
     couponCode: "PAYROXA90",
-    bgClass: "from-amber-600 via-orange-600 to-red-600 text-white",
+    bgClass: "from-amber-600 via-primary to-red-600 text-white",
   },
   {
     id: "promo_2",
