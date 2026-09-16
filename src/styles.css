@@ -21,6 +21,8 @@
 
   --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-market-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-market: "Figtree", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,6 +44,11 @@
   --color-lavender: var(--lavender);
   --color-lavender-strong: var(--lavender-strong);
   --color-gold: var(--gold);
+  --color-market-paper: var(--market-paper);
+  --color-market-ink: var(--market-ink);
+  --color-market-lilac: var(--market-lilac);
+  --color-market-line: var(--market-line);
+  --color-market-muted: var(--market-muted);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -79,6 +86,11 @@
   --lavender: oklch(0.97 0.02 292);
   --lavender-strong: oklch(0.9 0.05 292);
   --gold: oklch(0.82 0.15 85);
+  --market-paper: oklch(0.985 0.003 95);
+  --market-ink: oklch(0.205 0.006 285);
+  --market-lilac: oklch(0.95 0.035 305);
+  --market-line: oklch(0.205 0.006 285 / 0.12);
+  --market-muted: oklch(0.46 0.015 285);
 
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(0.99 0.003 285);
