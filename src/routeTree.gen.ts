@@ -16,6 +16,7 @@ import { Route as CardsRouteImport } from './routes/cards'
 import { Route as CmsAdminRouteImport } from './routes/cms-admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as PaymentGatewayRouteImport } from './routes/payment-gateway'
 import { Route as PaymentLinksRouteImport } from './routes/payment-links'
 import { Route as PaymentRequestsRouteImport } from './routes/payment-requests'
 import { Route as PaymentsRouteImport } from './routes/payments'
@@ -48,9 +49,10 @@ import { Route as CmsAdminSettingsIndexRouteImport } from './routes/cms-admin.se
 import { Route as CmsAdminSettingsAdminsRouteImport } from './routes/cms-admin.settings.admins'
 import { Route as CmsAdminSettingsLinksRouteImport } from './routes/cms-admin.settings.links'
 import { Route as CmsAdminSettingsSocialRouteImport } from './routes/cms-admin.settings.social'
-import { Route as MarketplaceProductSlugRouteImport } from './routes/marketplace.product.$slug'
-import { Route as MarketplaceStoreSlugRouteImport } from './routes/marketplace.store.$slug'
-import { Route as MarketplaceVendorIdRouteImport } from './routes/marketplace.vendor.$id'
+import { Route as MarketplaceCheckoutReturnRouteImport } from './routes/marketplace_.checkout.return'
+import { Route as MarketplaceProductSlugRouteImport } from './routes/marketplace_.product.$slug'
+import { Route as MarketplaceStoreSlugRouteImport } from './routes/marketplace_.store.$slug'
+import { Route as MarketplaceVendorIdRouteImport } from './routes/marketplace_.vendor.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -85,6 +87,11 @@ const ContactRoute = ContactRouteImport.update({
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentGatewayRoute = PaymentGatewayRouteImport.update({
+  id: '/payment-gateway',
+  path: '/payment-gateway',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentLinksRoute = PaymentLinksRouteImport.update({
@@ -247,20 +254,26 @@ const CmsAdminSettingsSocialRoute = CmsAdminSettingsSocialRouteImport.update({
   path: '/settings/social',
   getParentRoute: () => CmsAdminRoute,
 } as any)
+const MarketplaceCheckoutReturnRoute =
+  MarketplaceCheckoutReturnRouteImport.update({
+    id: '/marketplace_/checkout/return',
+    path: '/marketplace/checkout/return',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MarketplaceProductSlugRoute = MarketplaceProductSlugRouteImport.update({
-  id: '/product/$slug',
-  path: '/product/$slug',
-  getParentRoute: () => MarketplaceRoute,
+  id: '/marketplace_/product/$slug',
+  path: '/marketplace/product/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const MarketplaceStoreSlugRoute = MarketplaceStoreSlugRouteImport.update({
-  id: '/store/$slug',
-  path: '/store/$slug',
-  getParentRoute: () => MarketplaceRoute,
+  id: '/marketplace_/store/$slug',
+  path: '/marketplace/store/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const MarketplaceVendorIdRoute = MarketplaceVendorIdRouteImport.update({
-  id: '/vendor/$id',
-  path: '/vendor/$id',
-  getParentRoute: () => MarketplaceRoute,
+  id: '/marketplace_/vendor/$id',
+  path: '/marketplace/vendor/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -270,7 +283,8 @@ export interface FileRoutesByFullPath {
   '/cards': typeof CardsRoute
   '/cms-admin': typeof CmsAdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/marketplace': typeof MarketplaceRoute
+  '/payment-gateway': typeof PaymentGatewayRoute
   '/payment-links': typeof PaymentLinksRoute
   '/payment-requests': typeof PaymentRequestsRoute
   '/payments': typeof PaymentsRoute
@@ -302,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
   '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
   '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
+  '/marketplace/checkout/return': typeof MarketplaceCheckoutReturnRoute
   '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
   '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
   '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
@@ -313,7 +328,8 @@ export interface FileRoutesByTo {
   '/business': typeof BusinessRoute
   '/cards': typeof CardsRoute
   '/contact': typeof ContactRoute
-  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/marketplace': typeof MarketplaceRoute
+  '/payment-gateway': typeof PaymentGatewayRoute
   '/payment-links': typeof PaymentLinksRoute
   '/payment-requests': typeof PaymentRequestsRoute
   '/payments': typeof PaymentsRoute
@@ -345,6 +361,7 @@ export interface FileRoutesByTo {
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
   '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
   '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
+  '/marketplace/checkout/return': typeof MarketplaceCheckoutReturnRoute
   '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
   '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
   '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
@@ -358,7 +375,8 @@ export interface FileRoutesById {
   '/cards': typeof CardsRoute
   '/cms-admin': typeof CmsAdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/marketplace': typeof MarketplaceRouteWithChildren
+  '/marketplace': typeof MarketplaceRoute
+  '/payment-gateway': typeof PaymentGatewayRoute
   '/payment-links': typeof PaymentLinksRoute
   '/payment-requests': typeof PaymentRequestsRoute
   '/payments': typeof PaymentsRoute
@@ -390,9 +408,10 @@ export interface FileRoutesById {
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
   '/cms-admin/settings/links': typeof CmsAdminSettingsLinksRoute
   '/cms-admin/settings/social': typeof CmsAdminSettingsSocialRoute
-  '/marketplace/product/$slug': typeof MarketplaceProductSlugRoute
-  '/marketplace/store/$slug': typeof MarketplaceStoreSlugRoute
-  '/marketplace/vendor/$id': typeof MarketplaceVendorIdRoute
+  '/marketplace_/checkout/return': typeof MarketplaceCheckoutReturnRoute
+  '/marketplace_/product/$slug': typeof MarketplaceProductSlugRoute
+  '/marketplace_/store/$slug': typeof MarketplaceStoreSlugRoute
+  '/marketplace_/vendor/$id': typeof MarketplaceVendorIdRoute
   '/cms-admin/settings/': typeof CmsAdminSettingsIndexRoute
 }
 export interface FileRouteTypes {
@@ -405,6 +424,7 @@ export interface FileRouteTypes {
     | '/cms-admin'
     | '/contact'
     | '/marketplace'
+    | '/payment-gateway'
     | '/payment-links'
     | '/payment-requests'
     | '/payments'
@@ -436,6 +456,7 @@ export interface FileRouteTypes {
     | '/cms-admin/settings/admins'
     | '/cms-admin/settings/links'
     | '/cms-admin/settings/social'
+    | '/marketplace/checkout/return'
     | '/marketplace/product/$slug'
     | '/marketplace/store/$slug'
     | '/marketplace/vendor/$id'
@@ -448,6 +469,7 @@ export interface FileRouteTypes {
     | '/cards'
     | '/contact'
     | '/marketplace'
+    | '/payment-gateway'
     | '/payment-links'
     | '/payment-requests'
     | '/payments'
@@ -479,6 +501,7 @@ export interface FileRouteTypes {
     | '/cms-admin/settings/admins'
     | '/cms-admin/settings/links'
     | '/cms-admin/settings/social'
+    | '/marketplace/checkout/return'
     | '/marketplace/product/$slug'
     | '/marketplace/store/$slug'
     | '/marketplace/vendor/$id'
@@ -492,6 +515,7 @@ export interface FileRouteTypes {
     | '/cms-admin'
     | '/contact'
     | '/marketplace'
+    | '/payment-gateway'
     | '/payment-links'
     | '/payment-requests'
     | '/payments'
@@ -523,9 +547,10 @@ export interface FileRouteTypes {
     | '/cms-admin/settings/admins'
     | '/cms-admin/settings/links'
     | '/cms-admin/settings/social'
-    | '/marketplace/product/$slug'
-    | '/marketplace/store/$slug'
-    | '/marketplace/vendor/$id'
+    | '/marketplace_/checkout/return'
+    | '/marketplace_/product/$slug'
+    | '/marketplace_/store/$slug'
+    | '/marketplace_/vendor/$id'
     | '/cms-admin/settings/'
   fileRoutesById: FileRoutesById
 }
@@ -536,7 +561,8 @@ export interface RootRouteChildren {
   CardsRoute: typeof CardsRoute
   CmsAdminRoute: typeof CmsAdminRouteWithChildren
   ContactRoute: typeof ContactRoute
-  MarketplaceRoute: typeof MarketplaceRouteWithChildren
+  MarketplaceRoute: typeof MarketplaceRoute
+  PaymentGatewayRoute: typeof PaymentGatewayRoute
   PaymentLinksRoute: typeof PaymentLinksRoute
   PaymentRequestsRoute: typeof PaymentRequestsRoute
   PaymentsRoute: typeof PaymentsRoute
@@ -548,6 +574,10 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   TransfersRoute: typeof TransfersRoute
   WalletRoute: typeof WalletRoute
+  MarketplaceCheckoutReturnRoute: typeof MarketplaceCheckoutReturnRoute
+  MarketplaceProductSlugRoute: typeof MarketplaceProductSlugRoute
+  MarketplaceStoreSlugRoute: typeof MarketplaceStoreSlugRoute
+  MarketplaceVendorIdRoute: typeof MarketplaceVendorIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -599,6 +629,13 @@ declare module '@tanstack/react-router' {
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-gateway': {
+      id: '/payment-gateway'
+      path: '/payment-gateway'
+      fullPath: '/payment-gateway'
+      preLoaderRoute: typeof PaymentGatewayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/payment-links': {
@@ -825,26 +862,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CmsAdminSettingsSocialRouteImport
       parentRoute: typeof CmsAdminRoute
     }
-    '/marketplace/product/$slug': {
-      id: '/marketplace/product/$slug'
-      path: '/product/$slug'
+    '/marketplace_/checkout/return': {
+      id: '/marketplace_/checkout/return'
+      path: '/marketplace/checkout/return'
+      fullPath: '/marketplace/checkout/return'
+      preLoaderRoute: typeof MarketplaceCheckoutReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace_/product/$slug': {
+      id: '/marketplace_/product/$slug'
+      path: '/marketplace/product/$slug'
       fullPath: '/marketplace/product/$slug'
       preLoaderRoute: typeof MarketplaceProductSlugRouteImport
-      parentRoute: typeof MarketplaceRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/marketplace/store/$slug': {
-      id: '/marketplace/store/$slug'
-      path: '/store/$slug'
+    '/marketplace_/store/$slug': {
+      id: '/marketplace_/store/$slug'
+      path: '/marketplace/store/$slug'
       fullPath: '/marketplace/store/$slug'
       preLoaderRoute: typeof MarketplaceStoreSlugRouteImport
-      parentRoute: typeof MarketplaceRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/marketplace/vendor/$id': {
-      id: '/marketplace/vendor/$id'
-      path: '/vendor/$id'
+    '/marketplace_/vendor/$id': {
+      id: '/marketplace_/vendor/$id'
+      path: '/marketplace/vendor/$id'
       fullPath: '/marketplace/vendor/$id'
       preLoaderRoute: typeof MarketplaceVendorIdRouteImport
-      parentRoute: typeof MarketplaceRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -899,22 +943,6 @@ const CmsAdminRouteWithChildren = CmsAdminRoute._addFileChildren(
   CmsAdminRouteChildren,
 )
 
-interface MarketplaceRouteChildren {
-  MarketplaceProductSlugRoute: typeof MarketplaceProductSlugRoute
-  MarketplaceStoreSlugRoute: typeof MarketplaceStoreSlugRoute
-  MarketplaceVendorIdRoute: typeof MarketplaceVendorIdRoute
-}
-
-const MarketplaceRouteChildren: MarketplaceRouteChildren = {
-  MarketplaceProductSlugRoute: MarketplaceProductSlugRoute,
-  MarketplaceStoreSlugRoute: MarketplaceStoreSlugRoute,
-  MarketplaceVendorIdRoute: MarketplaceVendorIdRoute,
-}
-
-const MarketplaceRouteWithChildren = MarketplaceRoute._addFileChildren(
-  MarketplaceRouteChildren,
-)
-
 interface ResourcesRouteChildren {
   ResourcesSlugRoute: typeof ResourcesSlugRoute
 }
@@ -934,7 +962,8 @@ const rootRouteChildren: RootRouteChildren = {
   CardsRoute: CardsRoute,
   CmsAdminRoute: CmsAdminRouteWithChildren,
   ContactRoute: ContactRoute,
-  MarketplaceRoute: MarketplaceRouteWithChildren,
+  MarketplaceRoute: MarketplaceRoute,
+  PaymentGatewayRoute: PaymentGatewayRoute,
   PaymentLinksRoute: PaymentLinksRoute,
   PaymentRequestsRoute: PaymentRequestsRoute,
   PaymentsRoute: PaymentsRoute,
@@ -946,6 +975,10 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   TransfersRoute: TransfersRoute,
   WalletRoute: WalletRoute,
+  MarketplaceCheckoutReturnRoute: MarketplaceCheckoutReturnRoute,
+  MarketplaceProductSlugRoute: MarketplaceProductSlugRoute,
+  MarketplaceStoreSlugRoute: MarketplaceStoreSlugRoute,
+  MarketplaceVendorIdRoute: MarketplaceVendorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
