@@ -145,7 +145,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <PublicCmsProvider>
         {isFullWidthRoute ? (
-          <Outlet />
+          <div className={isMarketplaceRoute ? "theme-marketplace min-h-screen" : undefined}>
+            <Outlet />
+          </div>
         ) : (
           <div className="flex min-h-screen flex-col bg-background">
             <AnnouncementBar />
