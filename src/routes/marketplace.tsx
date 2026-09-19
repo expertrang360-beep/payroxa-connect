@@ -58,6 +58,13 @@ function MarketplacePage() {
   const [shippingAddress, setShippingAddress] = useState("");
   const [checkoutHash, setCheckoutHash] = useState("");
 
+  // Shop assistant states
+  const [assistantQuery, setAssistantQuery] = useState("");
+  const [assistantLoading, setAssistantLoading] = useState(false);
+  const [assistantError, setAssistantError] = useState<string | null>(null);
+  const [assistantSummary, setAssistantSummary] = useState("");
+  const [assistantPicks, setAssistantPicks] = useState<{ product: PayroxaProduct; reason: string }[]>([]);
+
   // 2. API Retrieval States
   const [allProducts, setAllProducts] = useState<PayroxaProduct[]>([]);
   const [categories, setCategories] = useState<PayroxaCategory[]>([]);
