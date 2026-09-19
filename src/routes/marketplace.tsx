@@ -208,6 +208,53 @@ function MarketplacePage() {
     setSortBy("default");
   };
 
+  const runAssistant = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const question = assistantQuery.trim();
+    if (!question || assistantLoading) return;
+    setAssistantLoading(true);
+    setAssistantError(null);
+    setAssistantSummary("");
+    setAssistantPicks([]);
+    try {
+      const { recommendProductsFn } = await import("../cms/shopping-assistant.functions");
+      const res = await recommendProductsFn({
+        data: {
+          query: question,
+          products: toArray<PayroxaProduct>(allProducts)
+            .slice(0, 80)
+            .map((product) => ({
+              id: product.id,
+              name: product.name,
+              description: product.description,
+              price: product.price,
+              currency: product.currency,
+              category: product.category?.name,
+              vendor: product.vendor?.name,
+            })),
+        },
+      });
+      if (!res.success) {
+        setAssistantError(res.error ?? "The assistant could not answer right now.");
+        return;
+      }
+      const byId = new Map(toArray<PayroxaProduct>(allProducts).map((product) => [product.id, product]));
+      const picks = toArray<{ id: string; reason: string }>(res.picks)
+        .map((pick) => ({ product: byId.get(pick.id), reason: pick.reason }))
+        .filter((pick): pick is { product: PayroxaProduct; reason: string } => Boolean(pick.product));
+      setAssistantSummary(res.summary ?? "");
+      setAssistantPicks(picks);
+      if (picks.length === 0) {
+        setAssistantError("We couldn't find a good match. Try describing it differently.");
+      }
+    } catch (err) {
+      console.error(err);
+      setAssistantError("The assistant could not answer right now.");
+    } finally {
+      setAssistantLoading(false);
+    }
+  };
+
   const addProduct = (product: PayroxaProduct) => {
     const image = product.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=85";
     addToCart({
