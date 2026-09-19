@@ -1,12 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { createOrderServer, getOrderByIdServer, updateOrderPaymentServer } from "./marketplace.server";
 import { getApiBaseUrl } from "../services/payroxa-public-api/client"; // Or siteConfig
 
 export const createMarketplaceOrderFn = createServerFn({ method: "POST" })
   .validator((data: any) => data)
-  .handler(async ({ data, request }) => {
+  .handler(async ({ data }) => {
     try {
-      const url = new URL(request.url);
+      const url = new URL(getRequest().url);
       const origin = `${url.protocol}//${url.host}`;
       const result = await createOrderServer(data, origin);
       return { success: true, ...result };
