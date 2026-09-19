@@ -76,11 +76,135 @@ function MarketplacePage() {
 
   // Auto-dismiss toast
   useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => {
-        setToastMessage(null);
-      }, 5000);
-      const addProduct = (product: PayroxaProduct) => {
+    if (!toastMessage) return undefined;
+    const timer = setTimeout(() => setToastMessage(null), 5000);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
+
+  const loadData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [productsRes, categoriesRes, featuredRes, vendorsRes] = await Promise.all([
+        getProducts({}),
+        getCategories(),
+        getFeatured(),
+        getVendors(),
+      ]);
+      setAllProducts((productsRes as any)?.products ?? (productsRes as any) ?? []);
+      setCategories((categoriesRes as any)?.categories ?? (categoriesRes as any) ?? []);
+      setStores((vendorsRes as any)?.vendors ?? (vendorsRes as any) ?? []);
+      setFeatured({
+        featuredProducts: (featuredRes as any)?.featuredProducts ?? [],
+        featuredVendors: (featuredRes as any)?.featuredVendors ?? [],
+        featuredStores: (featuredRes as any)?.featuredStores ?? [],
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "We couldn't load the marketplace right now.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  // Promo slide auto-advance
+  useEffect(() => {
+    const interval = setInterval(
+      () => setCurrentSlide((index) => (index + 1) % Math.max(FLASH_PROMO_SLIDES.length, 1)),
+      6000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  // Countdown ticker
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return prev;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const filteredProducts = useMemo(() => {
+    let list = [...allProducts];
+
+    if (selectedCategory) {
+      list = list.filter(
+        (product) =>
+          (product as any).categorySlug === selectedCategory ||
+          (product as any).category === selectedCategory,
+      );
+    }
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.trim().toLowerCase();
+      list = list.filter((product) =>
+        [
+          product.name,
+          (product as any).description,
+          (product as any).category,
+          (product as any).vendorName,
+        ]
+          .filter(Boolean)
+          .some((value) => String(value).toLowerCase().includes(query)),
+      );
+    }
+
+    if (selectedCurrency !== "ALL") {
+      list = list.filter((product) => product.currency === selectedCurrency);
+    }
+
+    const min = minPrice ? Number(minPrice) : null;
+    const max = maxPrice ? Number(maxPrice) : null;
+    if (min !== null && !Number.isNaN(min)) list = list.filter((product) => product.price >= min);
+    if (max !== null && !Number.isNaN(max)) list = list.filter((product) => product.price <= max);
+
+    if (verifiedOnly) list = list.filter((product) => Boolean((product as any).verified));
+
+    if (activeFilterTab === "deals") {
+      list = list.filter((product) => Boolean((product as any).discountPercent || (product as any).compareAtPrice));
+    } else if (activeFilterTab === "stars") {
+      list = list.filter((product) => Number((product as any).rating ?? 0) >= 4);
+    } else if (activeFilterTab === "best") {
+      list = list.filter((product) => Number((product as any).soldCount ?? 0) > 0);
+    }
+
+    if (sortBy === "price-asc") list.sort((a, b) => a.price - b.price);
+    else if (sortBy === "price-desc") list.sort((a, b) => b.price - a.price);
+    else if (sortBy === "name-asc") list.sort((a, b) => a.name.localeCompare(b.name));
+
+    return list;
+  }, [
+    allProducts,
+    selectedCategory,
+    searchQuery,
+    selectedCurrency,
+    minPrice,
+    maxPrice,
+    verifiedOnly,
+    activeFilterTab,
+    sortBy,
+  ]);
+
+  const handleResetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("");
+    setSelectedCurrency("ALL");
+    setMinPrice("");
+    setMaxPrice("");
+    setVerifiedOnly(false);
+    setActiveFilterTab("all");
+    setSortBy("default");
+  };
+
+  const addProduct = (product: PayroxaProduct) => {
     const image = product.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=85";
     addToCart({
       id: product.id,
