@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, Filter, Grid3X3, LayoutGrid, List, Loader2, Minus, Plus, RefreshCw, RotateCw, Search, ShieldCheck, ShoppingBag, Trash2, Truck, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Filter, Grid3X3, LayoutGrid, List, Loader2, Minus, Plus, RefreshCw, RotateCw, Search, ShieldCheck, ShoppingBag, Sparkles, Trash2, Truck, X } from "lucide-react";
 import { EditorialProductCard } from "@/components/marketplace/EditorialProductCard";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import { FLASH_PROMO_SLIDES, TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.data";
@@ -367,6 +367,45 @@ function MarketplacePage() {
             </div>
           </div>
         </section>}
+
+        <section className="border-b border-market-line bg-market-lilac/60 py-10">
+          <div className="mx-auto max-w-[1440px] px-4 lg:px-8">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
+              <div>
+                <p className="flex items-center gap-2 text-xs font-bold uppercase text-primary"><Sparkles className="size-4" /> Shopping assistant</p>
+                <h2 className="mt-1 font-market-display text-3xl font-medium">Describe it, we'll find it</h2>
+                <p className="mt-2 text-sm text-market-muted">Tell us what you need in your own words and we'll pick matching products from verified stores.</p>
+                <form onSubmit={runAssistant} className="mt-5 space-y-3">
+                  <textarea
+                    value={assistantQuery}
+                    onChange={(event) => setAssistantQuery(event.target.value)}
+                    rows={3}
+                    placeholder="A gift for my sister who loves skincare, under NGN 30,000"
+                    aria-label="Describe what you are shopping for"
+                    className="w-full border border-market-line bg-background p-4 text-sm text-market-ink outline-none focus:border-primary"
+                  />
+                  <PayroxaButton type="submit" disabled={assistantLoading || !assistantQuery.trim()} className="rounded-none">
+                    {assistantLoading ? <><Loader2 className="size-4 animate-spin" /> Finding matches…</> : <><Sparkles className="size-4" /> Find products</>}
+                  </PayroxaButton>
+                </form>
+                {assistantError && <p className="mt-3 text-sm text-market-muted">{assistantError}</p>}
+              </div>
+
+              <div>
+                {assistantLoading && <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3">{Array.from({ length: 3 }).map((_, index) => <div key={index} className="aspect-[3/4] animate-pulse bg-background" />)}</div>}
+                {!assistantLoading && assistantPicks.length > 0 && <div className="space-y-5">
+                  {assistantSummary && <p className="border-l-2 border-primary bg-background p-4 text-sm text-market-ink">{assistantSummary}</p>}
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3">
+                    {assistantPicks.map((pick, index) => <div key={pick.product.id} className="space-y-2">
+                      <EditorialProductCard product={pick.product} index={index} viewMode="dense" onAdd={addProduct} />
+                      <p className="text-xs text-market-muted">{pick.reason}</p>
+                    </div>)}
+                  </div>
+                </div>}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section id="catalog-hub" className="mx-auto max-w-[1440px] px-4 py-10 lg:px-8 lg:py-14">
           <div className="mb-7 flex flex-col gap-5 border-b border-market-line pb-6 lg:flex-row lg:items-end lg:justify-between">
