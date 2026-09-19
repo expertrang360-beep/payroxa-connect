@@ -8,6 +8,10 @@ import { useCart } from "@/hooks/useCart";
 import { getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
 import type { PayroxaCategory, PayroxaProduct, PayroxaStore, PayroxaVendor } from "@/services/payroxa-public-api/types";
 
+function toArray<T>(value: unknown): T[] {
+  return Array.isArray(value) ? (value as T[]) : [];
+}
+
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
