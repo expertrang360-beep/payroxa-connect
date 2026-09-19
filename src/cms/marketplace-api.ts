@@ -5,9 +5,9 @@ import { getApiBaseUrl } from "../services/payroxa-public-api/client"; // Or sit
 
 export const createMarketplaceOrderFn = createServerFn({ method: "POST" })
   .validator((data: any) => data)
-  .handler(async ({ data, request }) => {
+  .handler(async ({ data }) => {
     try {
-      const url = new URL(request.url);
+      const url = new URL(getRequest().url);
       const origin = `${url.protocol}//${url.host}`;
       const result = await createOrderServer(data, origin);
       return { success: true, ...result };
