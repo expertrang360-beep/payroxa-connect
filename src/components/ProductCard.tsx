@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, ExternalLink, type LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Heart, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PayroxaProduct } from "@/services/payroxa-api";
+import { useWishlist } from "@/hooks/useWishlist";
 
 interface FeatureCardProps {
   icon: LucideIcon;
@@ -25,12 +26,38 @@ interface ProductItemCardProps {
 export type ProductCardProps = FeatureCardProps | ProductItemCardProps;
 
 export function ProductCard(props: ProductCardProps) {
+  const { isWishlisted, toggleWishlist } = useWishlist();
+
   if (props.product) {
     const { product, viewMode = "grid", className } = props;
     const imageUrl =
       product.images && product.images[0]?.url
         ? product.images[0].url
         : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80";
+
+    const favorited = isWishlisted(product.id);
+
+    const renderWishlistBtn = (posClass = "absolute top-3 right-3") => (
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleWishlist(product.id);
+        }}
+        className={cn(
+          "z-20 p-2 rounded-full backdrop-blur-md transition-all shadow-soft cursor-pointer",
+          posClass,
+          favorited
+            ? "bg-red-500 text-white shadow-md scale-105"
+            : "bg-background/80 text-muted-foreground hover:text-foreground hover:bg-background"
+        )}
+        title={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
+        aria-label={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
+      >
+        <Heart className={cn("size-4", favorited && "fill-current")} />
+      </button>
+    );
 
     if (viewMode === "list") {
       return (
@@ -51,6 +78,7 @@ export function ProductCard(props: ProductCardProps) {
               className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
+            {renderWishlistBtn("absolute top-3 right-3")}
             <div className="absolute top-3 left-3 rounded-full bg-background/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-foreground shadow-soft sm:hidden">
               {product.currency} {product.price.toLocaleString()}
             </div>
@@ -125,9 +153,10 @@ export function ProductCard(props: ProductCardProps) {
             <div className="absolute top-4 left-4 rounded-full bg-background/90 backdrop-blur-md px-3.5 py-1.5 text-sm font-extrabold text-foreground shadow-medium">
               {product.currency} {product.price.toLocaleString()}
             </div>
+            {renderWishlistBtn("absolute top-4 right-4")}
             {product.isFeatured && (
-              <div className="absolute top-4 right-4 rounded-full bg-amber-500/90 text-white backdrop-blur-md px-3 py-1 text-xs font-bold shadow-soft">
-                Featured Item
+              <div className="absolute top-4 right-16 rounded-full bg-amber-500/90 text-white backdrop-blur-md px-3 py-1 text-xs font-bold shadow-soft">
+                Featured
               </div>
             )}
           </Link>
@@ -191,6 +220,7 @@ export function ProductCard(props: ProductCardProps) {
               className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
+            {renderWishlistBtn("absolute top-2 right-2 p-1.5")}
             <div className="absolute bottom-2 left-2 rounded-md bg-background/90 backdrop-blur-md px-2 py-0.5 text-[11px] font-bold text-foreground shadow-soft">
               {product.currency} {product.price.toLocaleString()}
             </div>
@@ -244,6 +274,7 @@ export function ProductCard(props: ProductCardProps) {
             className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
+          {renderWishlistBtn("absolute top-3 right-3")}
           <div className="absolute top-3 left-3 rounded-full bg-background/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-foreground shadow-soft">
             {product.currency} {product.price.toLocaleString()}
           </div>
