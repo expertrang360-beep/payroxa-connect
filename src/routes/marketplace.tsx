@@ -8,6 +8,10 @@ import { useCart } from "@/hooks/useCart";
 import { getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
 import type { PayroxaCategory, PayroxaProduct, PayroxaStore, PayroxaVendor } from "@/services/payroxa-public-api/types";
 
+function toArray<T>(value: unknown): T[] {
+  return Array.isArray(value) ? (value as T[]) : [];
+}
+
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
@@ -91,13 +95,13 @@ function MarketplacePage() {
         getFeatured(),
         getVendors(),
       ]);
-      setAllProducts((productsRes as any)?.products ?? (productsRes as any) ?? []);
-      setCategories((categoriesRes as any)?.categories ?? (categoriesRes as any) ?? []);
-      setStores((vendorsRes as any)?.vendors ?? (vendorsRes as any) ?? []);
+      setAllProducts(toArray((productsRes as any)?.products ?? productsRes));
+      setCategories(toArray((categoriesRes as any)?.categories ?? categoriesRes));
+      setStores(toArray((vendorsRes as any)?.vendors ?? vendorsRes));
       setFeatured({
-        featuredProducts: (featuredRes as any)?.featuredProducts ?? [],
-        featuredVendors: (featuredRes as any)?.featuredVendors ?? [],
-        featuredStores: (featuredRes as any)?.featuredStores ?? [],
+        featuredProducts: toArray((featuredRes as any)?.featuredProducts),
+        featuredVendors: toArray((featuredRes as any)?.featuredVendors),
+        featuredStores: toArray((featuredRes as any)?.featuredStores),
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : "We couldn't load the marketplace right now.");
@@ -133,7 +137,7 @@ function MarketplacePage() {
   }, []);
 
   const filteredProducts = useMemo(() => {
-    let list = [...allProducts];
+    let list = toArray<PayroxaProduct>(allProducts);
 
     if (selectedCategory) {
       list = list.filter(
