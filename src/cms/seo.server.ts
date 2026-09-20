@@ -70,23 +70,34 @@ export function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteC
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${xmlItems}
 </urlset>`;
 }
 
 export function generateRobotsTxt(baseUrl: string = siteConfig.websiteUrl) {
   const cleanBase = baseUrl.replace(/\/$/, "");
-  return `# robots.txt for Payroxa (Production Engine)
+  return `# robots.txt for Payroxa (Dynamic Engine)
 User-agent: *
 Allow: /
 Disallow: /cms-admin
 Disallow: /cms-admin/
 Disallow: /api/
 Disallow: /_build/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /cms-admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /cms-admin/
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
 
 # Host configuration
 Host: ${cleanBase}

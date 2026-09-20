@@ -49,7 +49,28 @@ if (fs.existsSync(outputDir)) {
     <title>Payroxa</title>
     <meta name="description" content="Payroxa marketing platform and business operations suite for African businesses." />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <script src="/pre-init.js"></script>
+    <script>
+      (function() {
+        const protect = (obj) => {
+          if (!obj) return;
+          try {
+            const originalFetch = obj.fetch;
+            if (typeof originalFetch !== 'function') return;
+            Object.defineProperty(obj, 'fetch', {
+              get: function() { return originalFetch; },
+              set: function(v) { 
+                console.warn('Attempted fetch overwrite blocked!', new Error().stack);
+              },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e) {}
+        };
+        if (typeof window !== 'undefined') protect(window);
+        if (typeof globalThis !== 'undefined') protect(globalThis);
+        if (typeof self !== 'undefined') protect(self);
+      })();
+    </script>
     ${cssTag}
   </head>
   <body>

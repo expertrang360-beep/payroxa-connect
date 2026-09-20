@@ -1,19 +1,21 @@
 
-if (typeof window !== "undefined") {
-  (function () {
+(function () {
+  const protect = (obj: any) => {
+    if (!obj) return;
     try {
-      const descriptor = Object.getOwnPropertyDescriptor(window, "fetch");
-      if (descriptor && !descriptor.writable && descriptor.configurable) {
-        const originalFetch = window.fetch;
-        Object.defineProperty(window, "fetch", {
-          value: originalFetch,
-          writable: true,
-          configurable: true,
-          enumerable: true,
-        });
-      }
-    } catch (e) {
-      // Ignore
-    }
-  })();
-}
+      const originalFetch = obj.fetch;
+      if (typeof originalFetch !== "function") return;
+      Object.defineProperty(obj, "fetch", {
+        get: () => originalFetch,
+        set: (v) => {
+          console.warn("Attempted fetch overwrite blocked!", new Error().stack);
+        },
+        configurable: true,
+        enumerable: true,
+      });
+    } catch (e) {}
+  };
+  if (typeof window !== "undefined") protect(window);
+  if (typeof globalThis !== "undefined") protect(globalThis);
+  if (typeof self !== "undefined") protect(self);
+})();
