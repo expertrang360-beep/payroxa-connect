@@ -4,6 +4,46 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { getCmsDb, saveCmsDb } from "./cms/db.server";
 import { generateRobotsTxt, generateSitemapXml, handleServerRedirect } from "./cms/seo.server";
+import { getProducts } from "./services/payroxa-api";
+
+// Background task to fetch products every minute
+let backgroundTaskStarted = false;
+
+function startBackgroundFetch() {
+  if (backgroundTaskStarted) return;
+  backgroundTaskStarted = true;
+
+  console.log("Starting background marketplace sync task...");
+  
+  const fetchProducts = async () => {
+    try {
+      console.log("Running background product fetch...");
+      const response = await getProducts({ limit: 100 });
+      if (response.success && response.data) {
+        const db = getCmsDb();
+        // Here we could sync to DB if needed, for now we just log success to keep connection fresh
+        // and ensure the API is responsive for the sitemap generator
+        db.lastMarketplaceSync = new Date().toISOString();
+        db.marketplaceProductCount = response.data.length;
+        saveCmsDb(db);
+        console.log(`Successfully synced ${response.data.length} products from Marketplace API`);
+      }
+    } catch (err) {
+      console.error("Background fetch failed:", err);
+    }
+  };
+
+  // Run immediately on start
+  fetchProducts();
+
+  // Then every minute
+  setInterval(fetchProducts, 60000);
+}
+
+// Initialize background tasks
+if (process.env.NODE_ENV !== "test") {
+  startBackgroundFetch();
+}
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -71,7 +111,7 @@ export default {
         const db = getCmsDb();
         const protocol = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
         const origin = `${protocol}://${url.host}`;
-        const sitemapXml = generateSitemapXml(db, origin);
+        const sitemapXml = await generateSitemapXml(db, origin);
         return new Response(sitemapXml, {
           status: 200,
           headers: {

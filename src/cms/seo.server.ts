@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/siteConfig";
 import type { CmsDatabaseState, SeoMetadata, BlogPost, RedirectRule } from "./types";
+import { getProducts, getVendors } from "@/services/payroxa-api";
 
 export interface SeoHealthIssue {
   pageSlug: string;
@@ -18,7 +19,7 @@ export interface SeoHealthReport {
   issues: SeoHealthIssue[];
 }
 
-export function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteConfig.websiteUrl) {
+export async function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteConfig.websiteUrl) {
   const cleanBase = baseUrl.replace(/\/$/, "");
   const urls: Array<{ loc: string; lastmod: string; changefreq: string; priority: number }> = [];
 
@@ -55,6 +56,48 @@ export function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteC
       changefreq: "weekly",
       priority: 0.7,
     });
+  }
+
+  // Add marketplace products and vendors from API
+  try {
+    const [productsRes, vendorsRes] = await Promise.all([
+      getProducts({ limit: 100 }),
+      getVendors(),
+    ]);
+
+    if (productsRes.success && Array.isArray(productsRes.data)) {
+      for (const product of productsRes.data) {
+        urls.push({
+          loc: `${cleanBase}/marketplace/product/${product.slug}`,
+          lastmod: product.updatedAt 
+            ? new Date(product.updatedAt).toISOString().split("T")[0]
+            : new Date().toISOString().split("T")[0],
+          changefreq: "daily",
+          priority: 0.6,
+        });
+      }
+    }
+
+    if (vendorsRes.success && Array.isArray(vendorsRes.data)) {
+      for (const vendor of vendorsRes.data) {
+        urls.push({
+          loc: `${cleanBase}/marketplace/vendor/${vendor.slug}`,
+          lastmod: new Date().toISOString().split("T")[0],
+          changefreq: "weekly",
+          priority: 0.5,
+        });
+        
+        // Also add store link if it exists
+        urls.push({
+          loc: `${cleanBase}/marketplace/store/${vendor.slug}`,
+          lastmod: new Date().toISOString().split("T")[0],
+          changefreq: "weekly",
+          priority: 0.5,
+        });
+      }
+    }
+  } catch (err) {
+    console.warn("Failed to fetch marketplace data for sitemap:", err);
   }
 
   // Format as valid XML

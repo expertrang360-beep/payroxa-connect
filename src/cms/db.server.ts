@@ -63,6 +63,8 @@ export function getCmsDb(): CmsDatabaseState {
             ? parsed.redirects
             : INITIAL_CMS_DATABASE.redirects,
         searchConsole: { ...INITIAL_CMS_DATABASE.searchConsole, ...(parsed.searchConsole || {}) },
+        lastMarketplaceSync: parsed.lastMarketplaceSync || INITIAL_CMS_DATABASE.lastMarketplaceSync,
+        marketplaceProductCount: parsed.marketplaceProductCount ?? INITIAL_CMS_DATABASE.marketplaceProductCount,
       };
       return memoryDb;
     }

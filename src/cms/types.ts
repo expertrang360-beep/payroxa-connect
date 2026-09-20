@@ -470,4 +470,6 @@ export interface CmsDatabaseState {
   activities: CmsActivityLog[];
   revisions: ContentRevision[];
   wheelRewards?: WheelReward[];
+  lastMarketplaceSync?: string;
+  marketplaceProductCount?: number;
 }

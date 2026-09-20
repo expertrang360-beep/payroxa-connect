@@ -1263,4 +1263,6 @@ If an unfamiliar transaction occurs, freeze the card with one tap in your Payrox
     },
   ],
   revisions: [],
+  lastMarketplaceSync: new Date().toISOString(),
+  marketplaceProductCount: 0,
 };
