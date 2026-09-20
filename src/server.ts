@@ -54,7 +54,8 @@ export default {
 
       // Automated robots.txt handler
       if (pathname === "/robots.txt") {
-        const origin = `${url.protocol}//${url.host}`;
+        const protocol = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+        const origin = `${protocol}://${url.host}`;
         const robotsTxt = generateRobotsTxt(origin);
         return new Response(robotsTxt, {
           status: 200,
@@ -68,12 +69,13 @@ export default {
       // Automated sitemap.xml handler
       if (pathname === "/sitemap.xml") {
         const db = getCmsDb();
-        const origin = `${url.protocol}//${url.host}`;
+        const protocol = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+        const origin = `${protocol}://${url.host}`;
         const sitemapXml = generateSitemapXml(db, origin);
         return new Response(sitemapXml, {
           status: 200,
           headers: {
-            "content-type": "application/xml; charset=utf-8",
+            "content-type": "text/xml; charset=utf-8",
             "cache-control": "public, max-age=3600, s-maxage=86400",
           },
         });
