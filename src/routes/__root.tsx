@@ -124,34 +124,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof window !== 'undefined') {
-                  console.log('DEBUG: Fetch protection script running...');
-                  try {
-                    const descriptor = Object.getOwnPropertyDescriptor(window, 'fetch');
-                    console.log('DEBUG: Fetch descriptor:', descriptor);
-                    if (descriptor && !descriptor.writable && descriptor.configurable) {
-                      console.log('DEBUG: Making fetch writable...');
-                      const originalFetch = window.fetch;
-                      Object.defineProperty(window, 'fetch', {
-                        value: originalFetch,
-                        writable: true,
-                        configurable: true,
-                        enumerable: true
-                      });
-                      console.log('DEBUG: Fetch is now writable.');
-                    }
-                  } catch (e) {
-                    console.error('DEBUG: Fetch protection failed:', e);
-                  }
-                }
-              })();
-            `,
-          }}
-        />
+        <script src="/pre-init.js"></script>
         <HeadContent />
       </head>
       <body suppressHydrationWarning>

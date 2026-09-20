@@ -49,6 +49,7 @@ if (fs.existsSync(outputDir)) {
     <title>Payroxa</title>
     <meta name="description" content="Payroxa marketing platform and business operations suite for African businesses." />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="/pre-init.js"></script>
     ${cssTag}
   </head>
   <body>
