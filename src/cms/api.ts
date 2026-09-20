@@ -1,19 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { siteConfig } from "@/config/siteConfig";
-import {
-  findUserByEmail,
-  findUserById,
-  getCmsDb,
-  getCmsUsers,
-  logActivity,
-  sanitizeUser,
-  saveCmsDb,
-  updateApplicationLinks,
-  updateSiteSettings,
-  updateSocialSettings,
-} from "./db.server";
-import { createSignedToken, hashPassword, verifyPassword, verifySignedToken } from "./auth.server";
-import { auditSeoHealth } from "./seo.server";
 import type {
   AdminRole,
   ApplicationLinks,
@@ -36,6 +22,9 @@ export const loginCmsFn = createServerFn({ method: "POST" })
     if (!email || !password) {
       return { success: false, error: "Email and password are required." };
     }
+
+    const { findUserByEmail, sanitizeUser, getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
+    const { verifyPassword, createSignedToken } = await import("./auth.server");
 
     const userRecord = findUserByEmail(email);
     if (!userRecord) {
@@ -77,11 +66,13 @@ export const loginCmsFn = createServerFn({ method: "POST" })
 export const getCmsSessionFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const result = verifySignedToken(data.token);
     if (!result.valid) {
       return { authenticated: false, user: null };
     }
 
+    const { findUserById, sanitizeUser } = await import("./db.server");
     const userRecord = findUserById(result.user.id);
     if (!userRecord) {
       return { authenticated: false, user: null };
@@ -96,11 +87,13 @@ export const getCmsSessionFn = createServerFn({ method: "POST" })
 export const getDashboardOverviewFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized access to CMS Dashboard");
     }
 
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
 
     const activeProducts = db.products.filter((p) => p.published).length;
@@ -136,11 +129,13 @@ export const getDashboardOverviewFn = createServerFn({ method: "POST" })
 export const getCmsSettingsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
     }
 
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       settings: db.settings,
@@ -152,6 +147,7 @@ export const getCmsSettingsFn = createServerFn({ method: "POST" })
 export const updateGeneralSettingsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; settings: Partial<SiteSettings> }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
@@ -161,6 +157,7 @@ export const updateGeneralSettingsFn = createServerFn({ method: "POST" })
       throw new Error("Only Super Admins can modify global site settings.");
     }
 
+    const { updateSiteSettings } = await import("./db.server");
     const updated = updateSiteSettings(data.settings, auth.user);
     return { success: true, settings: updated };
   });
@@ -168,6 +165,7 @@ export const updateGeneralSettingsFn = createServerFn({ method: "POST" })
 export const updateApplicationLinksFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; links: Partial<ApplicationLinks> }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
@@ -177,6 +175,7 @@ export const updateApplicationLinksFn = createServerFn({ method: "POST" })
       throw new Error("Only Super Admins can modify Application URLs.");
     }
 
+    const { updateApplicationLinks } = await import("./db.server");
     const updated = updateApplicationLinks(data.links, auth.user);
     return { success: true, links: updated };
   });
@@ -184,11 +183,13 @@ export const updateApplicationLinksFn = createServerFn({ method: "POST" })
 export const updateSocialSettingsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; social: SocialSettings }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
     }
 
+    const { updateSocialSettings } = await import("./db.server");
     const updated = updateSocialSettings(data.social, auth.user);
     return { success: true, social: updated };
   });
@@ -196,11 +197,13 @@ export const updateSocialSettingsFn = createServerFn({ method: "POST" })
 export const getAdminUsersFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
     }
 
+    const { getCmsUsers } = await import("./db.server");
     return {
       users: getCmsUsers(),
       currentUserRole: auth.user.role,
@@ -213,6 +216,7 @@ export const createAdminUserFn = createServerFn({ method: "POST" })
       data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken, hashPassword } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid || auth.user.role !== "Super Admin") {
       throw new Error("Super Admin permissions required to create admin accounts.");
@@ -227,6 +231,7 @@ export const createAdminUserFn = createServerFn({ method: "POST" })
       return { success: false, error: "Password must be at least 8 characters long." };
     }
 
+    const { findUserByEmail, getCmsDb, saveCmsDb, sanitizeUser, logActivity } = await import("./db.server");
     const existing = findUserByEmail(cleanEmail);
     if (existing) {
       return { success: false, error: "An administrator with this email already exists." };
@@ -260,6 +265,7 @@ export const createAdminUserFn = createServerFn({ method: "POST" })
 export const deleteAdminUserFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; userId: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid || auth.user.role !== "Super Admin") {
       throw new Error("Super Admin permissions required.");
@@ -269,6 +275,7 @@ export const deleteAdminUserFn = createServerFn({ method: "POST" })
       return { success: false, error: "You cannot delete your own admin account." };
     }
 
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     const target = db.users.find((u) => u.id === data.userId);
     if (!target) {
@@ -298,11 +305,13 @@ export const deleteAdminUserFn = createServerFn({ method: "POST" })
 export const getActivityLogFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) {
       throw new Error("Unauthorized");
     }
 
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       activities: db.activities || [],
@@ -312,8 +321,10 @@ export const getActivityLogFn = createServerFn({ method: "POST" })
 export const getHeroContentFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       hero: db.hero,
@@ -323,8 +334,10 @@ export const getHeroContentFn = createServerFn({ method: "POST" })
 export const saveHeroDraftFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; draft: any }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.hero.draft = {
       ...db.hero.draft,
@@ -341,8 +354,10 @@ export const saveHeroDraftFn = createServerFn({ method: "POST" })
 export const publishHeroContentFn = createServerFn({ method: "POST" })
   .validator((data: { token: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.hero.published = {
       ...db.hero.draft,
@@ -364,8 +379,10 @@ export const publishHeroContentFn = createServerFn({ method: "POST" })
 export const getProductsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { products: db.products };
   });
@@ -373,8 +390,10 @@ export const getProductsFn = createServerFn({ method: "POST" })
 export const saveProductsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; products: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.products = data.products;
     saveCmsDb(db);
@@ -390,8 +409,10 @@ export const saveProductsFn = createServerFn({ method: "POST" })
 export const getFaqsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { faqs: db.faqs };
   });
@@ -399,8 +420,10 @@ export const getFaqsFn = createServerFn({ method: "POST" })
 export const saveFaqsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; faqs: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.faqs = data.faqs;
     saveCmsDb(db);
@@ -411,8 +434,10 @@ export const saveFaqsFn = createServerFn({ method: "POST" })
 export const getTestimonialsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { testimonials: db.testimonials };
   });
@@ -420,8 +445,10 @@ export const getTestimonialsFn = createServerFn({ method: "POST" })
 export const saveTestimonialsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; testimonials: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.testimonials = data.testimonials;
     saveCmsDb(db);
@@ -437,8 +464,10 @@ export const saveTestimonialsFn = createServerFn({ method: "POST" })
 export const getBusinessTypesFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { businessTypes: db.businessTypes };
   });
@@ -446,8 +475,10 @@ export const getBusinessTypesFn = createServerFn({ method: "POST" })
 export const saveBusinessTypesFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; businessTypes: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.businessTypes = data.businessTypes;
     saveCmsDb(db);
@@ -463,8 +494,10 @@ export const saveBusinessTypesFn = createServerFn({ method: "POST" })
 export const getNavigationFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { navigation: db.navigation };
   });
@@ -472,10 +505,12 @@ export const getNavigationFn = createServerFn({ method: "POST" })
 export const saveNavigationFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; navigation: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid || auth.user.role !== "Super Admin") {
       throw new Error("Super Admin permissions required to modify navigation.");
     }
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.navigation = data.navigation;
     saveCmsDb(db);
@@ -491,8 +526,10 @@ export const saveNavigationFn = createServerFn({ method: "POST" })
 export const getAnnouncementsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { announcements: db.announcements };
   });
@@ -500,8 +537,10 @@ export const getAnnouncementsFn = createServerFn({ method: "POST" })
 export const saveAnnouncementsFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; announcements: any[] }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.announcements = data.announcements;
     saveCmsDb(db);
@@ -517,8 +556,10 @@ export const saveAnnouncementsFn = createServerFn({ method: "POST" })
 export const getMediaFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string; category?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     let media = db.media || [];
     if (data.category && data.category !== "All") {
@@ -540,8 +581,10 @@ export const uploadMediaFn = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
 
     const newAsset = {
@@ -577,8 +620,10 @@ export const updateMediaAssetFn = createServerFn({ method: "POST" })
       data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
 
     const asset = (db.media || []).find((m) => m.id === data.id);
@@ -605,8 +650,10 @@ export const updateMediaAssetFn = createServerFn({ method: "POST" })
 export const deleteMediaAssetFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; id: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
 
     const target = (db.media || []).find((m) => m.id === data.id);
@@ -642,6 +689,7 @@ export const updateBrandVisualsFn = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
     if (auth.user.role !== "Super Admin") {
@@ -650,6 +698,7 @@ export const updateBrandVisualsFn = createServerFn({ method: "POST" })
       );
     }
 
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.settings = {
       ...db.settings,
@@ -684,8 +733,10 @@ export const updateBrandVisualsFn = createServerFn({ method: "POST" })
 export const getSeoFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { seo: db.seo };
   });
@@ -693,8 +744,10 @@ export const getSeoFn = createServerFn({ method: "POST" })
 export const saveSeoFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; pageSlug: string; seo: any }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.seo[data.pageSlug] = {
       ...db.seo[data.pageSlug],
@@ -715,8 +768,10 @@ export const saveSeoFn = createServerFn({ method: "POST" })
 export const getContentSectionsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       storeSection: db.storeSection,
@@ -745,8 +800,10 @@ export const saveContentSectionsFn = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db[data.sectionKey] = data.content;
     saveCmsDb(db);
@@ -757,8 +814,11 @@ export const saveContentSectionsFn = createServerFn({ method: "POST" })
 export const getSeoHealthReportFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
+    const { auditSeoHealth } = await import("./seo.server");
     const db = getCmsDb();
     const report = auditSeoHealth(db);
     return { report };
@@ -767,8 +827,10 @@ export const getSeoHealthReportFn = createServerFn({ method: "POST" })
 export const getRedirectsFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { redirects: db.redirects || [] };
   });
@@ -787,8 +849,10 @@ export const saveRedirectFn = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.redirects = db.redirects || [];
 
@@ -835,8 +899,10 @@ export const saveRedirectFn = createServerFn({ method: "POST" })
 export const deleteRedirectFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; id: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.redirects = (db.redirects || []).filter((r) => r.id !== data.id);
     saveCmsDb(db);
@@ -847,8 +913,10 @@ export const deleteRedirectFn = createServerFn({ method: "POST" })
 export const getSearchConsoleFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return { searchConsole: db.searchConsole || {} };
   });
@@ -856,8 +924,10 @@ export const getSearchConsoleFn = createServerFn({ method: "POST" })
 export const saveSearchConsoleFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; searchConsole: Partial<SearchConsoleSettings> }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.searchConsole = {
       ...(db.searchConsole || {}),
@@ -877,8 +947,10 @@ export const saveSearchConsoleFn = createServerFn({ method: "POST" })
 export const getBlogDataFn = createServerFn({ method: "POST" })
   .validator((data: { token?: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       posts: db.blogPosts || [],
@@ -892,8 +964,10 @@ export const saveBlogPostFn = createServerFn({ method: "POST" })
     (data: { token: string; post: Partial<BlogPost> & { title: string; content: string } }) => data,
   )
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.blogPosts = db.blogPosts || [];
 
@@ -963,8 +1037,10 @@ export const saveBlogPostFn = createServerFn({ method: "POST" })
 export const deleteBlogPostFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; id: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     const target = (db.blogPosts || []).find((p) => p.id === data.id);
     db.blogPosts = (db.blogPosts || []).filter((p) => p.id !== data.id);
@@ -982,8 +1058,10 @@ export const deleteBlogPostFn = createServerFn({ method: "POST" })
 export const saveBlogCategoryFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; category: BlogCategory }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.blogCategories = db.blogCategories || [];
     const index = db.blogCategories.findIndex((c) => c.id === data.category.id);
@@ -1005,8 +1083,10 @@ export const saveBlogCategoryFn = createServerFn({ method: "POST" })
 export const deleteBlogCategoryFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; id: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb } = await import("./db.server");
     const db = getCmsDb();
     db.blogCategories = (db.blogCategories || []).filter((c) => c.id !== data.id);
     saveCmsDb(db);
@@ -1016,8 +1096,10 @@ export const deleteBlogCategoryFn = createServerFn({ method: "POST" })
 export const saveBlogAuthorFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; author: BlogAuthor }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
     const db = getCmsDb();
     db.blogAuthors = db.blogAuthors || [];
     const index = db.blogAuthors.findIndex((a) => a.id === data.author.id);
@@ -1039,8 +1121,10 @@ export const saveBlogAuthorFn = createServerFn({ method: "POST" })
 export const deleteBlogAuthorFn = createServerFn({ method: "POST" })
   .validator((data: { token: string; id: string }) => data)
   .handler(async ({ data }) => {
+    const { verifySignedToken } = await import("./auth.server");
     const auth = verifySignedToken(data.token);
     if (!auth.valid) throw new Error("Unauthorized");
+    const { getCmsDb, saveCmsDb } = await import("./db.server");
     const db = getCmsDb();
     db.blogAuthors = (db.blogAuthors || []).filter((a) => a.id !== data.id);
     saveCmsDb(db);
@@ -1049,6 +1133,7 @@ export const deleteBlogAuthorFn = createServerFn({ method: "POST" })
 
 export const getPublicPublishedSiteDataFn = createServerFn({ method: "GET" }).handler(async () => {
   try {
+    const { getCmsDb } = await import("./db.server");
     const db = getCmsDb();
     return {
       settings: db.settings,

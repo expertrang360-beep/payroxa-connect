@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { getMarketplaceOrderFn } from "../cms/marketplace-api";
 import { CheckCircle2, XCircle, Clock, ArrowRight, Loader2, Package } from "lucide-react";
 import type { MarketplaceOrder } from "../cms/marketplace.server";
 
@@ -25,6 +24,7 @@ function CheckoutReturn() {
     
     const fetchStatus = async () => {
       try {
+        const { getMarketplaceOrderFn } = await import("../cms/marketplace-api");
         const res = await getMarketplaceOrderFn({ data: { orderId: search.orderId! } });
         if (res.success && res.order) {
           setOrder(res.order);

@@ -29,6 +29,7 @@ const companyLinks: FooterLink[] = [
   { label: "Pricing", to: "/pricing" },
   { label: "Contact Support", to: "/contact" },
   { label: "Security & Compliance", to: "/security" },
+  { label: "CMS Admin", to: "/cms-admin" },
 ];
 
 export function Footer() {

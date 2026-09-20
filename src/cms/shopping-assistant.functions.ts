@@ -46,7 +46,7 @@ const RESPONSE_SCHEMA = {
 };
 
 export const recommendProductsFn = createServerFn({ method: "POST" })
-  .inputValidator((data: AssistantInput) => data)
+  .validator((data: AssistantInput) => data)
   .handler(async ({ data }): Promise<AssistantResult> => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) {

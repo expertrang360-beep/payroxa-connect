@@ -1,4 +1,3 @@
-import { createMarketplaceOrderFn, getMarketplaceOrderFn } from "../cms/marketplace-api";
 import {
   getProducts as apiGetProducts,
   getProduct as apiGetProduct,
@@ -13,6 +12,7 @@ import {
 export const marketplaceService = {
   createOrder: async (data: any) => {
     try {
+      const { createMarketplaceOrderFn } = await import("../cms/marketplace-api");
       return await createMarketplaceOrderFn({ data });
     } catch (err: any) {
       console.error("[marketplaceService] createOrder error:", err);
@@ -22,6 +22,7 @@ export const marketplaceService = {
     
   getOrder: async (orderId: string) => {
     try {
+      const { getMarketplaceOrderFn } = await import("../cms/marketplace-api");
       return await getMarketplaceOrderFn({ data: { orderId } });
     } catch (err: any) {
       console.error("[marketplaceService] getOrder error:", err);

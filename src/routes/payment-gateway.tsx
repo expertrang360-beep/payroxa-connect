@@ -1,6 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { simulatePaymentWebhookFn } from "../cms/marketplace-api";
 import { ShieldCheck, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/payment-gateway")({
@@ -21,12 +20,18 @@ function PaymentGateway() {
   const handlePayment = async (status: 'SUCCESS' | 'FAILED' | 'CANCELLED') => {
     setLoading(true);
     setError("");
-    const res = await simulatePaymentWebhookFn({ data: { sessionId, status } });
-    if (res.success) {
-      // Redirect back to marketplace return url
-      window.location.href = `/marketplace/checkout/return?orderId=${res.orderId}&session_id=${sessionId}`;
-    } else {
-      setError(res.error || "Payment simulation failed.");
+    try {
+      const { simulatePaymentWebhookFn } = await import("../cms/marketplace-api");
+      const res = await simulatePaymentWebhookFn({ data: { sessionId, status } });
+      if (res.success) {
+        // Redirect back to marketplace return url
+        window.location.href = `/marketplace/checkout/return?orderId=${res.orderId}&session_id=${sessionId}`;
+      } else {
+        setError(res.error || "Payment simulation failed.");
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err.message || "Payment simulation failed.");
       setLoading(false);
     }
   };
