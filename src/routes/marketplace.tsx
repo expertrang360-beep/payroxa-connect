@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Filter, Grid3X3, LayoutGrid, List, Loader2, Minus, Plus, RefreshCw, RotateCw, Search, ShieldCheck, ShoppingBag, Sparkles, Trash2, Truck, X } from "lucide-react";
 import { EditorialProductCard } from "@/components/marketplace/EditorialProductCard";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import { FLASH_PROMO_SLIDES, TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.data";
 import { useCart } from "@/hooks/useCart";
-import { getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
+import { getApiBaseUrl, getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
+import { isProductList, readCatalogueCache, saveCatalogueCache } from "@/lib/catalogue-cache";
 import type { PayroxaCategory, PayroxaProduct, PayroxaStore, PayroxaVendor } from "@/services/payroxa-public-api/types";
 
 function toArray<T>(value: unknown): T[] {
@@ -76,6 +77,8 @@ function MarketplacePage() {
   }>({ featuredProducts: [], featuredVendors: [], featuredStores: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [catalogueSavedAt, setCatalogueSavedAt] = useState<number | null>(null);
+  const catalogueRequestPending = useRef(false);
 
   // 3. Gamification States
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -93,31 +96,53 @@ function MarketplacePage() {
   }, [toastMessage]);
 
   const loadData = async () => {
+    if (catalogueRequestPending.current) return;
+    catalogueRequestPending.current = true;
     setLoading(true);
-    setError(null);
     try {
-      const [productsRes, categoriesRes, featuredRes, vendorsRes] = await Promise.all([
+      const [productsResult, categoriesResult, featuredResult, vendorsResult] = await Promise.allSettled([
         getProducts({}),
         getCategories(),
         getFeatured(),
         getVendors(),
       ]);
-      setAllProducts(toArray((productsRes as any)?.products ?? productsRes));
-      setCategories(toArray((categoriesRes as any)?.categories ?? categoriesRes));
-      setStores(toArray((vendorsRes as any)?.vendors ?? vendorsRes));
-      setFeatured({
-        featuredProducts: toArray((featuredRes as any)?.featuredProducts),
-        featuredVendors: toArray((featuredRes as any)?.featuredVendors),
-        featuredStores: toArray((featuredRes as any)?.featuredStores),
-      });
+      if (categoriesResult.status === "fulfilled" && categoriesResult.value.success) {
+        setCategories(toArray(categoriesResult.value.data));
+      }
+      if (vendorsResult.status === "fulfilled" && vendorsResult.value.success) {
+        setStores(toArray(vendorsResult.value.data));
+      }
+      if (featuredResult.status === "fulfilled" && featuredResult.value.success) {
+        const data = featuredResult.value.data;
+        setFeatured({
+          featuredProducts: toArray(data?.featuredProducts),
+          featuredVendors: toArray(data?.featuredVendors),
+          featuredStores: toArray(data?.featuredStores),
+        });
+      }
+      if (productsResult.status !== "fulfilled" || !productsResult.value.success || !isProductList(productsResult.value.data)) {
+        throw new Error("The product service is temporarily unavailable.");
+      }
+      const products = productsResult.value.data;
+      const savedAt = Date.now();
+      setAllProducts(products);
+      setCatalogueSavedAt(savedAt);
+      saveCatalogueCache(getApiBaseUrl(), products, savedAt);
+      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "We couldn't load the marketplace right now.");
+      setError("We can't refresh the catalogue right now. Please try again shortly.");
     } finally {
       setLoading(false);
+      catalogueRequestPending.current = false;
     }
   };
 
   useEffect(() => {
+    const cached = readCatalogueCache(getApiBaseUrl());
+    if (cached) {
+      setAllProducts(cached.products);
+      setCatalogueSavedAt(cached.savedAt);
+    }
     loadData();
   }, []);
 

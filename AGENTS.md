@@ -10,3 +10,5 @@
 > the editor, so keep the branch in a working state.
 
 <!-- LOVABLE:END -->
+
+- Keep catalogue outage snapshots in source-scoped, validated, 24-hour session storage; this temporary public browsing cache must never stand in for live price or stock validation.
