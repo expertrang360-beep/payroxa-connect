@@ -872,6 +872,78 @@
       "changefreq": "daily",
       "updatedAt": "2026-09-11T20:05:52.444Z",
       "updatedBy": "System"
+    },
+    "marketplace": {
+      "pageSlug": "/marketplace",
+      "pageTitle": "Marketplace",
+      "metaTitle": "Payroxa Marketplace — Buy From Verified African Businesses",
+      "metaDescription": "Shop verified vendors on the Payroxa Marketplace, with secure checkout, wallet payments and reliable delivery across Nigeria.",
+      "keywords": "online marketplace Nigeria, buy from verified vendors, Payroxa marketplace",
+      "canonicalUrl": "https://payroxa.com.ng/marketplace",
+      "ogTitle": "Payroxa Marketplace — Buy From Verified African Businesses",
+      "ogDescription": "Shop verified vendors on the Payroxa Marketplace, with secure checkout, wallet payments and reliable delivery across Nigeria.",
+      "ogImageUrl": "/hero-payroxa.jpg",
+      "twitterCard": "summary_large_image",
+      "robotsDirective": "index, follow",
+      "schemaType": "WebSite",
+      "priority": 0.9,
+      "changefreq": "daily",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedBy": "System"
+    },
+    "security": {
+      "pageSlug": "/security",
+      "pageTitle": "Security & Compliance",
+      "metaTitle": "Payroxa Security & Compliance — How We Protect Your Money",
+      "metaDescription": "Encryption, fraud monitoring, licensed partner banks and compliance controls that keep Payroxa balances and business data safe.",
+      "keywords": "fintech security Nigeria, PCI DSS, payment compliance Africa",
+      "canonicalUrl": "https://payroxa.com.ng/security",
+      "ogTitle": "Payroxa Security & Compliance — How We Protect Your Money",
+      "ogDescription": "Encryption, fraud monitoring, licensed partner banks and compliance controls that keep Payroxa balances and business data safe.",
+      "ogImageUrl": "/hero-payroxa.jpg",
+      "twitterCard": "summary_large_image",
+      "robotsDirective": "index, follow",
+      "schemaType": "Organization",
+      "priority": 0.7,
+      "changefreq": "monthly",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedBy": "System"
+    },
+    "privacy": {
+      "pageSlug": "/privacy",
+      "pageTitle": "Privacy Policy",
+      "metaTitle": "Payroxa Privacy Policy — How We Handle Your Data",
+      "metaDescription": "Read how Payroxa collects, stores, protects and shares personal and business information across its payment and commerce services.",
+      "keywords": "Payroxa privacy policy, data protection NDPR",
+      "canonicalUrl": "https://payroxa.com.ng/privacy",
+      "ogTitle": "Payroxa Privacy Policy — How We Handle Your Data",
+      "ogDescription": "Read how Payroxa collects, stores, protects and shares personal and business information across its payment and commerce services.",
+      "ogImageUrl": "/hero-payroxa.jpg",
+      "twitterCard": "summary_large_image",
+      "robotsDirective": "index, follow",
+      "schemaType": "WebSite",
+      "priority": 0.4,
+      "changefreq": "yearly",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedBy": "System"
+    },
+    "terms": {
+      "pageSlug": "/terms",
+      "pageTitle": "Terms of Service",
+      "metaTitle": "Payroxa Terms of Service — Your Agreement With Payroxa",
+      "metaDescription": "The terms that govern the use of Payroxa wallets, payments, cards, storefronts and marketplace services.",
+      "keywords": "Payroxa terms of service, fintech terms Nigeria",
+      "canonicalUrl": "https://payroxa.com.ng/terms",
+      "ogTitle": "Payroxa Terms of Service — Your Agreement With Payroxa",
+      "ogDescription": "The terms that govern the use of Payroxa wallets, payments, cards, storefronts and marketplace services.",
+      "ogImageUrl": "/hero-payroxa.jpg",
+      "twitterCard": "summary_large_image",
+      "robotsDirective": "index, follow",
+      "schemaType": "WebSite",
+      "priority": 0.4,
+      "changefreq": "yearly",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedBy": "System"
     }
   },
   "blogCategories": [
@@ -934,7 +1006,12 @@
       "authorRole": "Fintech & Commerce Specialists",
       "categoryId": "cat-1",
       "categoryName": "Payments & Invoicing",
-      "tags": ["online payments", "Nigeria", "payment links", "fintech"],
+      "tags": [
+        "online payments",
+        "Nigeria",
+        "payment links",
+        "fintech"
+      ],
       "readTimeMinutes": 5,
       "seoTitle": "How to Accept Payments From Customers in Nigeria | Payroxa",
       "metaDescription": "Learn how Nigerian businesses collect payments easily with payment links, virtual accounts, and POS tools without reconciliation headaches.",
@@ -959,7 +1036,11 @@
       "authorRole": "Head of Merchant Growth",
       "categoryId": "cat-1",
       "categoryName": "Payments & Invoicing",
-      "tags": ["payment links", "social commerce", "WhatsApp sales"],
+      "tags": [
+        "payment links",
+        "social commerce",
+        "WhatsApp sales"
+      ],
       "readTimeMinutes": 4,
       "seoTitle": "What Is a Payment Link and How Does It Work? | Payroxa",
       "metaDescription": "Everything you need to know about payment links: how they work, why they protect against transfer fraud, and how to create one in seconds.",
@@ -984,7 +1065,12 @@
       "authorRole": "Head of Merchant Growth",
       "categoryId": "cat-2",
       "categoryName": "E-commerce & Store",
-      "tags": ["online store", "ecommerce", "retail", "sell online"],
+      "tags": [
+        "online store",
+        "ecommerce",
+        "retail",
+        "sell online"
+      ],
       "readTimeMinutes": 6,
       "seoTitle": "How to Create an Online Store for Your Business | Payroxa",
       "metaDescription": "Step-by-step guide on launching your online store with Payroxa Store. Sell physical products, collect payments, and manage shipping easily.",
@@ -1009,7 +1095,11 @@
       "authorRole": "Fintech & Commerce Specialists",
       "categoryId": "cat-3",
       "categoryName": "Financial Tools & Cards",
-      "tags": ["virtual cards", "dollar card", "corporate expenses"],
+      "tags": [
+        "virtual cards",
+        "dollar card",
+        "corporate expenses"
+      ],
       "readTimeMinutes": 5,
       "seoTitle": "Virtual Cards for Nigerian Businesses & International Spend | Payroxa",
       "metaDescription": "Solve international subscription and advertisement payment declines with Payroxa instant virtual cards with custom spending limits.",
@@ -1063,6 +1153,40 @@
     "lastVerifiedAt": "2026-09-11T20:05:52.444Z",
     "notes": "Google Search Console verified. Auto-sitemap ping configured for published content."
   },
+  "wheelRewards": [
+    {
+      "id": "rw-1",
+      "prize": "15% OFF Escrow Checkout",
+      "coupon": "SOVEREIGN15",
+      "discountPercent": 15,
+      "probability": 25,
+      "enabled": true
+    },
+    {
+      "id": "rw-2",
+      "prize": "FREE Express Air DHL Cargo",
+      "coupon": "SHIPDHL",
+      "discountPercent": 5,
+      "probability": 25,
+      "enabled": true
+    },
+    {
+      "id": "rw-3",
+      "prize": "Zero Safe-Vault Escrow Fees",
+      "coupon": "NOFEE",
+      "discountPercent": 10,
+      "probability": 25,
+      "enabled": true
+    },
+    {
+      "id": "rw-4",
+      "prize": "NGN 25,000 / $50 Safe Wallet Credit",
+      "coupon": "VAULT50",
+      "discountPercent": 20,
+      "probability": 25,
+      "enabled": true
+    }
+  ],
   "activities": [
     {
       "id": "act-init",
@@ -1074,5 +1198,7 @@
       "resourceType": "system"
     }
   ],
-  "revisions": []
+  "revisions": [],
+  "lastMarketplaceSync": "2026-10-08T17:37:55.004Z",
+  "marketplaceProductCount": 12
 }
