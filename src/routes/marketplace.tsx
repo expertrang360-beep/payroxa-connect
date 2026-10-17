@@ -7,6 +7,7 @@ import { FLASH_PROMO_SLIDES, TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.d
 import { useCart } from "@/hooks/useCart";
 import { getApiBaseUrl, getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
 import { isProductList, readCatalogueCache, saveCatalogueCache } from "@/lib/catalogue-cache";
+import { WEBSITE_URL } from "@/config/siteConfig";
 import type { PayroxaCategory, PayroxaProduct, PayroxaStore, PayroxaVendor } from "@/services/payroxa-public-api/types";
 
 function toArray<T>(value: unknown): T[] {
@@ -21,9 +22,10 @@ export const Route = createFileRoute("/marketplace")({
       { property: "og:title", content: "Payroxa Marketplace | Shop Verified African Stores" },
       { property: "og:description", content: "Curated products, verified stores and protected checkout in one modern African marketplace." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${WEBSITE_URL}/marketplace` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://payroxa.com.ng/marketplace" }],
+    links: [{ rel: "canonical", href: `${WEBSITE_URL}/marketplace` }],
   }),
   component: MarketplacePage,
 });
