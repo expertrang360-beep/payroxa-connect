@@ -31,8 +31,10 @@ import { PayroxaProduct } from "@/services/payroxa-public-api/types";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import { updateSEO } from "@/utils/seo";
 import { useCart } from "@/hooks/useCart";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/product/$slug")({
+  head: ({ params }) => pageHead(`${params.slug.replace(/-/g, " ")} | Payroxa Marketplace`, "Explore product details, merchant information and availability on Payroxa Marketplace.", `/marketplace/product/${encodeURIComponent(params.slug)}`, "product"),
   component: ProductDetailPage,
 });
 
@@ -103,7 +105,7 @@ function ProductDetailPage() {
 
           // Load recommendations from same category
           const recRes = await getProducts({ limit: 4 });
-          if (recRes.success && recRes.data) {
+          if (recRes.success && Array.isArray(recRes.data)) {
             // Filter out current product
             setRecommendedProducts(recRes.data.filter((p) => p.slug !== slug));
           }

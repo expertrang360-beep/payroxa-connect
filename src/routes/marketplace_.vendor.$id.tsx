@@ -11,8 +11,10 @@ import {
 import { getVendor } from "@/services/payroxa-public-api/client";
 import { PayroxaVendor } from "@/services/payroxa-public-api/types";
 import { APP_URL } from "@/config/siteConfig";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/vendor/$id")({
+  head: ({ params }) => pageHead(`Merchant ${params.id} | Payroxa Marketplace`, "Discover merchant information and products on Payroxa Marketplace.", `/marketplace/vendor/${encodeURIComponent(params.id)}`),
   component: VendorDetailPage,
 });
 

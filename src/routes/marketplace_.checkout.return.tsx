@@ -2,8 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CheckCircle2, XCircle, Clock, ArrowRight, Loader2, Package } from "lucide-react";
 import type { MarketplaceOrder } from "../cms/marketplace.server";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/checkout/return")({
+  head: () => {
+    const head = pageHead("Order Status | Payroxa Marketplace", "Check the status of your Payroxa Marketplace order.", "/marketplace/checkout/return");
+    return { ...head, meta: [...head.meta, { name: "robots", content: "noindex, nofollow" }] };
+  },
   component: CheckoutReturn,
 });
 

@@ -12,8 +12,10 @@ import {
 import { getStore } from "@/services/payroxa-public-api/client";
 import { PayroxaStore } from "@/services/payroxa-public-api/types";
 import { APP_URL } from "@/config/siteConfig";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/store/$slug")({
+  head: ({ params }) => pageHead(`${params.slug.replace(/-/g, " ")} | Payroxa Storefront`, "Browse this merchant's storefront and products on Payroxa Marketplace.", `/marketplace/store/${encodeURIComponent(params.slug)}`),
   component: StoreDetailPage,
 });
 
