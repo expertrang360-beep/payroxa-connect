@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useCmsAuth } from "@/cms/context/CmsAuthContext";
 import { WEBSITE_URL } from "@/config/siteConfig";
+import { SOCIAL_BANNER_URL, resolveSocialBanner } from "@/config/seo";
 import {
   getSeoFn,
   saveSeoFn,
@@ -130,7 +131,7 @@ function CmsSeoPage() {
     canonicalUrl: `${WEBSITE_URL}${PAGE_KEYS.find((p) => p.key === currentSlug)?.path || ""}`,
     ogTitle: "Payroxa — Financial Platform for African Businesses",
     ogDescription: "Accept payments, issue cards, and run your business with Payroxa.",
-    ogImageUrl: "/hero-payroxa.jpg",
+    ogImageUrl: SOCIAL_BANNER_URL,
     twitterCard: "summary_large_image",
     robotsDirective: "index, follow",
     schemaType: "SoftwareApplication",
@@ -851,7 +852,7 @@ function CmsSeoPage() {
 
               <CmsImagePicker
                 label="Social Share Image (og:image) - Recommended 1200x630px"
-                value={currentData.ogImageUrl || "/hero-payroxa.jpg"}
+                value={resolveSocialBanner(currentData.ogImageUrl)}
                 onChange={(val) => handlePageFieldChange("ogImageUrl", val)}
                 categoryFilter="heroes"
               />
@@ -859,7 +860,7 @@ function CmsSeoPage() {
               {/* Social Card Preview */}
               <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 max-w-lg">
                 <img
-                  src={currentData.ogImageUrl || "/hero-payroxa.jpg"}
+                  src={resolveSocialBanner(currentData.ogImageUrl)}
                   alt="OG Preview"
                   className="h-44 w-full object-cover bg-slate-100"
                 />

@@ -6,6 +6,7 @@ import type {
   HeroContent,
 } from "./types";
 import { siteConfig } from "@/config/siteConfig";
+import { SOCIAL_BANNER_URL } from "@/config/seo";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   name: siteConfig.name,
@@ -26,9 +27,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   logoUrl: "",
   logoDarkUrl: "",
   logoHeightPx: 36,
-  faviconUrl: "/favicon.ico",
-  appIconUrl: "/favicon.ico",
-  defaultOgImageUrl: "/src/assets/hero-payroxa.jpg",
+  faviconUrl: "/favicon.png",
+  appIconUrl: "/favicon.png",
+  defaultOgImageUrl: SOCIAL_BANNER_URL,
   updatedAt: new Date().toISOString(),
   updatedBy: "System",
 };
