@@ -1,0 +1,3 @@
+- [ ] Correct the shared site-origin error and verify public pages.
+- [ ] Update Payroxa's social-sharing banner and favicon.
+- [ ] Verify page metadata and image delivery.
