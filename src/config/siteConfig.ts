@@ -17,14 +17,11 @@ const read = (key: string, fallback: string): string => {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : fallback;
 };
 
-const getOrigin = () => {
-  if (typeof window !== "undefined") return window.location.origin;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return "https://payroxa.com.ng";
-};
-
 /** Public marketing website origin. */
-export const WEBSITE_URL = read("VITE_PAYROXA_WEBSITE_URL", getOrigin());
+export const WEBSITE_URL = read(
+  "VITE_PAYROXA_WEBSITE_URL",
+  "https://payroxa-groundswell.lovable.app",
+).replace(/\/$/, "");
 
 /** Authenticated product application origin. */
 export const APP_URL = read("VITE_PAYROXA_APP_URL", "https://app.payroxa.com.ng");

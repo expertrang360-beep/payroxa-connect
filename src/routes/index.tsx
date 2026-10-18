@@ -28,6 +28,7 @@ import ProductCard from "@/components/ProductCard";
 import Section, { SectionHeading } from "@/components/Section";
 import { PAYROXA_LINKS } from "@/config/links";
 import { siteConfig } from "@/config/siteConfig";
+import { SOCIAL_BANNER_URL } from "@/config/seo";
 import { usePublicCms } from "@/cms/context/PublicCmsContext";
 
 const iconMap: Record<string, any> = {
@@ -58,7 +59,14 @@ export const Route = createFileRoute("/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: SOCIAL_BANNER_URL },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Payroxa — More than payments. Payments, wallet, cards and store." },
       { property: "og:url", content: siteConfig.websiteUrl },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: SOCIAL_BANNER_URL },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],

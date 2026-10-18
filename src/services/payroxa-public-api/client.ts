@@ -407,6 +407,13 @@ export async function fetchFromPayroxaApi<T>(
     const data = await res.json();
     return data;
   } catch (err) {
+    if (endpoint === "/products") {
+      return {
+        success: false,
+        data: [] as unknown as T,
+        error: { code: "SERVICE_UNAVAILABLE", message: "The product service is temporarily unavailable." },
+      };
+    }
     // If live API is unreachable, fall back to robust mock data for sandbox resilience
     console.warn(
       `[Payroxa API Connector] Live API unreachable at ${url.toString()}. Using authoritative sandbox fallback data.`,
