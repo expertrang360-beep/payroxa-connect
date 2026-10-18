@@ -104,10 +104,7 @@ ${catalogue}`;
         const body = await res.text().catch(() => "");
         console.error(`AI gateway request failed [${res.status}]: ${body}`);
         if (res.status === 429) {
-          return {
-            success: false,
-            error: "The assistant is busy right now. Please try again shortly.",
-          };
+          return { success: false, error: "The assistant is busy right now. Please try again shortly." };
         }
         if (res.status === 402 || res.status === 403) {
           return { success: false, error: "The assistant is unavailable right now." };
@@ -144,10 +141,7 @@ ${catalogue}`;
       }
 
       if (!text.trim()) {
-        return {
-          success: false,
-          error: "The assistant didn't return any suggestions. Try rephrasing.",
-        };
+        return { success: false, error: "The assistant didn't return any suggestions. Try rephrasing." };
       }
 
       const parsed = JSON.parse(text) as { summary?: string; picks?: AssistantPick[] };

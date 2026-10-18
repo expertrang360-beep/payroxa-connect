@@ -1,8 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ShieldCheck, Loader2 } from "lucide-react";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/payment-gateway")({
+  head: () => {
+    const head = pageHead("Checkout Test Environment | Payroxa", "Payroxa checkout test environment.", "/payment-gateway");
+    return { ...head, meta: [...head.meta, { name: "robots", content: "noindex, nofollow" }] };
+  },
   component: PaymentGateway,
 });
 
@@ -17,7 +22,7 @@ function PaymentGateway() {
     return <div className="p-8 text-center text-red-500">Invalid Payment Session</div>;
   }
 
-  const handlePayment = async (status: "SUCCESS" | "FAILED" | "CANCELLED") => {
+  const handlePayment = async (status: 'SUCCESS' | 'FAILED' | 'CANCELLED') => {
     setLoading(true);
     setError("");
     try {
@@ -46,36 +51,33 @@ function PaymentGateway() {
         </div>
         <div className="p-6 space-y-4">
           <p className="text-sm text-center text-gray-500 mb-6">
-            This is the Payroxa Payment Provider simulator. In a real environment, you would enter
-            card details here.
+            This is the Payroxa Payment Provider simulator. In a real environment, you would enter card details here.
           </p>
-
+          
           {error && (
-            <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm mb-4">{error}</div>
+            <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm mb-4">
+              {error}
+            </div>
           )}
 
           <button
-            onClick={() => handlePayment("SUCCESS")}
+            onClick={() => handlePayment('SUCCESS')}
             disabled={loading}
             className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl disabled:opacity-50 transition-colors"
           >
-            {loading ? (
-              <Loader2 className="animate-spin mx-auto size-5" />
-            ) : (
-              "Simulate Successful Payment"
-            )}
+            {loading ? <Loader2 className="animate-spin mx-auto size-5" /> : "Simulate Successful Payment"}
           </button>
-
+          
           <button
-            onClick={() => handlePayment("FAILED")}
+            onClick={() => handlePayment('FAILED')}
             disabled={loading}
             className="w-full bg-red-100 hover:bg-red-200 text-red-700 font-bold py-3 rounded-xl disabled:opacity-50 transition-colors"
           >
             Simulate Failed Payment
           </button>
-
+          
           <button
-            onClick={() => handlePayment("CANCELLED")}
+            onClick={() => handlePayment('CANCELLED')}
             disabled={loading}
             className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl disabled:opacity-50 transition-colors"
           >

@@ -31,9 +31,10 @@ import { PayroxaProduct } from "@/services/payroxa-public-api/types";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import { updateSEO } from "@/utils/seo";
 import { useCart } from "@/hooks/useCart";
-import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/MarketplaceSeo";
+import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/product/$slug")({
+  head: ({ params }) => pageHead(`${params.slug.replace(/-/g, " ")} | Payroxa Marketplace`, "Explore product details, merchant information and availability on Payroxa Marketplace.", `/marketplace/product/${encodeURIComponent(params.slug)}`, "product"),
   component: ProductDetailPage,
 });
 
@@ -104,7 +105,7 @@ function ProductDetailPage() {
 
           // Load recommendations from same category
           const recRes = await getProducts({ limit: 4 });
-          if (recRes.success && recRes.data) {
+          if (recRes.success && Array.isArray(recRes.data)) {
             // Filter out current product
             setRecommendedProducts(recRes.data.filter((p) => p.slug !== slug));
           }
@@ -199,7 +200,7 @@ function ProductDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F5F5F7] py-24 px-5 text-center">
+      <div className="min-h-screen bg-market-paper py-24 px-5 text-center">
         <div className="mx-auto size-12 rounded-full border-2 border-primary border-t-transparent animate-spin mb-4" />
         <p className="text-sm font-semibold text-muted-foreground">
           Establishing secure ledger sync for {slug}...
@@ -210,8 +211,8 @@ function ProductDetailPage() {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-[#F5F5F7] py-24 px-5 text-center">
-        <div className="mx-auto max-w-md rounded-3xl border border-border bg-white p-8 shadow-soft">
+      <div className="min-h-screen bg-market-paper py-24 px-5 text-center">
+        <div className="mx-auto max-w-md rounded-sm border border-border bg-card p-8 shadow-soft">
           <ShieldAlert className="mx-auto size-12 text-red-500 mb-3" />
           <h2 className="text-lg font-black text-foreground">Merchant Drop Offline</h2>
           <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
@@ -220,7 +221,7 @@ function ProductDetailPage() {
           </p>
           <button
             onClick={() => navigate({ to: "/marketplace" })}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary/90 px-6 py-3 text-xs font-black text-white shadow-soft transition-all"
+            className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary hover:bg-primary/90 px-6 py-3 text-xs font-black text-white shadow-soft transition-all"
           >
             <ArrowLeft className="size-4" /> Return to Catalog
           </button>
@@ -230,27 +231,7 @@ function ProductDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-foreground font-sans">
-      {product && (
-        <>
-          <ProductJsonLd
-            name={product.name}
-            description={product.description || ""}
-            image={product.images.map((img) => img.url)}
-            price={product.price}
-            currency={product.currency}
-            sku={product.id}
-            url={typeof window !== "undefined" ? window.location.href : ""}
-          />
-          <BreadcrumbJsonLd
-            items={[
-              { name: "Marketplace", item: "/marketplace" },
-              { name: product.category?.name || "Products", item: "/marketplace" },
-              { name: product.name, item: `/marketplace/product/${slug}` },
-            ]}
-          />
-        </>
-      )}
+    <div className="min-h-screen bg-market-paper text-foreground font-sans">
       {/* 1. High-Density Urgency Subheader banner */}
       <div className="bg-primary py-2.5 px-4 text-white text-xs font-bold border-b border-primary/90 tracking-wide select-none">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -265,7 +246,7 @@ function ProductDetailPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-[11px] text-white/95">Limited Quota Stock Claimed:</span>
-            <div className="w-24 h-2 bg-white/20 rounded-full overflow-hidden shrink-0">
+            <div className="w-24 h-2 bg-card/20 rounded-full overflow-hidden shrink-0">
               <div
                 className="h-full bg-yellow-400"
                 style={{ width: `${discountStats.claimPercentage}%` }}
@@ -279,7 +260,7 @@ function ProductDetailPage() {
       </div>
 
       {/* 2. Breadcrumbs & Verified Badge Navigation bar */}
-      <div className="border-b border-border/40 bg-white py-3">
+      <div className="border-b border-border/40 bg-card py-3">
         <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
           <Link
             to="/marketplace"
@@ -299,7 +280,7 @@ function ProductDetailPage() {
           {/* Left Column: Image Gallery, Visual Zoom, Social proof, Trust */}
           <div className="lg:col-span-7 space-y-6">
             {/* Visual Screen Cover Card with custom banners */}
-            <div className="aspect-square w-full overflow-hidden rounded-3xl border border-border/50 bg-white shadow-soft relative group">
+            <div className="aspect-square w-full overflow-hidden rounded-sm border border-border/50 bg-card shadow-soft relative group">
               <img
                 src={product.images[activeImageIndex]?.url || product.images[0]?.url}
                 alt={product.images[activeImageIndex]?.alt || product.name}
@@ -311,7 +292,7 @@ function ProductDetailPage() {
               </div>
 
               {/* Scarcity social watermark */}
-              <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md text-white rounded-xl p-3 max-w-[280px] shadow-medium flex items-center gap-3">
+              <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md text-white rounded-sm p-3 max-w-[280px] shadow-medium flex items-center gap-3">
                 <Flame className="size-8 text-primary fill-primary shrink-0 animate-pulse" />
                 <div>
                   <p className="text-[10px] font-extrabold uppercase tracking-wide text-primary/80">
@@ -331,7 +312,7 @@ function ProductDetailPage() {
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`size-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 transition-all bg-white relative ${
+                    className={`size-20 flex-shrink-0 overflow-hidden rounded-sm border-2 transition-all bg-card relative ${
                       activeImageIndex === idx
                         ? "border-primary ring-4 ring-primary/10 scale-102 shadow-soft"
                         : "border-border opacity-70 hover:opacity-100"
@@ -344,7 +325,7 @@ function ProductDetailPage() {
             )}
 
             {/* Simulated Live Customer Proof Activity Feed */}
-            <div className="bg-white border border-border/50 rounded-2xl p-4 flex items-center justify-between text-xs">
+            <div className="bg-card border border-border/50 rounded-sm p-4 flex items-center justify-between text-xs">
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
                   <div className="size-7 rounded-full bg-primary/20 border-2 border-white text-[10px] font-bold flex items-center justify-center">
@@ -368,7 +349,7 @@ function ProductDetailPage() {
             </div>
 
             {/* Reviews list - Temu style customer feedback stats */}
-            <div className="bg-white border border-border/50 rounded-3xl p-6 space-y-6">
+            <div className="bg-card border border-border/50 rounded-sm p-6 space-y-6">
               <div className="flex items-center justify-between gap-4 pb-4 border-b border-border/50">
                 <div>
                   <h3 className="text-sm font-black text-foreground uppercase tracking-wider">
@@ -398,7 +379,7 @@ function ProductDetailPage() {
                 {reviews.map((rev) => (
                   <div
                     key={rev.id}
-                    className="p-4 rounded-2xl border border-border/40 bg-[#FDFDFE] space-y-2.5"
+                    className="p-4 rounded-sm border border-border/40 bg-[#FDFDFE] space-y-2.5"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -421,7 +402,7 @@ function ProductDetailPage() {
                     <p className="text-xs text-muted-foreground leading-relaxed">{rev.comment}</p>
 
                     {rev.reply && (
-                      <div className="bg-muted/40 rounded-xl p-3 text-[11px] text-muted-foreground font-semibold border-l-2 border-primary">
+                      <div className="bg-muted/40 rounded-sm p-3 text-[11px] text-muted-foreground font-semibold border-l-2 border-primary">
                         {rev.reply}
                       </div>
                     )}
@@ -452,10 +433,10 @@ function ProductDetailPage() {
           {/* Right Column: High-conversion Variant Selection and Purchase Callout */}
           <div className="lg:col-span-5 space-y-5">
             {/* Purchase Control Container */}
-            <div className="rounded-3xl border border-border bg-white p-6 sm:p-8 space-y-6 shadow-soft">
+            <div className="rounded-sm border border-border bg-card p-6 sm:p-8 space-y-6 shadow-soft">
               {/* Price Urgency Banner block (Temu core design) */}
-              <div className="bg-gradient-to-r from-primary via-primary to-red-600 rounded-2xl p-4 text-white relative overflow-hidden shadow-soft">
-                <div className="absolute top-0 right-0 -translate-y-4 translate-x-4 w-20 h-20 bg-white/10 rounded-full blur-xl" />
+              <div className="bg-gradient-to-r from-primary via-primary to-red-600 rounded-sm p-4 text-white relative overflow-hidden shadow-soft">
+                <div className="absolute top-0 right-0 -translate-y-4 translate-x-4 w-20 h-20 bg-card/10 rounded-full blur-xl" />
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-[10px] bg-yellow-400 text-black px-2 py-0.5 rounded-md font-black uppercase tracking-wider">
                     ⚡ lightning deal drop
@@ -506,7 +487,7 @@ function ProductDetailPage() {
                 </div>
                 <Link
                   to="/marketplace"
-                  className="rounded-xl border border-border hover:border-primary/30 text-[10px] font-black uppercase tracking-wider px-4 py-2 transition-colors text-muted-foreground hover:text-primary"
+                  className="rounded-sm border border-border hover:border-primary/30 text-[10px] font-black uppercase tracking-wider px-4 py-2 transition-colors text-muted-foreground hover:text-primary"
                 >
                   Visit Showroom
                 </Link>
@@ -520,26 +501,19 @@ function ProductDetailPage() {
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   {product.description || "Premium verified cargo direct from sovereign craftsmen."}
                 </p>
-
+                
                 {/* Available details from API */}
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <span className="text-[11px] font-bold text-muted-foreground bg-muted/40 px-2 py-1 rounded">
                     Category: <span className="text-foreground">{product.category?.name}</span>
                   </span>
-                  <span
-                    className={`text-[11px] font-bold px-2 py-1 rounded ${
-                      product.availability === "in_stock"
-                        ? "bg-emerald-500/10 text-emerald-600"
-                        : product.availability === "pre_order"
-                          ? "bg-blue-500/10 text-blue-600"
-                          : "bg-red-500/10 text-red-600"
-                    }`}
-                  >
-                    {product.availability === "in_stock"
-                      ? "In Stock"
-                      : product.availability === "pre_order"
-                        ? "Pre-Order"
-                        : "Out of Stock"}
+                  <span className={`text-[11px] font-bold px-2 py-1 rounded ${
+                    product.availability === 'in_stock' ? 'bg-emerald-500/10 text-emerald-600' :
+                    product.availability === 'pre_order' ? 'bg-blue-500/10 text-blue-600' :
+                    'bg-red-500/10 text-red-600'
+                  }`}>
+                    {product.availability === 'in_stock' ? 'In Stock' :
+                     product.availability === 'pre_order' ? 'Pre-Order' : 'Out of Stock'}
                   </span>
                   {product.isFeatured && (
                     <span className="text-[11px] font-bold text-amber-600 bg-amber-500/10 px-2 py-1 rounded flex items-center gap-1">
@@ -552,11 +526,11 @@ function ProductDetailPage() {
               {/* Quantity Select tool */}
               <div className="space-y-2.5 pt-4 border-t border-border/30 mt-4">
                 <span className="text-xs font-bold text-foreground">Specify Quantity:</span>
-                <div className="flex items-center rounded-xl border border-border bg-muted/40 w-max p-1 gap-1">
+                <div className="flex items-center rounded-sm border border-border bg-muted/40 w-max p-1 gap-1">
                   <button
                     type="button"
                     onClick={() => setSelectedQuantity((q) => Math.max(1, q - 1))}
-                    className="size-8 rounded-lg text-xs font-black text-muted-foreground hover:text-foreground hover:bg-white transition-all flex items-center justify-center"
+                    className="size-8 rounded-lg text-xs font-black text-muted-foreground hover:text-foreground hover:bg-card transition-all flex items-center justify-center"
                   >
                     -
                   </button>
@@ -566,7 +540,7 @@ function ProductDetailPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedQuantity((q) => Math.min(10, q + 1))}
-                    className="size-8 rounded-lg text-xs font-black text-muted-foreground hover:text-foreground hover:bg-white transition-all flex items-center justify-center"
+                    className="size-8 rounded-lg text-xs font-black text-muted-foreground hover:text-foreground hover:bg-card transition-all flex items-center justify-center"
                   >
                     +
                   </button>
@@ -574,7 +548,7 @@ function ProductDetailPage() {
               </div>
 
               {/* Estimated DHL Express Delivery Map Box */}
-              <div className="rounded-2xl border border-border/60 bg-[#FDFDFE] p-4 space-y-3 shadow-soft mt-4">
+              <div className="rounded-sm border border-border/60 bg-[#FDFDFE] p-4 space-y-3 shadow-soft mt-4">
                 <div className="flex items-start gap-3">
                   <Truck className="size-5 text-primary shrink-0 mt-0.5" />
                   <div className="space-y-0.5">
@@ -604,9 +578,10 @@ function ProductDetailPage() {
                   href={product.appUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full rounded-2xl bg-primary hover:bg-primary/90 text-white py-4 text-center text-xs font-black transition-all flex items-center justify-center gap-2 shadow-medium uppercase tracking-wider"
+                  className="w-full rounded-sm bg-primary hover:bg-primary/90 text-white py-4 text-center text-xs font-black transition-all flex items-center justify-center gap-2 shadow-medium uppercase tracking-wider"
                 >
-                  <ShoppingBag className="size-4" /> Buy Now <ExternalLink className="size-4" />
+                  <ShoppingBag className="size-4" /> Buy Now{" "}
+                  <ExternalLink className="size-4" />
                 </a>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -630,7 +605,7 @@ function ProductDetailPage() {
                       setIsAddedToCart(true);
                       setTimeout(() => setIsAddedToCart(false), 3000);
                     }}
-                    className={`rounded-2xl border py-3.5 text-xs font-black transition-all text-center ${
+                    className={`rounded-sm border py-3.5 text-xs font-black transition-all text-center ${
                       isAddedToCart
                         ? "bg-emerald-500 border-emerald-500 text-white"
                         : "border-border bg-[#FDFDFE] text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -642,7 +617,7 @@ function ProductDetailPage() {
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="rounded-2xl border border-border bg-[#FDFDFE] hover:bg-muted text-muted-foreground hover:text-foreground py-3.5 text-xs font-black transition-all text-center flex items-center justify-center gap-1.5 relative"
+                    className="rounded-sm border border-border bg-[#FDFDFE] hover:bg-muted text-muted-foreground hover:text-foreground py-3.5 text-xs font-black transition-all text-center flex items-center justify-center gap-1.5 relative"
                   >
                     <Share2 className="size-4" /> Share Drop
                     {showShareTooltip && (
@@ -669,7 +644,7 @@ function ProductDetailPage() {
             </div>
 
             {/* Collapsible Product Specifications */}
-            <div className="rounded-2xl border border-border bg-white overflow-hidden">
+            <div className="rounded-sm border border-border bg-card overflow-hidden">
               <button
                 type="button"
                 onClick={() => setIsSpecsOpen(!isSpecsOpen)}
@@ -713,7 +688,7 @@ function ProductDetailPage() {
             </div>
 
             {/* Collapsible Escrow safe details */}
-            <div className="rounded-2xl border border-border bg-white overflow-hidden">
+            <div className="rounded-sm border border-border bg-card overflow-hidden">
               <button
                 type="button"
                 onClick={() => setIsEscrowDetailsOpen(!isEscrowDetailsOpen)}
@@ -773,7 +748,7 @@ function ProductDetailPage() {
                 return (
                   <article
                     key={p.id}
-                    className="group bg-white rounded-2xl border border-border/50 overflow-hidden flex flex-col justify-between shadow-soft hover:shadow-medium hover:-translate-y-0.5 transition-all duration-300"
+                    className="group bg-card rounded-sm border border-border/50 overflow-hidden flex flex-col justify-between shadow-soft hover:shadow-medium hover:-translate-y-0.5 transition-all duration-300"
                   >
                     <div className="relative aspect-square bg-muted overflow-hidden">
                       <img

@@ -19,10 +19,7 @@ export interface SeoHealthReport {
   issues: SeoHealthIssue[];
 }
 
-export async function generateSitemapXml(
-  db: CmsDatabaseState,
-  baseUrl: string = siteConfig.websiteUrl,
-) {
+export async function generateSitemapXml(db: CmsDatabaseState, baseUrl: string = siteConfig.websiteUrl) {
   const cleanBase = baseUrl.replace(/\/$/, "");
   const urls: Array<{ loc: string; lastmod: string; changefreq: string; priority: number }> = [];
 
@@ -72,7 +69,7 @@ export async function generateSitemapXml(
       for (const product of productsRes.data) {
         urls.push({
           loc: `${cleanBase}/marketplace/product/${product.slug}`,
-          lastmod: product.updatedAt
+          lastmod: product.updatedAt 
             ? new Date(product.updatedAt).toISOString().split("T")[0]
             : new Date().toISOString().split("T")[0],
           changefreq: "daily",
@@ -89,7 +86,7 @@ export async function generateSitemapXml(
           changefreq: "weekly",
           priority: 0.5,
         });
-
+        
         // Also add store link if it exists
         urls.push({
           loc: `${cleanBase}/marketplace/store/${vendor.slug}`,

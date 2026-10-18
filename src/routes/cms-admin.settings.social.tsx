@@ -40,14 +40,16 @@ function CmsSocialSettingsPage() {
   const handleToggle = (id: string) => {
     if (!social) return;
     const updatedLinks = social.links.map((link) =>
-      link.id === id ? { ...link, enabled: !link.enabled } : link,
+      link.id === id ? { ...link, enabled: !link.enabled } : link
     );
     setSocial({ ...social, links: updatedLinks });
   };
 
   const handleUrlChange = (id: string, href: string) => {
     if (!social) return;
-    const updatedLinks = social.links.map((link) => (link.id === id ? { ...link, href } : link));
+    const updatedLinks = social.links.map((link) =>
+      link.id === id ? { ...link, href } : link
+    );
     setSocial({ ...social, links: updatedLinks });
   };
 

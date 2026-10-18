@@ -6,7 +6,7 @@ import {
   getStore as apiGetStore,
   getCategories as apiGetCategories,
   getFeatured as apiGetFeatured,
-  searchMarketplace as apiSearchMarketplace,
+  searchMarketplace as apiSearchMarketplace
 } from "../services/payroxa-public-api/client";
 
 export const marketplaceService = {
@@ -19,7 +19,7 @@ export const marketplaceService = {
       return { success: false, error: err?.message || "Failed to create order" };
     }
   },
-
+    
   getOrder: async (orderId: string) => {
     try {
       const { getMarketplaceOrderFn } = await import("../cms/marketplace-api");
@@ -37,11 +37,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getProducts error:", err);
-      return {
-        success: false,
-        data: [],
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: [], error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -52,11 +48,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getProduct error:", err);
-      return {
-        success: false,
-        data: null,
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: null, error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -67,11 +59,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getVendors error:", err);
-      return {
-        success: false,
-        data: [],
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: [], error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -82,11 +70,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getVendor error:", err);
-      return {
-        success: false,
-        data: null,
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: null, error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -97,11 +81,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getStore error:", err);
-      return {
-        success: false,
-        data: null,
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: null, error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -112,11 +92,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getCategories error:", err);
-      return {
-        success: false,
-        data: [],
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: [], error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
   },
 
@@ -127,10 +103,10 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] getFeatured error:", err);
-      return {
-        success: false,
+      return { 
+        success: false, 
         data: { featuredProducts: [], featuredVendors: [], featuredStores: [], categories: [] },
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
+        error: { code: "FETCH_ERROR", message: err?.message || "Network error" }
       };
     }
   },
@@ -142,11 +118,7 @@ export const marketplaceService = {
       return res;
     } catch (err: any) {
       console.error("[marketplaceService] searchMarketplace error:", err);
-      return {
-        success: false,
-        data: [],
-        error: { code: "FETCH_ERROR", message: err?.message || "Network error" },
-      };
+      return { success: false, data: [], error: { code: "FETCH_ERROR", message: err?.message || "Network error" } };
     }
-  },
+  }
 };

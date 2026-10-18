@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useCmsAuth } from "@/cms/context/CmsAuthContext";
 import { WEBSITE_URL } from "@/config/siteConfig";
+import { SOCIAL_BANNER_URL, resolveSocialBanner } from "@/config/seo";
 import {
   getSeoFn,
   saveSeoFn,
@@ -130,7 +131,7 @@ function CmsSeoPage() {
     canonicalUrl: `${WEBSITE_URL}${PAGE_KEYS.find((p) => p.key === currentSlug)?.path || ""}`,
     ogTitle: "Payroxa — Financial Platform for African Businesses",
     ogDescription: "Accept payments, issue cards, and run your business with Payroxa.",
-    ogImageUrl: "/hero-payroxa.jpg",
+    ogImageUrl: SOCIAL_BANNER_URL,
     twitterCard: "summary_large_image",
     robotsDirective: "index, follow",
     schemaType: "SoftwareApplication",
@@ -723,12 +724,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.robotsDirective || "index, follow"}
-                    onChange={(e) =>
-                      handlePageFieldChange(
+                    onChange={(e) => handlePageFieldChange(
                         "robotsDirective",
                         e.target.value as PageSeoSettings["robotsDirective"],
-                      )
-                    }
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="index, follow">
@@ -787,12 +786,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.changefreq || "weekly"}
-                    onChange={(e) =>
-                      handlePageFieldChange(
+                    onChange={(e) => handlePageFieldChange(
                         "changefreq",
                         e.target.value as PageSeoSettings["changefreq"],
-                      )
-                    }
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="daily">Daily</option>
@@ -829,12 +826,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.twitterCard || "summary_large_image"}
-                    onChange={(e) =>
-                      handlePageFieldChange(
+                    onChange={(e) => handlePageFieldChange(
                         "twitterCard",
                         e.target.value as PageSeoSettings["twitterCard"],
-                      )
-                    }
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="summary_large_image">Large Image Card (Recommended)</option>
@@ -857,7 +852,7 @@ function CmsSeoPage() {
 
               <CmsImagePicker
                 label="Social Share Image (og:image) - Recommended 1200x630px"
-                value={currentData.ogImageUrl || "/hero-payroxa.jpg"}
+                value={resolveSocialBanner(currentData.ogImageUrl)}
                 onChange={(val) => handlePageFieldChange("ogImageUrl", val)}
                 categoryFilter="heroes"
               />
@@ -865,7 +860,7 @@ function CmsSeoPage() {
               {/* Social Card Preview */}
               <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 max-w-lg">
                 <img
-                  src={currentData.ogImageUrl || "/hero-payroxa.jpg"}
+                  src={resolveSocialBanner(currentData.ogImageUrl)}
                   alt="OG Preview"
                   className="h-44 w-full object-cover bg-slate-100"
                 />
@@ -897,12 +892,10 @@ function CmsSeoPage() {
                   </label>
                   <select
                     value={currentData.schemaType || "SoftwareApplication"}
-                    onChange={(e) =>
-                      handlePageFieldChange(
+                    onChange={(e) => handlePageFieldChange(
                         "schemaType",
                         e.target.value as PageSeoSettings["schemaType"],
-                      )
-                    }
+                      )}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 focus:border-purple-600 focus:outline-none"
                   >
                     <option value="Organization">Organization (Brand, Contact, Socials)</option>

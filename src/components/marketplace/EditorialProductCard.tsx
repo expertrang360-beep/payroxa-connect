@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { CheckCircle2, Plus, Heart } from "lucide-react";
+import { CheckCircle2, Heart, ShoppingCart } from "lucide-react";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import type { PayroxaProduct } from "@/services/payroxa-public-api/types";
 import { useWishlist } from "@/hooks/useWishlist";
@@ -12,37 +12,22 @@ interface EditorialProductCardProps {
   onAdd: (product: PayroxaProduct) => void;
 }
 
-export function EditorialProductCard({
-  product,
-  index,
-  viewMode,
-  onAdd,
-}: EditorialProductCardProps) {
+/** Dense, Jumia-style retail card: white tile, discount badge, bold price, add-to-cart. */
+export function EditorialProductCard({ product, viewMode, onAdd }: EditorialProductCardProps) {
   const { isWishlisted, toggleWishlist } = useWishlist();
   const favorited = isWishlisted(product.id);
+  const extra = product as PayroxaProduct & { compareAtPrice?: number; rating?: number; reviewCount?: number };
+  const image = product.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=85";
+  const oldPrice = typeof extra.compareAtPrice === "number" && extra.compareAtPrice > product.price ? extra.compareAtPrice : null;
+  const discount = oldPrice ? Math.round(((oldPrice - product.price) / oldPrice) * 100) : null;
+  const price = `${product.currency} ${product.price.toLocaleString()}`;
 
-  const image =
-    product.images?.[0]?.url ||
-    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=85";
-  const label = product.isFeatured ? "Editor's pick" : index % 4 === 0 ? "New arrival" : null;
-
-  const renderWishlistBtn = (posClass = "absolute top-3 right-3") => (
+  const wishlist = (
     <button
       type="button"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleWishlist(product.id);
-      }}
-      className={cn(
-        "z-20 p-2 rounded-full backdrop-blur-md transition-all shadow-soft cursor-pointer",
-        posClass,
-        favorited
-          ? "bg-red-500 text-white shadow-md scale-105"
-          : "bg-white/80 text-market-muted hover:text-market-ink hover:bg-white",
-      )}
-      title={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
-      aria-label={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
+      aria-label={favorited ? "Remove from saved items" : "Save item"}
+      className={cn("absolute right-2 top-2 z-10 grid size-8 place-items-center rounded-full bg-card shadow-soft transition", favorited ? "text-primary" : "text-market-muted hover:text-primary")}
     >
       <Heart className={cn("size-4", favorited && "fill-current")} />
     </button>
@@ -50,103 +35,42 @@ export function EditorialProductCard({
 
   if (viewMode === "list") {
     return (
-      <article className="group grid gap-5 border-b border-market-line py-6 sm:grid-cols-[180px_1fr_auto] sm:items-center">
-        <Link
-          to="/marketplace/product/$slug"
-          params={{ slug: product.slug }}
-          className="block aspect-[4/3] overflow-hidden bg-market-lilac relative"
-        >
-          <img
-            src={image}
-            alt={product.images?.[0]?.alt || product.name}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
-            loading="lazy"
-          />
-          {renderWishlistBtn("absolute top-2 right-2")}
+      <article className="group grid grid-cols-[96px_minmax(0,1fr)] gap-3 rounded-sm bg-card p-3 shadow-soft sm:grid-cols-[140px_minmax(0,1fr)_auto] sm:items-center">
+        <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="relative block aspect-square overflow-hidden rounded-sm bg-muted">
+          <img src={image} alt={product.images?.[0]?.alt || product.name} loading="lazy" className="h-full w-full object-cover" />
+          {discount && <span className="absolute left-1 top-1 rounded-sm bg-accent px-1.5 py-0.5 text-[11px] font-bold text-primary">-{discount}%</span>}
         </Link>
         <div className="min-w-0">
-          <p className="mb-2 text-[0.68rem] font-bold uppercase text-primary">
-            {product.category?.name || "Marketplace"}
-          </p>
-          <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}>
-            <h3 className="font-market-display text-xl font-medium group-hover:underline">
-              {product.name}
-            </h3>
-          </Link>
-          <p className="mt-2 line-clamp-2 max-w-xl text-sm text-market-muted">
-            {product.description}
-          </p>
-          <p className="mt-3 flex items-center gap-1.5 text-xs text-market-muted">
-            {product.vendor?.verified && <CheckCircle2 className="size-3.5 text-primary" />}
-            {product.vendor?.name}
-          </p>
+          <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}><h3 className="line-clamp-2 text-sm text-market-ink group-hover:text-primary">{product.name}</h3></Link>
+          <p className="mt-1 text-base font-bold">{price}</p>
+          {oldPrice && <p className="text-xs text-market-muted line-through">{product.currency} {oldPrice.toLocaleString()}</p>}
+          <p className="mt-1 flex items-center gap-1 truncate text-xs text-market-muted">{product.vendor?.verified && <CheckCircle2 className="size-3 shrink-0 text-primary" />}{product.vendor?.name}</p>
         </div>
-        <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
-          <p className="font-market-display text-lg font-semibold">
-            {product.currency} {product.price.toLocaleString()}
-          </p>
-          <PayroxaButton variant="secondary" size="sm" onClick={() => onAdd(product)}>
-            <Plus className="size-4" /> Add to bag
-          </PayroxaButton>
-        </div>
+        <PayroxaButton size="sm" onClick={() => onAdd(product)} className="col-span-2 h-10 rounded-sm sm:col-span-1"><ShoppingCart className="size-4" /> Add to cart</PayroxaButton>
       </article>
     );
   }
 
   return (
-    <article className="group min-w-0">
-      <Link
-        to="/marketplace/product/$slug"
-        params={{ slug: product.slug }}
-        className={`relative mb-5 block overflow-hidden bg-market-lilac ${
-          viewMode === "dense" ? "aspect-square" : "aspect-[3/4]"
-        }`}
-      >
-        <img
-          src={image}
-          alt={product.images?.[0]?.alt || product.name}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transition-none"
-          loading="lazy"
-        />
-        {label && (
-          <span className="absolute left-3 top-3 bg-market-paper px-3 py-1 text-[0.62rem] font-bold uppercase text-market-ink">
-            {label}
-          </span>
-        )}
-        {renderWishlistBtn("absolute top-3 right-3")}
-        <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none">
-          <PayroxaButton
-            variant="secondary"
-            size="sm"
-            className="w-full rounded-none"
-            onClick={(event) => {
-              event.preventDefault();
-              onAdd(product);
-            }}
-          >
-            <Plus className="size-4" /> Add to bag
-          </PayroxaButton>
-        </div>
+    <article className="group relative flex min-w-0 flex-col rounded-sm bg-card p-2 transition hover:z-10 hover:shadow-card">
+      <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="relative block aspect-square overflow-hidden rounded-sm bg-muted">
+        <img src={image} alt={product.images?.[0]?.alt || product.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03] motion-reduce:transition-none" />
+        {discount && <span className="absolute left-1.5 top-1.5 rounded-sm bg-accent px-1.5 py-0.5 text-[11px] font-bold text-primary">-{discount}%</span>}
       </Link>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <p className="mb-1 truncate text-[0.65rem] font-bold uppercase text-primary">
-            {product.vendor?.name || product.category?.name}
-          </p>
-          <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}>
-            <h3 className="font-market-display line-clamp-2 text-base font-medium leading-tight group-hover:underline">
-              {product.name}
-            </h3>
-          </Link>
-        </div>
-        <p className="shrink-0 text-sm font-semibold">
-          {product.currency} {product.price.toLocaleString()}
-        </p>
+      {wishlist}
+      <div className="flex flex-1 flex-col px-0.5 pt-2">
+        <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}>
+          <h3 className={cn("line-clamp-2 text-market-ink hover:text-primary", viewMode === "dense" ? "text-xs" : "text-[13px] leading-snug sm:text-sm")}>{product.name}</h3>
+        </Link>
+        <p className={cn("mt-1 font-bold", viewMode === "dense" ? "text-sm" : "text-base")}>{price}</p>
+        {oldPrice && <p className="text-xs text-market-muted line-through">{product.currency} {oldPrice.toLocaleString()}</p>}
+        {product.vendor?.verified && <p className="mt-1 flex items-center gap-1 text-[11px] font-semibold text-primary"><CheckCircle2 className="size-3" /> Verified store</p>}
+        <PayroxaButton size="sm" onClick={() => onAdd(product)} className="mt-2 h-9 w-full rounded-sm text-xs sm:opacity-0 sm:transition sm:group-hover:opacity-100 sm:focus-visible:opacity-100">
+          <ShoppingCart className="size-3.5" /> Add to cart
+        </PayroxaButton>
       </div>
-      <p className="mt-2 flex items-center gap-1 text-xs text-market-muted">
-        {product.vendor?.verified && <CheckCircle2 className="size-3 text-primary" />}
-        {product.category?.name}
-      </p>
     </article>
   );
 }
+
+export default EditorialProductCard;

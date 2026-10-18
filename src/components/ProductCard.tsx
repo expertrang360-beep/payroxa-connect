@@ -50,7 +50,7 @@ export function ProductCard(props: ProductCardProps) {
           posClass,
           favorited
             ? "bg-red-500 text-white shadow-md scale-105"
-            : "bg-background/80 text-muted-foreground hover:text-foreground hover:bg-background",
+            : "bg-background/80 text-muted-foreground hover:text-foreground hover:bg-background"
         )}
         title={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
         aria-label={favorited ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -95,11 +95,7 @@ export function ProductCard(props: ProductCardProps) {
                   </span>
                 )}
               </div>
-              <Link
-                to="/marketplace/product/$slug"
-                params={{ slug: product.slug }}
-                className="block hover:underline"
-              >
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
                 <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
@@ -174,11 +170,7 @@ export function ProductCard(props: ProductCardProps) {
                   </span>
                 )}
               </div>
-              <Link
-                to="/marketplace/product/$slug"
-                params={{ slug: product.slug }}
-                className="block hover:underline"
-              >
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
                 <h3 className="text-lg font-extrabold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                   {product.name}
                 </h3>
@@ -236,11 +228,7 @@ export function ProductCard(props: ProductCardProps) {
           <div className="flex flex-1 flex-col justify-between p-3">
             <div>
               <p className="text-[10px] text-muted-foreground truncate">{product.category?.name}</p>
-              <Link
-                to="/marketplace/product/$slug"
-                params={{ slug: product.slug }}
-                className="block hover:underline mt-0.5"
-              >
+              <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline mt-0.5">
                 <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                   {product.name}
                 </h3>
@@ -301,11 +289,7 @@ export function ProductCard(props: ProductCardProps) {
                 </span>
               )}
             </div>
-            <Link
-              to="/marketplace/product/$slug"
-              params={{ slug: product.slug }}
-              className="block hover:underline"
-            >
+            <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="block hover:underline">
               <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                 {product.name}
               </h3>
