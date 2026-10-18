@@ -316,12 +316,12 @@ function MarketplacePage() {
         </div>
       )}
 
-      <header className="sticky top-0 z-50 border-b border-market-line bg-market-paper/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 bg-card shadow-soft">
         <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-3 lg:px-8">
           <Link to="/marketplace" className="font-market-display text-xl font-bold uppercase">Payroxa<span className="text-primary">.</span></Link>
           <div className="relative mx-auto w-full max-w-2xl">
             <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-market-muted" />
-            <input value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search products, stores and categories" aria-label="Search marketplace" className="h-11 w-full rounded-full border border-market-line bg-background pl-11 pr-4 text-sm outline-none transition focus:border-primary" />
+            <input value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search products, stores and categories" aria-label="Search marketplace" className="h-11 w-full rounded-sm border border-market-line bg-background pl-11 pr-4 text-sm outline-none transition focus:border-primary" />
           </div>
           <PayroxaButton variant="text" size="sm" ariaLabel="Open filters" onClick={() => setIsFilterPanelOpen((open) => !open)} className="h-10 w-10 px-0 text-market-ink"><Filter className="size-5" /></PayroxaButton>
           <PayroxaButton variant="text" size="sm" ariaLabel={`Open bag with ${totalCount} items`} onClick={() => setIsCartOpen(true)} className="relative h-10 w-10 px-0 text-market-ink">
@@ -331,54 +331,55 @@ function MarketplacePage() {
         </div>
         <nav className="overflow-x-auto border-t border-market-line" aria-label="Marketplace categories">
           <div className="mx-auto flex max-w-[1440px] gap-7 whitespace-nowrap px-4 lg:px-8">
-            <PayroxaButton variant="text" size="sm" onClick={() => setSelectedCategory("")} className={`rounded-none border-b-2 px-0 ${selectedCategory ? "border-transparent text-market-muted" : "border-primary text-primary"}`}>All products</PayroxaButton>
-            {categories.map((category) => <PayroxaButton key={category.id} variant="text" size="sm" onClick={() => setSelectedCategory(category.slug)} className={`rounded-none border-b-2 px-0 ${selectedCategory === category.slug ? "border-primary text-primary" : "border-transparent text-market-muted"}`}>{category.name}</PayroxaButton>)}
+            <PayroxaButton variant="text" size="sm" onClick={() => setSelectedCategory("")} className={`rounded-sm border-b-2 px-0 ${selectedCategory ? "border-transparent text-market-muted" : "border-primary text-primary"}`}>All products</PayroxaButton>
+            {categories.map((category) => <PayroxaButton key={category.id} variant="text" size="sm" onClick={() => setSelectedCategory(category.slug)} className={`rounded-sm border-b-2 px-0 ${selectedCategory === category.slug ? "border-primary text-primary" : "border-transparent text-market-muted"}`}>{category.name}</PayroxaButton>)}
           </div>
         </nav>
       </header>
 
       <main>
-        <section className="border-b border-market-line">
-          <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.35fr_0.65fr]">
-            <div className="relative flex min-h-[410px] flex-col justify-between overflow-hidden bg-market-lilac px-6 py-8 sm:px-10 lg:min-h-[520px] lg:px-14 lg:py-12">
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="text-xs font-bold uppercase text-primary">The Payroxa edit / 0{currentSlide + 1}</span>
-                <div className="flex gap-1.5" aria-label="Promotion slides">{FLASH_PROMO_SLIDES.map((slide, index) => <PayroxaButton key={slide.id} variant="text" size="sm" ariaLabel={`Show promotion ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2 w-8 rounded-none border-b-2 px-0 ${index === currentSlide ? "border-primary" : "border-market-ink/20"}`}><span className="sr-only">{index + 1}</span></PayroxaButton>)}</div>
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_220px]">
+            <nav aria-label="Shop by category" className="hidden rounded-sm bg-card py-2 shadow-soft lg:block">
+              <PayroxaButton variant="text" size="sm" onClick={() => setSelectedCategory("")} className={`h-9 w-full justify-start rounded-sm px-4 text-xs font-medium ${selectedCategory ? "text-market-ink" : "text-primary"}`}>All categories</PayroxaButton>
+              {(categories.length ? categories : TEMU_CIRCLE_CATEGORIES).slice(0, 11).map((category) => <PayroxaButton key={category.id} variant="text" size="sm" onClick={() => setSelectedCategory(category.slug)} className={`h-9 w-full justify-start rounded-sm px-4 text-xs font-medium hover:text-primary ${selectedCategory === category.slug ? "text-primary" : "text-market-ink"}`}>{category.name}</PayroxaButton>)}
+            </nav>
+            <div className="relative flex min-h-[200px] overflow-hidden rounded-sm gradient-brand text-primary-foreground sm:min-h-[340px]">
+              <div className="relative z-10 flex max-w-[60%] flex-col justify-center gap-3 p-5 sm:p-10">
+                <span className="w-fit rounded-sm bg-primary-foreground/15 px-2 py-1 text-[11px] font-bold uppercase">{activePromo?.badge || "Payroxa deals"}</span>
+                <h1 className="font-market-display text-2xl font-bold leading-tight sm:text-5xl">Shop smarter. Live better.</h1>
+                <p className="hidden text-sm opacity-85 sm:block">Verified African stores. Payment protected until delivery.</p>
+                <PayroxaButton variant="secondary" size="sm" onClick={() => document.getElementById("catalog-hub")?.scrollIntoView({ behavior: "smooth" })} className="mt-1 w-fit rounded-sm">Shop now <ArrowRight className="size-4" /></PayroxaButton>
               </div>
-              <div className="relative z-10 max-w-2xl">
-                <p className="mb-4 text-xs font-bold uppercase text-market-muted">{activePromo?.badge}</p>
-                <h1 className="max-w-xl font-market-display text-5xl font-medium leading-[0.94] sm:text-6xl lg:text-7xl">Shop smarter. Live better.</h1>
-                <p className="mt-6 max-w-lg text-base leading-7 text-market-muted">Curated technology, style and everyday essentials from verified African stores, protected by Payroxa.</p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <PayroxaButton variant="primary" onClick={() => document.getElementById("catalog-hub")?.scrollIntoView({ behavior: "smooth" })} className="rounded-none">Shop the collection <ArrowRight className="size-4" /></PayroxaButton>
-                  <PayroxaButton variant="outline" onClick={() => setIsFilterPanelOpen(true)} className="rounded-none">Explore categories</PayroxaButton>
-                </div>
-              </div>
-              <div className="absolute -bottom-10 right-[-8%] hidden h-[86%] w-[52%] rotate-3 overflow-hidden sm:block">
-                <img src={featured.featuredProducts[0]?.images?.[0]?.url || allProducts[0]?.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=85"} alt="Featured marketplace product" className="h-full w-full object-cover" />
-              </div>
+              <img src={featured.featuredProducts[0]?.images?.[0]?.url || allProducts[0]?.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=85"} alt="" className="absolute inset-y-0 right-0 h-full w-1/2 object-cover opacity-90 [mask-image:linear-gradient(to_right,transparent,black_35%)]" />
+              <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5" aria-label="Promotion slides">{FLASH_PROMO_SLIDES.map((slide, index) => <button key={slide.id} type="button" aria-label={`Show promotion ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2 rounded-full bg-primary-foreground transition-all ${index === currentSlide ? "w-6" : "w-2 opacity-50"}`} />)}</div>
             </div>
-            <aside className="grid grid-cols-2 border-t border-market-line bg-background lg:grid-cols-1 lg:border-l lg:border-t-0">
-              <div className="flex flex-col justify-between border-r border-market-line p-5 lg:border-b lg:border-r-0 lg:p-8">
-                <ShieldCheck className="size-6 text-primary" />
-                <div><p className="font-market-display text-2xl font-medium">Protected checkout</p><p className="mt-2 text-sm text-market-muted">Your payment stays protected until delivery is confirmed.</p></div>
-              </div>
-              <div className="flex flex-col justify-between p-5 lg:p-8">
-                <Truck className="size-6 text-primary" />
-                <div><p className="font-market-display text-2xl font-medium">Reliable delivery</p><p className="mt-2 text-sm text-market-muted">Track orders from verified stores across the continent.</p></div>
-              </div>
+            <aside className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+              <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><ShieldCheck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Protected checkout</p><p className="mt-1 text-xs text-market-muted">Paid out only after delivery.</p></div></div>
+              <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><Truck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Reliable delivery</p><p className="mt-1 text-xs text-market-muted">Track every order.</p></div></div>
+              <div className="col-span-2 hidden rounded-sm bg-navy p-4 text-navy-foreground lg:col-span-1 lg:block"><p className="text-sm font-bold">Sell on Payroxa</p><p className="mt-1 text-xs opacity-75">Open a store and reach more buyers.</p></div>
             </aside>
           </div>
         </section>
 
-        <section className="border-b border-market-line bg-background py-8">
-          <div className="mx-auto max-w-[1440px] px-4 lg:px-8">
-            <div className="mb-5 flex items-end justify-between"><div><p className="text-xs font-bold uppercase text-primary">Browse by interest</p><h2 className="mt-1 font-market-display text-3xl font-medium">Popular categories</h2></div><span className="hidden text-sm text-market-muted sm:block">Everything you need, in one place</span></div>
-            <div className="flex gap-5 overflow-x-auto pb-2">
-              {TEMU_CIRCLE_CATEGORIES.map((category) => <PayroxaButton key={category.id} variant="text" onClick={() => setSelectedCategory(category.slug)} className="group h-auto min-w-[82px] flex-col px-0 text-market-ink">
-                <span className={`block size-16 overflow-hidden rounded-full border-2 ${selectedCategory === category.slug ? "border-primary" : "border-transparent"}`}><img src={category.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-110" /></span>
-                <span className="text-xs">{category.name}</span>
-              </PayroxaButton>)}
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="rounded-sm bg-card shadow-soft">
+            <div className="flex items-center justify-between rounded-t-sm bg-primary px-4 py-2.5 text-primary-foreground"><h2 className="font-market-display text-base font-bold sm:text-lg">Flash Sales</h2><span className="text-xs font-semibold sm:text-sm">Time left: {String(timeLeft?.hours ?? 0).padStart(2,"0")}h : {String(timeLeft?.minutes ?? 0).padStart(2,"0")}m : {String(timeLeft?.seconds ?? 0).padStart(2,"0")}s</span></div>
+            <div className="flex gap-2 overflow-x-auto p-2 [scrollbar-width:none]">
+              {(featured.featuredProducts.length ? featured.featuredProducts : allProducts).slice(0, 10).map((product, index) => <div key={product.id} className="w-[44%] shrink-0 sm:w-[180px]"><EditorialProductCard product={product} index={index} viewMode="dense" onAdd={addProduct} /></div>)}
+              {allProducts.length === 0 && <p className="p-6 text-sm text-market-muted">Deals will appear here soon.</p>}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="rounded-sm bg-card p-3 shadow-soft">
+            <h2 className="mb-3 font-market-display text-base font-bold">Shop by category</h2>
+            <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
+              {TEMU_CIRCLE_CATEGORIES.slice(0, 16).map((category) => <button key={category.id} type="button" onClick={() => setSelectedCategory(category.slug)} className="group flex min-w-0 flex-col items-center gap-1.5 rounded-sm p-1 text-center hover:bg-muted">
+                <span className={`block aspect-square w-full overflow-hidden rounded-sm bg-muted ring-2 ${selectedCategory === category.slug ? "ring-primary" : "ring-transparent"}`}><img src={category.image} alt="" className="h-full w-full object-cover" /></span>
+                <span className="line-clamp-2 text-[11px] leading-tight sm:text-xs">{category.name}</span>
+              </button>)}
             </div>
           </div>
         </section>
@@ -411,7 +412,7 @@ function MarketplacePage() {
                     aria-label="Describe what you are shopping for"
                     className="w-full border border-market-line bg-background p-4 text-sm text-market-ink outline-none focus:border-primary"
                   />
-                  <PayroxaButton type="submit" disabled={assistantLoading || !assistantQuery.trim()} className="rounded-none">
+                  <PayroxaButton type="submit" disabled={assistantLoading || !assistantQuery.trim()} className="rounded-sm">
                     {assistantLoading ? <><Loader2 className="size-4 animate-spin" /> Finding matches…</> : <><Sparkles className="size-4" /> Find products</>}
                   </PayroxaButton>
                 </form>
@@ -434,14 +435,14 @@ function MarketplacePage() {
           </div>
         </section>
 
-        <section id="catalog-hub" className="mx-auto max-w-[1440px] px-3 pb-28 pt-8 sm:px-4 sm:py-10 lg:px-8 lg:py-14">
+        <section id="catalog-hub" className="mx-auto mt-3 max-w-[1200px] rounded-sm bg-card px-3 pb-28 pt-6 shadow-soft sm:px-4 sm:pb-10">
           <div className="mb-7 flex flex-col gap-5 border-b border-market-line pb-6 lg:flex-row lg:items-end lg:justify-between">
             <div><p className="text-xs font-bold uppercase text-primary">Curated marketplace</p><h2 className="mt-1 font-market-display text-3xl font-medium sm:text-4xl">Featured products</h2><p className="mt-2 text-sm text-market-muted">{filteredProducts.length} products selected for you</p></div>
             <div className="-mx-3 flex items-center gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
-              {([{id:"all",label:"All"},{id:"deals",label:"Deals"},{id:"stars",label:"Top rated"},{id:"best",label:"Best sellers"}] as const).map((tab) => <PayroxaButton key={tab.id} variant={activeFilterTab === tab.id ? "secondary" : "outline"} size="sm" onClick={() => setActiveFilterTab(tab.id)} className="h-10 shrink-0 rounded-none">{tab.label}</PayroxaButton>)}
-              <PayroxaButton variant="outline" size="sm" onClick={() => setIsFilterPanelOpen((open) => !open)} aria-expanded={isFilterPanelOpen} className="h-10 shrink-0 rounded-none"><Filter className="size-4" /> Filter</PayroxaButton>
+              {([{id:"all",label:"All"},{id:"deals",label:"Deals"},{id:"stars",label:"Top rated"},{id:"best",label:"Best sellers"}] as const).map((tab) => <PayroxaButton key={tab.id} variant={activeFilterTab === tab.id ? "secondary" : "outline"} size="sm" onClick={() => setActiveFilterTab(tab.id)} className="h-10 shrink-0 rounded-sm">{tab.label}</PayroxaButton>)}
+              <PayroxaButton variant="outline" size="sm" onClick={() => setIsFilterPanelOpen((open) => !open)} aria-expanded={isFilterPanelOpen} className="h-10 shrink-0 rounded-sm"><Filter className="size-4" /> Filter</PayroxaButton>
               <select value={sortBy} onChange={(event) => setSortBy(event.target.value)} aria-label="Sort products" className="h-10 shrink-0 border border-market-line bg-background px-3 text-sm outline-none"><option value="default">Featured</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="name-asc">Name: A–Z</option></select>
-              <div className="hidden border border-market-line sm:flex"><PayroxaButton variant="text" size="sm" ariaLabel="Grid view" onClick={() => setViewMode("grid")} className={`h-9 w-9 rounded-none px-0 ${viewMode === "grid" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><LayoutGrid className="size-4" /></PayroxaButton><PayroxaButton variant="text" size="sm" ariaLabel="Dense view" onClick={() => setViewMode("dense")} className={`h-9 w-9 rounded-none px-0 ${viewMode === "dense" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><Grid3X3 className="size-4" /></PayroxaButton><PayroxaButton variant="text" size="sm" ariaLabel="List view" onClick={() => setViewMode("list")} className={`h-9 w-9 rounded-none px-0 ${viewMode === "list" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><List className="size-4" /></PayroxaButton></div>
+              <div className="hidden border border-market-line sm:flex"><PayroxaButton variant="text" size="sm" ariaLabel="Grid view" onClick={() => setViewMode("grid")} className={`h-9 w-9 rounded-sm px-0 ${viewMode === "grid" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><LayoutGrid className="size-4" /></PayroxaButton><PayroxaButton variant="text" size="sm" ariaLabel="Dense view" onClick={() => setViewMode("dense")} className={`h-9 w-9 rounded-sm px-0 ${viewMode === "dense" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><Grid3X3 className="size-4" /></PayroxaButton><PayroxaButton variant="text" size="sm" ariaLabel="List view" onClick={() => setViewMode("list")} className={`h-9 w-9 rounded-sm px-0 ${viewMode === "list" ? "bg-market-lilac text-primary" : "text-market-muted"}`}><List className="size-4" /></PayroxaButton></div>
             </div>
           </div>
 
@@ -449,7 +450,7 @@ function MarketplacePage() {
             <label className="col-span-2 text-xs font-bold uppercase text-market-muted sm:col-span-1">Currency<select value={selectedCurrency} onChange={(event) => setSelectedCurrency(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-market-paper px-3 text-sm font-normal text-market-ink"><option>ALL</option><option>NGN</option><option>GHS</option><option>KES</option><option>USD</option></select></label>
             <label className="text-xs font-bold uppercase text-market-muted">Minimum price<input type="number" inputMode="numeric" value={minPrice} onChange={(event) => setMinPrice(event.target.value)} placeholder="0" className="mt-2 h-11 w-full border border-market-line bg-market-paper px-3 text-sm font-normal text-market-ink" /></label>
             <label className="text-xs font-bold uppercase text-market-muted">Maximum price<input type="number" inputMode="numeric" value={maxPrice} onChange={(event) => setMaxPrice(event.target.value)} placeholder="Any" className="mt-2 h-11 w-full border border-market-line bg-market-paper px-3 text-sm font-normal text-market-ink" /></label>
-            <div className="col-span-2 flex items-end gap-2 sm:col-span-1"><PayroxaButton variant={verifiedOnly ? "secondary" : "outline"} onClick={() => setVerifiedOnly((value) => !value)} className="w-full rounded-none"><ShieldCheck className="size-4" /> Verified only</PayroxaButton><PayroxaButton variant="text" ariaLabel="Reset filters" onClick={handleResetFilters} className="h-11 w-11 shrink-0 px-0 text-market-muted"><RotateCw className="size-4" /></PayroxaButton></div>
+            <div className="col-span-2 flex items-end gap-2 sm:col-span-1"><PayroxaButton variant={verifiedOnly ? "secondary" : "outline"} onClick={() => setVerifiedOnly((value) => !value)} className="w-full rounded-sm"><ShieldCheck className="size-4" /> Verified only</PayroxaButton><PayroxaButton variant="text" ariaLabel="Reset filters" onClick={handleResetFilters} className="h-11 w-11 shrink-0 px-0 text-market-muted"><RotateCw className="size-4" /></PayroxaButton></div>
           </div>}
 
           {(error || (loading && allProducts.length > 0)) && (
@@ -459,7 +460,7 @@ function MarketplacePage() {
                 <p className="mt-1 text-sm text-market-muted">{error || "You can keep browsing while we check for updates."}</p>
                 {allProducts.length > 0 && <p className="mt-1 text-xs text-market-muted">{catalogueSavedAt ? `Last updated ${new Date(catalogueSavedAt).toLocaleString()}. ` : ""}Prices and availability may have changed.</p>}
               </div>
-              <PayroxaButton onClick={loadData} disabled={loading} className="shrink-0 self-start rounded-none sm:self-center">
+              <PayroxaButton onClick={loadData} disabled={loading} className="shrink-0 self-start rounded-sm sm:self-center">
                 <RefreshCw className={`size-4 ${loading ? "animate-spin motion-reduce:animate-none" : ""}`} /> {loading ? "Retrying…" : "Retry catalogue"}
               </PayroxaButton>
             </div>
@@ -472,11 +473,11 @@ function MarketplacePage() {
                 <ShoppingBag className="mx-auto size-8 text-market-muted" />
                 <h3 className="mt-4 font-market-display text-2xl">{error && allProducts.length === 0 ? "Products are taking a break" : allProducts.length === 0 ? "New finds are on the way" : "Nothing matches yet"}</h3>
                 <p className="mx-auto mt-2 max-w-md text-sm text-market-muted">{error && allProducts.length === 0 ? "We couldn't reach the product service, and there are no saved products on this device yet. Your bag is safe. Try again in a moment." : allProducts.length === 0 ? "There are no products in the catalogue right now. Check again soon for new arrivals." : "Try clearing a filter or browsing another category."}</p>
-                {!error && allProducts.length === 0 && <PayroxaButton disabled={loading} className="mt-5 rounded-none" onClick={loadData}><RefreshCw className="size-4" /> Refresh catalogue</PayroxaButton>}
-                {allProducts.length > 0 && <PayroxaButton className="mt-5 rounded-none" onClick={handleResetFilters}>Clear filters</PayroxaButton>}
+                {!error && allProducts.length === 0 && <PayroxaButton disabled={loading} className="mt-5 rounded-sm" onClick={loadData}><RefreshCw className="size-4" /> Refresh catalogue</PayroxaButton>}
+                {allProducts.length > 0 && <PayroxaButton className="mt-5 rounded-sm" onClick={handleResetFilters}>Clear filters</PayroxaButton>}
               </div>
             ) : (
-              <div className={viewMode === "list" ? "grid grid-cols-1" : viewMode === "dense" ? "grid grid-cols-2 gap-x-2.5 gap-y-6 sm:grid-cols-3 sm:gap-x-3 sm:gap-y-8 lg:grid-cols-5" : "grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-4 sm:gap-y-10 md:grid-cols-3 lg:grid-cols-4"}>{filteredProducts.map((product, index) => <EditorialProductCard key={product.id} product={product} index={index} viewMode={viewMode} onAdd={addProduct} />)}</div>
+              <div className={viewMode === "list" ? "grid grid-cols-1 gap-2" : viewMode === "dense" ? "grid grid-cols-2 gap-1 sm:grid-cols-4 lg:grid-cols-6" : "grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5"}>{filteredProducts.map((product, index) => <EditorialProductCard key={product.id} product={product} index={index} viewMode={viewMode} onAdd={addProduct} />)}</div>
             )}
           </div>
         </section>
@@ -484,22 +485,22 @@ function MarketplacePage() {
 
       <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 items-center justify-between gap-3 border border-market-line bg-market-ink px-4 py-3 text-market-paper shadow-card sm:bottom-6">
         <div className="min-w-0"><p className="truncate text-sm font-semibold">Save your bag and track orders</p><p className="truncate text-xs text-market-paper/60">Sign in for the complete experience</p></div>
-        <PayroxaButton to="/cms-admin/login" variant="primary" size="sm" className="rounded-none">Sign in</PayroxaButton>
+        <PayroxaButton to="/cms-admin/login" variant="primary" size="sm" className="rounded-sm">Sign in</PayroxaButton>
       </div>
 
       {isCartOpen && <div className="fixed inset-0 z-[80]" role="dialog" aria-modal="true" aria-label="Shopping bag">
         <div className="absolute inset-0 bg-market-ink/55" onClick={() => setIsCartOpen(false)} />
         <aside className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-market-paper shadow-card">
           <div className="flex items-center justify-between border-b border-market-line px-5 py-5"><div><p className="text-xs font-bold uppercase text-primary">Your selection</p><h2 className="font-market-display text-2xl font-medium">Shopping bag ({totalCount})</h2></div><PayroxaButton variant="text" ariaLabel="Close bag" onClick={() => setIsCartOpen(false)} className="h-10 w-10 px-0 text-market-ink"><X className="size-5" /></PayroxaButton></div>
-          <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5">{cartItems.length === 0 ? <div className="flex h-full flex-col items-center justify-center text-center"><ShoppingBag className="size-10 text-market-muted" /><h3 className="mt-4 font-market-display text-2xl">Your bag is empty</h3><p className="mt-2 text-sm text-market-muted">Discover something worth keeping.</p><PayroxaButton variant="outline" onClick={() => setIsCartOpen(false)} className="mt-5 rounded-none">Start shopping</PayroxaButton></div> : <div className="space-y-5">{cartItems.map((item) => <article key={`${item.id}-${item.size}-${item.color}`} className="grid grid-cols-[64px_minmax(0,1fr)_auto] gap-3 border-b sm:grid-cols-[72px_minmax(0,1fr)_auto] border-market-line pb-5"><img src={item.image} alt={item.name} className="size-16 object-cover sm:size-[72px]" /><div><h3 className="line-clamp-2 font-market-display text-base font-medium">{item.name}</h3><p className="mt-1 text-sm font-semibold">{item.currency} {item.price.toLocaleString()}</p><div className="mt-3 flex items-center border border-market-line w-fit"><PayroxaButton variant="text" size="sm" ariaLabel="Decrease quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity-1)} className="h-10 w-10 rounded-none px-0 text-market-ink"><Minus className="size-3" /></PayroxaButton><span className="w-8 text-center text-sm">{item.quantity}</span><PayroxaButton variant="text" size="sm" ariaLabel="Increase quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity+1)} className="h-10 w-10 rounded-none px-0 text-market-ink"><Plus className="size-3" /></PayroxaButton></div></div><PayroxaButton variant="text" size="sm" ariaLabel={`Remove ${item.name}`} onClick={() => removeFromCart(item.id,item.size,item.color)} className="h-10 w-10 px-0 text-market-muted"><Trash2 className="size-4" /></PayroxaButton></article>)}</div>}</div>
-          {cartItems.length > 0 && <div className="border-t border-market-line bg-background p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5"><div className="flex justify-between gap-3"><span className="text-sm text-market-muted">Subtotal</span><strong className="font-market-display text-xl">{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div><p className="mt-3 flex gap-2 text-xs text-market-muted"><ShieldCheck className="size-4 shrink-0 text-primary" />Payment is protected until you confirm delivery.</p><PayroxaButton onClick={() => {setIsCartOpen(false);setCheckoutStep("idle");setIsCheckoutModalOpen(true)}} className="mt-5 w-full rounded-none">Proceed to checkout <ArrowRight className="size-4" /></PayroxaButton></div>}
+          <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5">{cartItems.length === 0 ? <div className="flex h-full flex-col items-center justify-center text-center"><ShoppingBag className="size-10 text-market-muted" /><h3 className="mt-4 font-market-display text-2xl">Your bag is empty</h3><p className="mt-2 text-sm text-market-muted">Discover something worth keeping.</p><PayroxaButton variant="outline" onClick={() => setIsCartOpen(false)} className="mt-5 rounded-sm">Start shopping</PayroxaButton></div> : <div className="space-y-5">{cartItems.map((item) => <article key={`${item.id}-${item.size}-${item.color}`} className="grid grid-cols-[64px_minmax(0,1fr)_auto] gap-3 border-b sm:grid-cols-[72px_minmax(0,1fr)_auto] border-market-line pb-5"><img src={item.image} alt={item.name} className="size-16 object-cover sm:size-[72px]" /><div><h3 className="line-clamp-2 font-market-display text-base font-medium">{item.name}</h3><p className="mt-1 text-sm font-semibold">{item.currency} {item.price.toLocaleString()}</p><div className="mt-3 flex items-center border border-market-line w-fit"><PayroxaButton variant="text" size="sm" ariaLabel="Decrease quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity-1)} className="h-10 w-10 rounded-sm px-0 text-market-ink"><Minus className="size-3" /></PayroxaButton><span className="w-8 text-center text-sm">{item.quantity}</span><PayroxaButton variant="text" size="sm" ariaLabel="Increase quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity+1)} className="h-10 w-10 rounded-sm px-0 text-market-ink"><Plus className="size-3" /></PayroxaButton></div></div><PayroxaButton variant="text" size="sm" ariaLabel={`Remove ${item.name}`} onClick={() => removeFromCart(item.id,item.size,item.color)} className="h-10 w-10 px-0 text-market-muted"><Trash2 className="size-4" /></PayroxaButton></article>)}</div>}</div>
+          {cartItems.length > 0 && <div className="border-t border-market-line bg-background p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5"><div className="flex justify-between gap-3"><span className="text-sm text-market-muted">Subtotal</span><strong className="font-market-display text-xl">{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div><p className="mt-3 flex gap-2 text-xs text-market-muted"><ShieldCheck className="size-4 shrink-0 text-primary" />Payment is protected until you confirm delivery.</p><PayroxaButton onClick={() => {setIsCartOpen(false);setCheckoutStep("idle");setIsCheckoutModalOpen(true)}} className="mt-5 w-full rounded-sm">Proceed to checkout <ArrowRight className="size-4" /></PayroxaButton></div>}
         </aside>
       </div>}
 
       {isCheckoutModalOpen && <div className="fixed inset-0 z-[90] flex items-center justify-center bg-market-ink/60 p-4" role="dialog" aria-modal="true" aria-label="Checkout">
         <div className="max-h-[92vh] w-full max-w-xl overflow-y-auto bg-market-paper shadow-card">
           <div className="flex items-center justify-between border-b border-market-line px-5 py-5"><div><p className="text-xs font-bold uppercase text-primary">Protected by Payroxa</p><h2 className="font-market-display text-2xl font-medium">Checkout</h2></div>{checkoutStep === "idle" && <PayroxaButton variant="text" ariaLabel="Close checkout" onClick={() => setIsCheckoutModalOpen(false)} className="h-10 w-10 px-0 text-market-ink"><X className="size-5" /></PayroxaButton>}</div>
-          {checkoutStep === "idle" ? <div className="space-y-6 p-5"><div className="grid grid-cols-3 gap-2 text-center text-xs"><span className="border-b-2 border-primary pb-2 font-bold text-primary">Delivery</span><span className="border-b border-market-line pb-2 text-market-muted">Payment</span><span className="border-b border-market-line pb-2 text-market-muted">Review</span></div><div className="space-y-3"><label className="block text-xs font-bold uppercase text-market-muted">Full name<input value={shippingName} onChange={(event) => setShippingName(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Phone number<input type="tel" value={shippingPhone} onChange={(event) => setShippingPhone(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Delivery address<textarea rows={3} value={shippingAddress} onChange={(event) => setShippingAddress(event.target.value)} className="mt-2 w-full border border-market-line bg-background px-3 py-3 text-sm font-normal text-market-ink" /></label></div><div className="border-y border-market-line py-4"><div className="flex justify-between text-sm"><span className="text-market-muted">Order total</span><strong>{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div></div><PayroxaButton onClick={async () => {if(!shippingName||!shippingPhone||!shippingAddress){setToastMessage("Please complete your delivery details");return}setCheckoutStep("provisioning");try{const {createMarketplaceOrderFn}=await import("../cms/marketplace-api");const res=await createMarketplaceOrderFn({data:{customerName:shippingName,customerEmail:"guest@example.com",customerPhone:shippingPhone,deliveryAddress:shippingAddress,cartItems:cartItems.map((item)=>({productId:item.id,quantity:item.quantity})),origin:window.location.origin}});if(res.success&&res.checkoutUrl){window.location.href=res.checkoutUrl}else{setToastMessage(res.error||"Checkout could not be started");setCheckoutStep("idle")}}catch(err){setToastMessage(err instanceof Error?err.message:"Checkout could not be started");setCheckoutStep("idle")}}} className="w-full rounded-none">Continue to payment <ArrowRight className="size-4" /></PayroxaButton></div> : <div className="p-12 text-center"><Loader2 className="mx-auto size-10 animate-spin text-primary" /><h3 className="mt-5 font-market-display text-2xl">Preparing secure payment</h3><p className="mt-2 text-sm text-market-muted">Your order is being prepared and protected.</p></div>}
+          {checkoutStep === "idle" ? <div className="space-y-6 p-5"><div className="grid grid-cols-3 gap-2 text-center text-xs"><span className="border-b-2 border-primary pb-2 font-bold text-primary">Delivery</span><span className="border-b border-market-line pb-2 text-market-muted">Payment</span><span className="border-b border-market-line pb-2 text-market-muted">Review</span></div><div className="space-y-3"><label className="block text-xs font-bold uppercase text-market-muted">Full name<input value={shippingName} onChange={(event) => setShippingName(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Phone number<input type="tel" value={shippingPhone} onChange={(event) => setShippingPhone(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Delivery address<textarea rows={3} value={shippingAddress} onChange={(event) => setShippingAddress(event.target.value)} className="mt-2 w-full border border-market-line bg-background px-3 py-3 text-sm font-normal text-market-ink" /></label></div><div className="border-y border-market-line py-4"><div className="flex justify-between text-sm"><span className="text-market-muted">Order total</span><strong>{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div></div><PayroxaButton onClick={async () => {if(!shippingName||!shippingPhone||!shippingAddress){setToastMessage("Please complete your delivery details");return}setCheckoutStep("provisioning");try{const {createMarketplaceOrderFn}=await import("../cms/marketplace-api");const res=await createMarketplaceOrderFn({data:{customerName:shippingName,customerEmail:"guest@example.com",customerPhone:shippingPhone,deliveryAddress:shippingAddress,cartItems:cartItems.map((item)=>({productId:item.id,quantity:item.quantity})),origin:window.location.origin}});if(res.success&&res.checkoutUrl){window.location.href=res.checkoutUrl}else{setToastMessage(res.error||"Checkout could not be started");setCheckoutStep("idle")}}catch(err){setToastMessage(err instanceof Error?err.message:"Checkout could not be started");setCheckoutStep("idle")}}} className="w-full rounded-sm">Continue to payment <ArrowRight className="size-4" /></PayroxaButton></div> : <div className="p-12 text-center"><Loader2 className="mx-auto size-10 animate-spin text-primary" /><h3 className="mt-5 font-market-display text-2xl">Preparing secure payment</h3><p className="mt-2 text-sm text-market-muted">Your order is being prepared and protected.</p></div>}
         </div>
       </div>}
     </div>
