@@ -338,47 +338,48 @@ function MarketplacePage() {
       </header>
 
       <main>
-        <section className="border-b border-market-line">
-          <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.35fr_0.65fr]">
-            <div className="relative flex min-h-[410px] flex-col justify-between overflow-hidden bg-market-lilac px-6 py-8 sm:px-10 lg:min-h-[520px] lg:px-14 lg:py-12">
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="text-xs font-bold uppercase text-primary">The Payroxa edit / 0{currentSlide + 1}</span>
-                <div className="flex gap-1.5" aria-label="Promotion slides">{FLASH_PROMO_SLIDES.map((slide, index) => <PayroxaButton key={slide.id} variant="text" size="sm" ariaLabel={`Show promotion ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2 w-8 rounded-none border-b-2 px-0 ${index === currentSlide ? "border-primary" : "border-market-ink/20"}`}><span className="sr-only">{index + 1}</span></PayroxaButton>)}</div>
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_220px]">
+            <nav aria-label="Shop by category" className="hidden rounded-sm bg-card py-2 shadow-soft lg:block">
+              <PayroxaButton variant="text" size="sm" onClick={() => setSelectedCategory("")} className={`h-9 w-full justify-start rounded-none px-4 text-xs font-medium ${selectedCategory ? "text-market-ink" : "text-primary"}`}>All categories</PayroxaButton>
+              {(categories.length ? categories : TEMU_CIRCLE_CATEGORIES).slice(0, 11).map((category) => <PayroxaButton key={category.id} variant="text" size="sm" onClick={() => setSelectedCategory(category.slug)} className={`h-9 w-full justify-start rounded-none px-4 text-xs font-medium hover:text-primary ${selectedCategory === category.slug ? "text-primary" : "text-market-ink"}`}>{category.name}</PayroxaButton>)}
+            </nav>
+            <div className="relative flex min-h-[200px] overflow-hidden rounded-sm gradient-brand text-primary-foreground sm:min-h-[340px]">
+              <div className="relative z-10 flex max-w-[60%] flex-col justify-center gap-3 p-5 sm:p-10">
+                <span className="w-fit rounded-sm bg-primary-foreground/15 px-2 py-1 text-[11px] font-bold uppercase">{activePromo?.badge || "Payroxa deals"}</span>
+                <h1 className="font-market-display text-2xl font-bold leading-tight sm:text-5xl">Shop smarter. Live better.</h1>
+                <p className="hidden text-sm opacity-85 sm:block">Verified African stores. Payment protected until delivery.</p>
+                <PayroxaButton variant="secondary" size="sm" onClick={() => document.getElementById("catalog-hub")?.scrollIntoView({ behavior: "smooth" })} className="mt-1 w-fit rounded-sm">Shop now <ArrowRight className="size-4" /></PayroxaButton>
               </div>
-              <div className="relative z-10 max-w-2xl">
-                <p className="mb-4 text-xs font-bold uppercase text-market-muted">{activePromo?.badge}</p>
-                <h1 className="max-w-xl font-market-display text-5xl font-medium leading-[0.94] sm:text-6xl lg:text-7xl">Shop smarter. Live better.</h1>
-                <p className="mt-6 max-w-lg text-base leading-7 text-market-muted">Curated technology, style and everyday essentials from verified African stores, protected by Payroxa.</p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <PayroxaButton variant="primary" onClick={() => document.getElementById("catalog-hub")?.scrollIntoView({ behavior: "smooth" })} className="rounded-none">Shop the collection <ArrowRight className="size-4" /></PayroxaButton>
-                  <PayroxaButton variant="outline" onClick={() => setIsFilterPanelOpen(true)} className="rounded-none">Explore categories</PayroxaButton>
-                </div>
-              </div>
-              <div className="absolute -bottom-10 right-[-8%] hidden h-[86%] w-[52%] rotate-3 overflow-hidden sm:block">
-                <img src={featured.featuredProducts[0]?.images?.[0]?.url || allProducts[0]?.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=85"} alt="Featured marketplace product" className="h-full w-full object-cover" />
-              </div>
+              <img src={featured.featuredProducts[0]?.images?.[0]?.url || allProducts[0]?.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=85"} alt="" className="absolute inset-y-0 right-0 h-full w-1/2 object-cover opacity-90 [mask-image:linear-gradient(to_right,transparent,black_35%)]" />
+              <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5" aria-label="Promotion slides">{FLASH_PROMO_SLIDES.map((slide, index) => <button key={slide.id} type="button" aria-label={`Show promotion ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2 rounded-full bg-primary-foreground transition-all ${index === currentSlide ? "w-6" : "w-2 opacity-50"}`} />)}</div>
             </div>
-            <aside className="grid grid-cols-2 border-t border-market-line bg-background lg:grid-cols-1 lg:border-l lg:border-t-0">
-              <div className="flex flex-col justify-between border-r border-market-line p-5 lg:border-b lg:border-r-0 lg:p-8">
-                <ShieldCheck className="size-6 text-primary" />
-                <div><p className="font-market-display text-2xl font-medium">Protected checkout</p><p className="mt-2 text-sm text-market-muted">Your payment stays protected until delivery is confirmed.</p></div>
-              </div>
-              <div className="flex flex-col justify-between p-5 lg:p-8">
-                <Truck className="size-6 text-primary" />
-                <div><p className="font-market-display text-2xl font-medium">Reliable delivery</p><p className="mt-2 text-sm text-market-muted">Track orders from verified stores across the continent.</p></div>
-              </div>
+            <aside className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+              <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><ShieldCheck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Protected checkout</p><p className="mt-1 text-xs text-market-muted">Paid out only after delivery.</p></div></div>
+              <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><Truck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Reliable delivery</p><p className="mt-1 text-xs text-market-muted">Track every order.</p></div></div>
+              <div className="col-span-2 hidden rounded-sm bg-navy p-4 text-navy-foreground lg:col-span-1 lg:block"><p className="text-sm font-bold">Sell on Payroxa</p><p className="mt-1 text-xs opacity-75">Open a store and reach more buyers.</p></div>
             </aside>
           </div>
         </section>
 
-        <section className="border-b border-market-line bg-background py-8">
-          <div className="mx-auto max-w-[1440px] px-4 lg:px-8">
-            <div className="mb-5 flex items-end justify-between"><div><p className="text-xs font-bold uppercase text-primary">Browse by interest</p><h2 className="mt-1 font-market-display text-3xl font-medium">Popular categories</h2></div><span className="hidden text-sm text-market-muted sm:block">Everything you need, in one place</span></div>
-            <div className="flex gap-5 overflow-x-auto pb-2">
-              {TEMU_CIRCLE_CATEGORIES.map((category) => <PayroxaButton key={category.id} variant="text" onClick={() => setSelectedCategory(category.slug)} className="group h-auto min-w-[82px] flex-col px-0 text-market-ink">
-                <span className={`block size-16 overflow-hidden rounded-full border-2 ${selectedCategory === category.slug ? "border-primary" : "border-transparent"}`}><img src={category.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-110" /></span>
-                <span className="text-xs">{category.name}</span>
-              </PayroxaButton>)}
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="rounded-sm bg-card shadow-soft">
+            <div className="flex items-center justify-between rounded-t-sm bg-primary px-4 py-2.5 text-primary-foreground"><h2 className="font-market-display text-base font-bold sm:text-lg">Flash Sales</h2><span className="text-xs font-semibold sm:text-sm">Time left: {String(timeLeft?.hours ?? 0).padStart(2,"0")}h : {String(timeLeft?.minutes ?? 0).padStart(2,"0")}m : {String(timeLeft?.seconds ?? 0).padStart(2,"0")}s</span></div>
+            <div className="flex gap-2 overflow-x-auto p-2 [scrollbar-width:none]">
+              {(featured.featuredProducts.length ? featured.featuredProducts : allProducts).slice(0, 10).map((product, index) => <div key={product.id} className="w-[44%] shrink-0 sm:w-[180px]"><EditorialProductCard product={product} index={index} viewMode="dense" onAdd={addProduct} /></div>)}
+              {allProducts.length === 0 && <p className="p-6 text-sm text-market-muted">Deals will appear here soon.</p>}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
+          <div className="rounded-sm bg-card p-3 shadow-soft">
+            <h2 className="mb-3 font-market-display text-base font-bold">Shop by category</h2>
+            <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
+              {TEMU_CIRCLE_CATEGORIES.slice(0, 16).map((category) => <button key={category.id} type="button" onClick={() => setSelectedCategory(category.slug)} className="group flex min-w-0 flex-col items-center gap-1.5 rounded-sm p-1 text-center hover:bg-muted">
+                <span className={`block aspect-square w-full overflow-hidden rounded-sm bg-muted ring-2 ${selectedCategory === category.slug ? "ring-primary" : "ring-transparent"}`}><img src={category.image} alt="" className="h-full w-full object-cover" /></span>
+                <span className="line-clamp-2 text-[11px] leading-tight sm:text-xs">{category.name}</span>
+              </button>)}
             </div>
           </div>
         </section>
