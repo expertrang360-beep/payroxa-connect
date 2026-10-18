@@ -20,18 +20,16 @@ import Section, { SectionHeading } from "@/components/Section";
 import PayroxaButton from "@/components/PayroxaButton";
 import FinalCTA from "@/components/FinalCTA";
 import { siteConfig } from "@/config/siteConfig";
-import { pageHead } from "@/config/seo";
 import { PAYROXA_LINKS } from "@/config/links";
 import { usePublicCms } from "@/cms/context/PublicCmsContext";
 import type { BlogPost } from "@/cms/types";
 
 export const Route = createFileRoute("/resources/$slug")({
   head: ({ params }) => {
-    const title = `${params.slug.replace(/-/g, " ")} — Payroxa Resources`;
-    const head = pageHead(title, "Business guides and payment insights from Payroxa for African entrepreneurs.", `/resources/${encodeURIComponent(params.slug)}`, "article");
+    // Basic dynamic fallback meta; enhanced inside component
     return {
-      ...head,
-      meta: [...head.meta, { name: "robots", content: "index, follow" }],
+      meta: [{ name: "robots", content: "index, follow" }],
+      links: [{ rel: "canonical", href: `${siteConfig.websiteUrl}/resources/${params.slug}` }],
     };
   },
   component: SingleResourceArticlePage,

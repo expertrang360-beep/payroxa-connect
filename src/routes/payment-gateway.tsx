@@ -1,13 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ShieldCheck, Loader2 } from "lucide-react";
-import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/payment-gateway")({
-  head: () => {
-    const head = pageHead("Checkout Test Environment | Payroxa", "Payroxa checkout test environment.", "/payment-gateway");
-    return { ...head, meta: [...head.meta, { name: "robots", content: "noindex, nofollow" }] };
-  },
   component: PaymentGateway,
 });
 

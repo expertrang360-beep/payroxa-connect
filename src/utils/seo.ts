@@ -32,7 +32,8 @@ export function updateSEO(meta: SEOMetadata) {
 
   const description =
     meta.description || "Buy premium verified drops securely through Payroxa escrow vaults.";
-  const image = meta.image?.startsWith("https://") ? meta.image : undefined;
+  const fallbackImage = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80";
+  const image = meta.image || fallbackImage;
   const currentUrl = meta.url || window.location.href;
   const type = meta.type || "product";
 
@@ -42,8 +43,7 @@ export function updateSEO(meta: SEOMetadata) {
   // Open Graph / Facebook
   setMetaTag("property", "og:title", meta.title);
   setMetaTag("property", "og:description", description);
-  if (image) setMetaTag("property", "og:image", image);
-  else document.querySelector('meta[property="og:image"]')?.remove();
+  setMetaTag("property", "og:image", image);
   setMetaTag("property", "og:url", currentUrl);
   setMetaTag("property", "og:type", type);
   setMetaTag("property", "og:site_name", "Payroxa Sovereign Marketplace");
@@ -52,8 +52,7 @@ export function updateSEO(meta: SEOMetadata) {
   setMetaTag("name", "twitter:card", "summary_large_image");
   setMetaTag("name", "twitter:title", meta.title);
   setMetaTag("name", "twitter:description", description);
-  if (image) setMetaTag("name", "twitter:image", image);
-  else document.querySelector('meta[name="twitter:image"]')?.remove();
+  setMetaTag("name", "twitter:image", image);
   setMetaTag("name", "twitter:url", currentUrl);
 
   // If product specific, inject product metadata

@@ -1,4 +1,0 @@
-- [x] Remove unsafe shared site-origin access and verify public pages without runtime errors.
-- [x] Update Payroxa's social-sharing banner and favicon.
-- [x] Verify page metadata and image delivery.
-- [ ] Verify stored SEO failures and remove unsafe homepage startup work.
