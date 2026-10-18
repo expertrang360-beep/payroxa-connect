@@ -58,14 +58,14 @@ function VendorDetailPage() {
   if (error || !vendor) {
     return (
       <div className="min-h-screen bg-background py-24 px-5 text-center">
-        <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-soft">
+        <div className="mx-auto max-w-md rounded-sm border border-border bg-card p-8 shadow-soft">
           <h2 className="text-xl font-bold font-display">Vendor Not Found</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             {error || "The requested vendor could not be retrieved."}
           </p>
           <Link
             to="/marketplace"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
+            className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
           >
             <ArrowLeft className="size-4" /> Back to Marketplace
           </Link>
@@ -98,7 +98,7 @@ function VendorDetailPage() {
                 "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80"
               }
               alt={vendor.name}
-              className="size-28 rounded-3xl object-cover border-4 border-background shadow-medium bg-card"
+              className="size-28 rounded-sm object-cover border-4 border-background shadow-medium bg-card"
             />
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold text-primary mb-1">
@@ -115,7 +115,7 @@ function VendorDetailPage() {
             href={vendor.appUrl || APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="rounded-2xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
+            className="rounded-sm bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
           >
             Shop on Payroxa <ExternalLink className="size-4" />
           </a>
@@ -123,7 +123,7 @@ function VendorDetailPage() {
 
         {/* Vendor Details & Catalog */}
         <div className="mt-12 grid gap-10 lg:grid-cols-3">
-          <div className="lg:col-span-1 rounded-2xl border border-border bg-card p-6 shadow-soft">
+          <div className="lg:col-span-1 rounded-sm border border-border bg-card p-6 shadow-soft">
             <h3 className="text-base font-bold font-display">About Merchant</h3>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               {vendor.description ||
@@ -147,7 +147,7 @@ function VendorDetailPage() {
 
           <div className="lg:col-span-2">
             <h3 className="text-xl font-bold font-display mb-6">Merchant Products</h3>
-            <div className="rounded-3xl border border-border bg-card p-12 text-center">
+            <div className="rounded-sm border border-border bg-card p-12 text-center">
               <ShoppingBag className="mx-auto size-12 text-muted-foreground/50 mb-4" />
               <h4 className="text-base font-bold">Browse full catalog in Payroxa</h4>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -157,7 +157,7 @@ function VendorDetailPage() {
                 href={vendor.appUrl || APP_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground shadow-soft"
+                className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground shadow-soft"
               >
                 Open Merchant Store in Payroxa <ExternalLink className="size-4" />
               </a>
