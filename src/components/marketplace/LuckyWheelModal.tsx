@@ -12,7 +12,7 @@ export function LuckyWheelModal() {
     coupon: string;
     discountPercent: number;
   } | null>(null);
-  
+
   useEffect(() => {
     // Load rewards
     const loadRewards = async () => {
@@ -48,9 +48,9 @@ export function LuckyWheelModal() {
         { prize: "Zero Safe-Vault Escrow Fees", coupon: "NOFEE", discountPercent: 10 },
         { prize: "NGN 25,000 / $50 Safe Wallet Credit", coupon: "VAULT50", discountPercent: 20 },
       ];
-      
+
       const prizes = wheelRewards && wheelRewards.length > 0 ? wheelRewards : defaultPrizes;
-      
+
       setWheelResult(prizes[Math.floor(Math.random() * prizes.length)]);
     }, 3000);
   };
@@ -58,31 +58,32 @@ export function LuckyWheelModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-xl relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-6 animate-scale-in">
-        <button 
+        <button
           onClick={closeWheel}
           className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10 bg-white/80 rounded-full p-1"
         >
           <X className="size-5" />
         </button>
-        
+
         <div className="flex-1 space-y-3 text-center md:text-left z-10">
           <span className="inline-flex items-center justify-center gap-1 bg-primary text-white text-[9px] font-black tracking-widest px-2.5 py-1 rounded-full uppercase">
             <RotateCw className="size-3 animate-spin" /> Free bonus spin!
           </span>
-          <h2 className="text-xl font-black text-foreground font-display">
-            You added to cart!
-          </h2>
+          <h2 className="text-xl font-black text-foreground font-display">You added to cart!</h2>
           <p className="text-xs text-muted-foreground leading-normal">
             Spin the lucky wheel now to unlock exclusive checkout discounts and rewards.
           </p>
-          
+
           {wheelResult && (
             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 inline-block animate-fade-in mt-2 w-full text-center">
               <p className="text-[10px] font-bold text-emerald-600 uppercase flex items-center justify-center gap-1">
                 ✔ REWARD UNLOCKED
               </p>
               <p className="text-xs font-black text-foreground mt-0.5">{wheelResult.prize}</p>
-              <p className="text-[10px] text-muted-foreground mt-1">Code: <span className="font-mono font-bold text-emerald-600">{wheelResult.coupon}</span></p>
+              <p className="text-[10px] text-muted-foreground mt-1">
+                Code:{" "}
+                <span className="font-mono font-bold text-emerald-600">{wheelResult.coupon}</span>
+              </p>
             </div>
           )}
         </div>

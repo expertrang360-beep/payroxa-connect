@@ -4,8 +4,26 @@ import { getProduct } from "../services/payroxa-public-api/client";
 import type { PayroxaProduct } from "../services/payroxa-public-api/types";
 import { getCmsSessionFn } from "./api"; // To get authenticated user
 
-export type OrderStatus = 'PENDING_PAYMENT' | 'PAYMENT_PROCESSING' | 'PAID' | 'CONFIRMED' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'PAYMENT_FAILED' | 'REFUNDED';
-export type PaymentStatus = 'INITIATED' | 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'EXPIRED' | 'REFUNDED';
+export type OrderStatus =
+  | "PENDING_PAYMENT"
+  | "PAYMENT_PROCESSING"
+  | "PAID"
+  | "CONFIRMED"
+  | "PROCESSING"
+  | "SHIPPED"
+  | "DELIVERED"
+  | "CANCELLED"
+  | "PAYMENT_FAILED"
+  | "REFUNDED";
+export type PaymentStatus =
+  | "INITIATED"
+  | "PENDING"
+  | "PROCESSING"
+  | "SUCCESS"
+  | "FAILED"
+  | "CANCELLED"
+  | "EXPIRED"
+  | "REFUNDED";
 
 export interface MarketplaceOrderItem {
   productId: string;
@@ -54,7 +72,13 @@ export async function createOrderServer(data: any, origin: string) {
   // For safety, we allow guest checkout if user not logged in, but prompt says "authenticated customer".
   // We'll trust the customer details provided if there's no auth session in this demo,
   // but let's assume `data.customerEmail` is required.
-  if (!data.customerName || !data.customerEmail || !data.deliveryAddress || !data.cartItems || !data.cartItems.length) {
+  if (
+    !data.customerName ||
+    !data.customerEmail ||
+    !data.deliveryAddress ||
+    !data.cartItems ||
+    !data.cartItems.length
+  ) {
     throw new Error("Missing required checkout information.");
   }
 
@@ -98,7 +122,7 @@ export async function createOrderServer(data: any, origin: string) {
   // 12. Create unique order reference
   const orderId = `ORD-${Date.now()}-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
   const paymentSessionId = `SESS-${crypto.randomBytes(8).toString("hex")}`;
-  
+
   // 14. Create the associated payment transaction/session (Mock external provider for this demo)
   // Instead of hardcoding, we use the `origin`
   const checkoutUrl = `${origin}/payment-gateway?session=${paymentSessionId}`;
@@ -132,13 +156,13 @@ export async function createOrderServer(data: any, origin: string) {
   // 15. Return the checkout destination to the frontend
   return {
     orderId,
-    checkoutUrl
+    checkoutUrl,
   };
 }
 
 export function getOrderByIdServer(id: string) {
   const orders = getMarketplaceOrders();
-  const order = orders.find(o => o.id === id);
+  const order = orders.find((o) => o.id === id);
   if (!order) throw new Error("Order not found");
   return order;
 }
@@ -150,15 +174,15 @@ export function updateOrderPaymentServer(sessionId: string, status: PaymentStatu
   if (orderIndex === -1) return null;
 
   const order = db.marketplaceOrders[orderIndex];
-  
+
   // Idempotency check: don't process if already paid
-  if (order.paymentStatus === 'SUCCESS') return order;
+  if (order.paymentStatus === "SUCCESS") return order;
 
   order.paymentStatus = status;
-  if (status === 'SUCCESS') {
-    order.orderStatus = 'PAID';
-  } else if (status === 'FAILED' || status === 'CANCELLED') {
-    order.orderStatus = 'PAYMENT_FAILED';
+  if (status === "SUCCESS") {
+    order.orderStatus = "PAID";
+  } else if (status === "FAILED" || status === "CANCELLED") {
+    order.orderStatus = "PAYMENT_FAILED";
   }
   order.updatedAt = new Date().toISOString();
   saveCmsDb(db);
@@ -168,13 +192,41 @@ export function updateOrderPaymentServer(sessionId: string, status: PaymentStatu
 export function getWheelRewardsServer() {
   const db = getCmsDb();
   if (db.wheelRewards && db.wheelRewards.length > 0) {
-    return db.wheelRewards.filter(r => r.enabled);
+    return db.wheelRewards.filter((r) => r.enabled);
   }
   return [
-    { id: "rw-1", prize: "15% OFF Escrow Checkout", coupon: "SOVEREIGN15", discountPercent: 15, probability: 25, enabled: true },
-    { id: "rw-2", prize: "FREE Express Air DHL Cargo", coupon: "SHIPDHL", discountPercent: 5, probability: 25, enabled: true },
-    { id: "rw-3", prize: "Zero Safe-Vault Escrow Fees", coupon: "NOFEE", discountPercent: 10, probability: 25, enabled: true },
-    { id: "rw-4", prize: "NGN 25,000 / $50 Safe Wallet Credit", coupon: "VAULT50", discountPercent: 20, probability: 25, enabled: true },
+    {
+      id: "rw-1",
+      prize: "15% OFF Escrow Checkout",
+      coupon: "SOVEREIGN15",
+      discountPercent: 15,
+      probability: 25,
+      enabled: true,
+    },
+    {
+      id: "rw-2",
+      prize: "FREE Express Air DHL Cargo",
+      coupon: "SHIPDHL",
+      discountPercent: 5,
+      probability: 25,
+      enabled: true,
+    },
+    {
+      id: "rw-3",
+      prize: "Zero Safe-Vault Escrow Fees",
+      coupon: "NOFEE",
+      discountPercent: 10,
+      probability: 25,
+      enabled: true,
+    },
+    {
+      id: "rw-4",
+      prize: "NGN 25,000 / $50 Safe Wallet Credit",
+      coupon: "VAULT50",
+      discountPercent: 20,
+      probability: 25,
+      enabled: true,
+    },
   ];
 }
 

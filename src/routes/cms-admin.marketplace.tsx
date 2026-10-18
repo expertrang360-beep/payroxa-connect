@@ -15,7 +15,7 @@ function CmsAdminMarketplacePage() {
   );
   const [enableCache, setEnableCache] = useState(true);
   const [saved, setSaved] = useState(false);
-  
+
   // Wheel Settings
   const [wheelRewards, setWheelRewards] = useState<any[]>([]);
   const [loadingRewards, setLoadingRewards] = useState(true);
@@ -43,7 +43,7 @@ function CmsAdminMarketplacePage() {
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
-  
+
   const handleSaveRewards = async () => {
     setSavingRewards(true);
     try {
@@ -57,27 +57,27 @@ function CmsAdminMarketplacePage() {
       setSavingRewards(false);
     }
   };
-  
+
   const updateReward = (index: number, field: string, value: any) => {
     const updated = [...wheelRewards];
     updated[index] = { ...updated[index], [field]: value };
     setWheelRewards(updated);
   };
-  
+
   const addReward = () => {
     setWheelRewards([
       ...wheelRewards,
-      { 
-        id: `rw-${Date.now()}`, 
-        prize: "New Reward", 
-        coupon: "NEWCODE", 
-        discountPercent: 10, 
-        probability: 10, 
-        enabled: true 
-      }
+      {
+        id: `rw-${Date.now()}`,
+        prize: "New Reward",
+        coupon: "NEWCODE",
+        discountPercent: 10,
+        probability: 10,
+        enabled: true,
+      },
     ]);
   };
-  
+
   const removeReward = (index: number) => {
     setWheelRewards(wheelRewards.filter((_, i) => i !== index));
   };
@@ -163,7 +163,7 @@ function CmsAdminMarketplacePage() {
                 </form>
               </div>
             </div>
-            
+
             {/* Gamification Settings */}
             <div className="rounded-3xl border border-border bg-card p-8 shadow-soft">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -175,63 +175,80 @@ function CmsAdminMarketplacePage() {
                     Manage the prizes that appear on the lucky wheel in the user wallet.
                   </p>
                 </div>
-                <button 
+                <button
                   onClick={addReward}
                   className="bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2"
                 >
                   <Plus className="size-3.5" /> Add Reward
                 </button>
               </div>
-              
+
               {loadingRewards ? (
-                <div className="text-sm text-muted-foreground p-4 text-center">Loading rewards...</div>
+                <div className="text-sm text-muted-foreground p-4 text-center">
+                  Loading rewards...
+                </div>
               ) : (
                 <div className="space-y-4">
                   {wheelRewards.map((reward, i) => (
-                    <div key={reward.id || i} className="p-4 border border-border/60 rounded-2xl bg-background/50 flex flex-col md:flex-row gap-4 items-start relative group">
+                    <div
+                      key={reward.id || i}
+                      className="p-4 border border-border/60 rounded-2xl bg-background/50 flex flex-col md:flex-row gap-4 items-start relative group"
+                    >
                       <div className="flex-1 w-full space-y-3">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">Prize Name</label>
-                            <input 
-                              type="text" 
+                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">
+                              Prize Name
+                            </label>
+                            <input
+                              type="text"
                               value={reward.prize}
                               onChange={(e) => updateReward(i, "prize", e.target.value)}
-                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium focus:border-primary focus:outline-none" 
+                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium focus:border-primary focus:outline-none"
                             />
                           </div>
                           <div>
-                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">Coupon Code</label>
-                            <input 
-                              type="text" 
+                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">
+                              Coupon Code
+                            </label>
+                            <input
+                              type="text"
                               value={reward.coupon}
                               onChange={(e) => updateReward(i, "coupon", e.target.value)}
-                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs font-mono uppercase focus:border-primary focus:outline-none" 
+                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs font-mono uppercase focus:border-primary focus:outline-none"
                             />
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           <div>
-                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">Discount (%)</label>
-                            <input 
-                              type="number" 
+                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">
+                              Discount (%)
+                            </label>
+                            <input
+                              type="number"
                               value={reward.discountPercent}
-                              onChange={(e) => updateReward(i, "discountPercent", parseInt(e.target.value) || 0)}
-                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs focus:border-primary focus:outline-none" 
+                              onChange={(e) =>
+                                updateReward(i, "discountPercent", parseInt(e.target.value) || 0)
+                              }
+                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs focus:border-primary focus:outline-none"
                             />
                           </div>
                           <div>
-                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">Probability Weight</label>
-                            <input 
-                              type="number" 
+                            <label className="block text-[10px] font-bold text-muted-foreground uppercase mb-1">
+                              Probability Weight
+                            </label>
+                            <input
+                              type="number"
                               value={reward.probability}
-                              onChange={(e) => updateReward(i, "probability", parseInt(e.target.value) || 0)}
-                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs focus:border-primary focus:outline-none" 
+                              onChange={(e) =>
+                                updateReward(i, "probability", parseInt(e.target.value) || 0)
+                              }
+                              className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs focus:border-primary focus:outline-none"
                             />
                           </div>
                           <div className="flex items-center gap-2 pt-5">
-                            <input 
-                              type="checkbox" 
+                            <input
+                              type="checkbox"
                               checked={reward.enabled}
                               onChange={(e) => updateReward(i, "enabled", e.target.checked)}
                               className="size-4 rounded border-border text-primary focus:ring-primary"
@@ -240,7 +257,7 @@ function CmsAdminMarketplacePage() {
                           </div>
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={() => removeReward(i)}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors absolute top-3 right-3 opacity-0 group-hover:opacity-100"
                         title="Remove Reward"
@@ -249,7 +266,7 @@ function CmsAdminMarketplacePage() {
                       </button>
                     </div>
                   ))}
-                  
+
                   {wheelRewards.length === 0 && (
                     <div className="text-center p-6 border border-dashed border-border rounded-2xl text-sm text-muted-foreground">
                       No rewards configured. Click "Add Reward" to create one.
@@ -263,14 +280,13 @@ function CmsAdminMarketplacePage() {
                       disabled={savingRewards}
                       className="rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground shadow-soft hover:bg-primary/90 flex items-center gap-2 disabled:opacity-50"
                     >
-                      <Save className="size-4" /> 
+                      <Save className="size-4" />
                       {savingRewards ? "Saving..." : "Save Wheel Rewards"}
                     </button>
                   </div>
                 </div>
               )}
             </div>
-            
           </div>
 
           <div className="space-y-6">

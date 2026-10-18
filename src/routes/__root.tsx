@@ -85,10 +85,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: `${siteConfig.name} | Sovereign Financial Infrastructure for Africa` },
+      { name: "description", content: siteConfig.description },
       { name: "author", content: siteConfig.name },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: siteConfig.name },
+      { property: "og:title", content: siteConfig.name },
+      { property: "og:description", content: siteConfig.description },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: siteConfig.name },
+      { name: "twitter:description", content: siteConfig.description },
       { name: "theme-color", content: "#4b1fd6" },
     ],
     links: [

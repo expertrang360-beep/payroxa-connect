@@ -888,7 +888,7 @@
       "schemaType": "WebSite",
       "priority": 0.9,
       "changefreq": "daily",
-      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedAt": "2026-10-17T13:16:36.025Z",
       "updatedBy": "System"
     },
     "security": {
@@ -906,7 +906,7 @@
       "schemaType": "Organization",
       "priority": 0.7,
       "changefreq": "monthly",
-      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedAt": "2026-10-17T13:16:36.025Z",
       "updatedBy": "System"
     },
     "privacy": {
@@ -924,7 +924,7 @@
       "schemaType": "WebSite",
       "priority": 0.4,
       "changefreq": "yearly",
-      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedAt": "2026-10-17T13:16:36.025Z",
       "updatedBy": "System"
     },
     "terms": {
@@ -942,7 +942,7 @@
       "schemaType": "WebSite",
       "priority": 0.4,
       "changefreq": "yearly",
-      "updatedAt": "2026-10-08T17:37:54.116Z",
+      "updatedAt": "2026-10-17T13:16:36.025Z",
       "updatedBy": "System"
     }
   },
@@ -1199,6 +1199,6 @@
     }
   ],
   "revisions": [],
-  "lastMarketplaceSync": "2026-10-17T13:22:22.086Z",
-  "marketplaceProductCount": 2
+  "lastMarketplaceSync": "2026-10-17T13:19:38.391Z",
+  "marketplaceProductCount": 12
 }

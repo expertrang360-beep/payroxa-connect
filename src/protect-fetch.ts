@@ -1,4 +1,3 @@
-
 (function () {
   const protect = (obj: any) => {
     if (!obj) return;
@@ -13,7 +12,9 @@
         configurable: true,
         enumerable: true,
       });
-    } catch (e) {}
+    } catch {
+      // Ignored intentionally
+    }
   };
   if (typeof window !== "undefined") protect(window);
   if (typeof globalThis !== "undefined") protect(globalThis);

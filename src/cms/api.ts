@@ -23,7 +23,8 @@ export const loginCmsFn = createServerFn({ method: "POST" })
       return { success: false, error: "Email and password are required." };
     }
 
-    const { findUserByEmail, sanitizeUser, getCmsDb, saveCmsDb, logActivity } = await import("./db.server");
+    const { findUserByEmail, sanitizeUser, getCmsDb, saveCmsDb, logActivity } =
+      await import("./db.server");
     const { verifyPassword, createSignedToken } = await import("./auth.server");
 
     const userRecord = findUserByEmail(email);
@@ -231,7 +232,8 @@ export const createAdminUserFn = createServerFn({ method: "POST" })
       return { success: false, error: "Password must be at least 8 characters long." };
     }
 
-    const { findUserByEmail, getCmsDb, saveCmsDb, sanitizeUser, logActivity } = await import("./db.server");
+    const { findUserByEmail, getCmsDb, saveCmsDb, sanitizeUser, logActivity } =
+      await import("./db.server");
     const existing = findUserByEmail(cleanEmail);
     if (existing) {
       return { success: false, error: "An administrator with this email already exists." };

@@ -1,6 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 export const createMarketplaceOrderFn = createServerFn({ method: "POST" })
-  .validator((data: { cartItems: any[]; customerName: string; customerEmail: string; deliveryAddress: string; customerPhone?: string; origin: string }) => data)
+  .validator(
+    (data: {
+      cartItems: any[];
+      customerName: string;
+      customerEmail: string;
+      deliveryAddress: string;
+      customerPhone?: string;
+      origin: string;
+    }) => data,
+  )
   .handler(async ({ data }) => {
     try {
       const { createOrderServer } = await import("./marketplace.server");
@@ -25,7 +34,7 @@ export const getMarketplaceOrderFn = createServerFn({ method: "GET" })
 
 // Simulated Webhook Processor
 export const simulatePaymentWebhookFn = createServerFn({ method: "POST" })
-  .validator((data: { sessionId: string; status: 'SUCCESS' | 'FAILED' | 'CANCELLED' }) => data)
+  .validator((data: { sessionId: string; status: "SUCCESS" | "FAILED" | "CANCELLED" }) => data)
   .handler(async ({ data }) => {
     try {
       const { updateOrderPaymentServer } = await import("./marketplace.server");
@@ -37,16 +46,15 @@ export const simulatePaymentWebhookFn = createServerFn({ method: "POST" })
     }
   });
 
-export const getWheelRewardsFn = createServerFn({ method: "GET" })
-  .handler(async () => {
-    try {
-      const { getWheelRewardsServer } = await import("./marketplace.server");
-      const rewards = getWheelRewardsServer();
-      return { success: true, rewards };
-    } catch (err: any) {
-      return { success: false, error: err.message };
-    }
-  });
+export const getWheelRewardsFn = createServerFn({ method: "GET" }).handler(async () => {
+  try {
+    const { getWheelRewardsServer } = await import("./marketplace.server");
+    const rewards = getWheelRewardsServer();
+    return { success: true, rewards };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+});
 
 export const updateWheelRewardsFn = createServerFn({ method: "POST" })
   .validator((data: any[]) => data)

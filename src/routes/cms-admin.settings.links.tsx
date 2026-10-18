@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Save, CheckCircle2, AlertCircle, RefreshCw, AlertTriangle, ExternalLink } from "lucide-react";
+import {
+  Save,
+  CheckCircle2,
+  AlertCircle,
+  RefreshCw,
+  AlertTriangle,
+  ExternalLink,
+} from "lucide-react";
 import { useCmsAuth } from "@/cms/context/CmsAuthContext";
 import { getCmsSettingsFn, updateApplicationLinksFn } from "@/cms/api";
 import { CmsHeader } from "@/cms/components/CmsHeader";
@@ -87,9 +94,12 @@ function CmsApplicationLinksPage() {
             Important Destination Warning
           </h4>
           <p className="mt-1 leading-relaxed text-amber-800">
-            <span className="font-semibold underline">Changing this URL changes where website visitors are sent.</span>{" "}
-            All buttons on the public website (e.g. "Get Started", "Sign In", "Open Wallet", "Create Your Store")
-            retrieve these live configuration values dynamically. Always verify target links before saving.
+            <span className="font-semibold underline">
+              Changing this URL changes where website visitors are sent.
+            </span>{" "}
+            All buttons on the public website (e.g. "Get Started", "Sign In", "Open Wallet", "Create
+            Your Store") retrieve these live configuration values dynamically. Always verify target
+            links before saving.
           </p>
         </div>
       </div>
@@ -110,7 +120,9 @@ function CmsApplicationLinksPage() {
 
       {!isSuperAdmin && (
         <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-800">
-          <span className="font-semibold">Role Constraint:</span> Only <span className="font-semibold">Super Admins</span> can modify application destination URLs.
+          <span className="font-semibold">Role Constraint:</span> Only{" "}
+          <span className="font-semibold">Super Admins</span> can modify application destination
+          URLs.
         </div>
       )}
 
@@ -253,9 +265,7 @@ function CmsApplicationLinksPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Cards URL
-              </label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Cards URL</label>
               <input
                 type="url"
                 disabled={!isSuperAdmin}
