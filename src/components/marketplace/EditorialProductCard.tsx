@@ -23,14 +23,14 @@ export function EditorialProductCard({ product, viewMode, onAdd }: EditorialProd
   const price = `${product.currency} ${product.price.toLocaleString()}`;
 
   const wishlist = (
-    <button
+    <PayroxaButton variant="text" ariaLabel={favorited ? "Remove from saved items" : "Save item"}
       type="button"
       onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
       aria-label={favorited ? "Remove from saved items" : "Save item"}
-      className={cn("absolute right-2 top-2 z-10 grid size-8 place-items-center rounded-full bg-card shadow-soft transition", favorited ? "text-primary" : "text-market-muted hover:text-primary")}
+      className={cn("absolute right-2 top-2 z-10 grid size-10 place-items-center rounded-full bg-card p-0 shadow-soft transition", favorited ? "text-primary" : "text-market-muted hover:text-primary")}
     >
       <Heart className={cn("size-4", favorited && "fill-current")} />
-    </button>
+    </PayroxaButton>
   );
 
   if (viewMode === "list") {
@@ -54,7 +54,7 @@ export function EditorialProductCard({ product, viewMode, onAdd }: EditorialProd
   return (
     <article className="group relative flex min-w-0 flex-col rounded-sm bg-card p-2 transition hover:z-10 hover:shadow-card">
       <Link to="/marketplace/product/$slug" params={{ slug: product.slug }} className="relative block aspect-square overflow-hidden rounded-sm bg-muted">
-        <img src={image} alt={product.images?.[0]?.alt || product.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03] motion-reduce:transition-none" />
+        <img src={image} alt={product.images?.[0]?.alt || product.name} loading="lazy" className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.03] motion-reduce:transition-none" />
         {discount && <span className="absolute left-1.5 top-1.5 rounded-sm bg-accent px-1.5 py-0.5 text-[11px] font-bold text-primary">-{discount}%</span>}
       </Link>
       {wishlist}
@@ -65,7 +65,7 @@ export function EditorialProductCard({ product, viewMode, onAdd }: EditorialProd
         <p className={cn("mt-1 font-bold", viewMode === "dense" ? "text-sm" : "text-base")}>{price}</p>
         {oldPrice && <p className="text-xs text-market-muted line-through">{product.currency} {oldPrice.toLocaleString()}</p>}
         {product.vendor?.verified && <p className="mt-1 flex items-center gap-1 text-[11px] font-semibold text-primary"><CheckCircle2 className="size-3" /> Verified store</p>}
-        <PayroxaButton size="sm" onClick={() => onAdd(product)} className="mt-2 h-9 w-full rounded-sm text-xs sm:opacity-0 sm:transition sm:group-hover:opacity-100 sm:focus-visible:opacity-100">
+        <PayroxaButton size="sm" onClick={() => onAdd(product)} className="mt-auto h-11 w-full rounded-sm text-xs shadow-none sm:opacity-0 sm:transition sm:group-hover:opacity-100 sm:focus-visible:opacity-100">
           <ShoppingCart className="size-3.5" /> Add to cart
         </PayroxaButton>
       </div>
