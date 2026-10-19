@@ -2,3 +2,5 @@
 - [x] Update Payroxa's social-sharing banner and favicon.
 - [x] Verify page metadata and image delivery.
 - [ ] Verify stored SEO failures and remove unsafe homepage startup work.
+- [ ] Finish Jumia-inspired product, storefront, merchant, cart and checkout presentation.
+- [ ] Verify marketplace navigation, shopping controls and layouts on small phones and desktop.

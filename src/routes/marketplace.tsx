@@ -7,7 +7,8 @@ import { FLASH_PROMO_SLIDES, TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.d
 import { useCart } from "@/hooks/useCart";
 import { getApiBaseUrl, getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
 import { isProductList, readCatalogueCache, saveCatalogueCache } from "@/lib/catalogue-cache";
-import { WEBSITE_URL } from "@/config/siteConfig";
+import { MarketplaceCart } from "@/components/marketplace/MarketplaceCart";
+import { WEBSITE_URL, PAYROXA_LINKS } from "@/config/siteConfig";
 import type { PayroxaCategory, PayroxaProduct, PayroxaStore, PayroxaVendor } from "@/services/payroxa-public-api/types";
 
 function toArray<T>(value: unknown): T[] {
@@ -15,6 +16,7 @@ function toArray<T>(value: unknown): T[] {
 }
 
 export const Route = createFileRoute("/marketplace")({
+  validateSearch: (search: Record<string, unknown>) => ({ q: typeof search.q === "string" ? search.q : "" }),
   head: () => ({
     meta: [
       { title: "Payroxa Marketplace | Shop Verified African Stores" },
@@ -34,13 +36,14 @@ function MarketplacePage() {
   const {
     items: cartItems,
     addToCart,
-    updateQuantity,
-    removeFromCart,
     totalCount,
   } = useCart();
 
+  const { q } = Route.useSearch();
+
   // 1. Core Filter & Catalog States
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(q);
+  useEffect(() => { setSearchQuery(q); }, [q]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("ALL");
   const [minPrice, setMinPrice] = useState("");
@@ -52,15 +55,6 @@ function MarketplacePage() {
 
   // Cart Drawer and Checkout Modal states
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
-  const [checkoutStep, setCheckoutStep] = useState<
-    "idle" | "provisioning" | "locking" | "dispatching" | "completed"
-  >("idle");
-  const [shippingName, setShippingName] = useState("");
-  const [shippingPhone, setShippingPhone] = useState("");
-  const [shippingAddress, setShippingAddress] = useState("");
-  const [checkoutHash, setCheckoutHash] = useState("");
-
   // Shop assistant states
   const [assistantQuery, setAssistantQuery] = useState("");
   const [assistantLoading, setAssistantLoading] = useState(false);
@@ -302,7 +296,6 @@ function MarketplacePage() {
     setToastMessage(`${product.name} added to your bag`);
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const activePromo = FLASH_PROMO_SLIDES[currentSlide];
 
   return (
@@ -317,14 +310,14 @@ function MarketplacePage() {
       )}
 
       <header className="sticky top-0 z-50 bg-card shadow-soft">
-        <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-3 lg:px-8">
-          <Link to="/marketplace" className="font-market-display text-xl font-bold uppercase">Payroxa<span className="text-primary">.</span></Link>
-          <div className="relative mx-auto w-full max-w-2xl">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-2 px-3 py-3 sm:gap-3 sm:px-4">
+          <Link to="/marketplace" className="mr-auto shrink-0 font-market-display text-2xl font-bold">Payroxa<span className="text-primary">.</span></Link>
+          <div className="relative order-3 w-full min-w-0 sm:order-none sm:mx-auto sm:w-auto sm:flex-1 sm:max-w-2xl">
             <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-market-muted" />
             <input value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search products, stores and categories" aria-label="Search marketplace" className="h-11 w-full rounded-sm border border-market-line bg-background pl-11 pr-4 text-sm outline-none transition focus:border-primary" />
           </div>
-          <PayroxaButton variant="text" size="sm" ariaLabel="Open filters" onClick={() => setIsFilterPanelOpen((open) => !open)} className="h-10 w-10 px-0 text-market-ink"><Filter className="size-5" /></PayroxaButton>
-          <PayroxaButton variant="text" size="sm" ariaLabel={`Open bag with ${totalCount} items`} onClick={() => setIsCartOpen(true)} className="relative h-10 w-10 px-0 text-market-ink">
+          <PayroxaButton variant="text" size="sm" ariaLabel="Open filters" onClick={() => setIsFilterPanelOpen((open) => !open)} className="h-11 w-11 shrink-0 px-0 text-market-ink"><Filter className="size-5" /></PayroxaButton>
+          <PayroxaButton variant="text" size="sm" ariaLabel={`Open bag with ${totalCount} items`} onClick={() => setIsCartOpen(true)} className="relative h-11 w-11 shrink-0 px-0 text-market-ink">
             <ShoppingBag className="size-5" />
             {totalCount > 0 && <span className="absolute right-0 top-0 flex size-4 items-center justify-center rounded-full bg-primary text-[0.6rem] text-primary-foreground">{totalCount}</span>}
           </PayroxaButton>
@@ -485,24 +478,10 @@ function MarketplacePage() {
 
       <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 items-center justify-between gap-3 border border-market-line bg-market-ink px-4 py-3 text-market-paper shadow-card sm:bottom-6">
         <div className="min-w-0"><p className="truncate text-sm font-semibold">Save your bag and track orders</p><p className="truncate text-xs text-market-paper/60">Sign in for the complete experience</p></div>
-        <PayroxaButton to="/cms-admin/login" variant="primary" size="sm" className="rounded-sm">Sign in</PayroxaButton>
+        <PayroxaButton href={PAYROXA_LINKS.login} variant="primary" size="sm" className="rounded-sm">Sign in</PayroxaButton>
       </div>
 
-      {isCartOpen && <div className="fixed inset-0 z-[80]" role="dialog" aria-modal="true" aria-label="Shopping bag">
-        <div className="absolute inset-0 bg-market-ink/55" onClick={() => setIsCartOpen(false)} />
-        <aside className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-market-paper shadow-card">
-          <div className="flex items-center justify-between border-b border-market-line px-5 py-5"><div><p className="text-xs font-bold uppercase text-primary">Your selection</p><h2 className="font-market-display text-2xl font-medium">Shopping bag ({totalCount})</h2></div><PayroxaButton variant="text" ariaLabel="Close bag" onClick={() => setIsCartOpen(false)} className="h-10 w-10 px-0 text-market-ink"><X className="size-5" /></PayroxaButton></div>
-          <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5">{cartItems.length === 0 ? <div className="flex h-full flex-col items-center justify-center text-center"><ShoppingBag className="size-10 text-market-muted" /><h3 className="mt-4 font-market-display text-2xl">Your bag is empty</h3><p className="mt-2 text-sm text-market-muted">Discover something worth keeping.</p><PayroxaButton variant="outline" onClick={() => setIsCartOpen(false)} className="mt-5 rounded-sm">Start shopping</PayroxaButton></div> : <div className="space-y-5">{cartItems.map((item) => <article key={`${item.id}-${item.size}-${item.color}`} className="grid grid-cols-[64px_minmax(0,1fr)_auto] gap-3 border-b sm:grid-cols-[72px_minmax(0,1fr)_auto] border-market-line pb-5"><img src={item.image} alt={item.name} className="size-16 object-cover sm:size-[72px]" /><div><h3 className="line-clamp-2 font-market-display text-base font-medium">{item.name}</h3><p className="mt-1 text-sm font-semibold">{item.currency} {item.price.toLocaleString()}</p><div className="mt-3 flex items-center border border-market-line w-fit"><PayroxaButton variant="text" size="sm" ariaLabel="Decrease quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity-1)} className="h-10 w-10 rounded-sm px-0 text-market-ink"><Minus className="size-3" /></PayroxaButton><span className="w-8 text-center text-sm">{item.quantity}</span><PayroxaButton variant="text" size="sm" ariaLabel="Increase quantity" onClick={() => updateQuantity(item.id,item.size,item.color,item.quantity+1)} className="h-10 w-10 rounded-sm px-0 text-market-ink"><Plus className="size-3" /></PayroxaButton></div></div><PayroxaButton variant="text" size="sm" ariaLabel={`Remove ${item.name}`} onClick={() => removeFromCart(item.id,item.size,item.color)} className="h-10 w-10 px-0 text-market-muted"><Trash2 className="size-4" /></PayroxaButton></article>)}</div>}</div>
-          {cartItems.length > 0 && <div className="border-t border-market-line bg-background p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5"><div className="flex justify-between gap-3"><span className="text-sm text-market-muted">Subtotal</span><strong className="font-market-display text-xl">{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div><p className="mt-3 flex gap-2 text-xs text-market-muted"><ShieldCheck className="size-4 shrink-0 text-primary" />Payment is protected until you confirm delivery.</p><PayroxaButton onClick={() => {setIsCartOpen(false);setCheckoutStep("idle");setIsCheckoutModalOpen(true)}} className="mt-5 w-full rounded-sm">Proceed to checkout <ArrowRight className="size-4" /></PayroxaButton></div>}
-        </aside>
-      </div>}
-
-      {isCheckoutModalOpen && <div className="fixed inset-0 z-[90] flex items-center justify-center bg-market-ink/60 p-4" role="dialog" aria-modal="true" aria-label="Checkout">
-        <div className="max-h-[92vh] w-full max-w-xl overflow-y-auto bg-market-paper shadow-card">
-          <div className="flex items-center justify-between border-b border-market-line px-5 py-5"><div><p className="text-xs font-bold uppercase text-primary">Protected by Payroxa</p><h2 className="font-market-display text-2xl font-medium">Checkout</h2></div>{checkoutStep === "idle" && <PayroxaButton variant="text" ariaLabel="Close checkout" onClick={() => setIsCheckoutModalOpen(false)} className="h-10 w-10 px-0 text-market-ink"><X className="size-5" /></PayroxaButton>}</div>
-          {checkoutStep === "idle" ? <div className="space-y-6 p-5"><div className="grid grid-cols-3 gap-2 text-center text-xs"><span className="border-b-2 border-primary pb-2 font-bold text-primary">Delivery</span><span className="border-b border-market-line pb-2 text-market-muted">Payment</span><span className="border-b border-market-line pb-2 text-market-muted">Review</span></div><div className="space-y-3"><label className="block text-xs font-bold uppercase text-market-muted">Full name<input value={shippingName} onChange={(event) => setShippingName(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Phone number<input type="tel" value={shippingPhone} onChange={(event) => setShippingPhone(event.target.value)} className="mt-2 h-11 w-full border border-market-line bg-background px-3 text-sm font-normal text-market-ink" /></label><label className="block text-xs font-bold uppercase text-market-muted">Delivery address<textarea rows={3} value={shippingAddress} onChange={(event) => setShippingAddress(event.target.value)} className="mt-2 w-full border border-market-line bg-background px-3 py-3 text-sm font-normal text-market-ink" /></label></div><div className="border-y border-market-line py-4"><div className="flex justify-between text-sm"><span className="text-market-muted">Order total</span><strong>{cartItems[0]?.currency} {subtotal.toLocaleString()}</strong></div></div><PayroxaButton onClick={async () => {if(!shippingName||!shippingPhone||!shippingAddress){setToastMessage("Please complete your delivery details");return}setCheckoutStep("provisioning");try{const {createMarketplaceOrderFn}=await import("../cms/marketplace-api");const res=await createMarketplaceOrderFn({data:{customerName:shippingName,customerEmail:"guest@example.com",customerPhone:shippingPhone,deliveryAddress:shippingAddress,cartItems:cartItems.map((item)=>({productId:item.id,quantity:item.quantity})),origin:window.location.origin}});if(res.success&&res.checkoutUrl){window.location.href=res.checkoutUrl}else{setToastMessage(res.error||"Checkout could not be started");setCheckoutStep("idle")}}catch(err){setToastMessage(err instanceof Error?err.message:"Checkout could not be started");setCheckoutStep("idle")}}} className="w-full rounded-sm">Continue to payment <ArrowRight className="size-4" /></PayroxaButton></div> : <div className="p-12 text-center"><Loader2 className="mx-auto size-10 animate-spin text-primary" /><h3 className="mt-5 font-market-display text-2xl">Preparing secure payment</h3><p className="mt-2 text-sm text-market-muted">Your order is being prepared and protected.</p></div>}
-        </div>
-      </div>}
+      <MarketplaceCart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }

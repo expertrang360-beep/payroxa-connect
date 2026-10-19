@@ -15,3 +15,4 @@
 - Resolve the public site origin from public build configuration, never browser location or module-scope server environment reads, so SSR and client metadata agree.
 - Keep the branded social preview in a CDN asset pointer and the small favicon in public; use leaf-route sharing metadata so previews stay crawlable without sitewide image inheritance.
 - Keep the server entry free of import-time network requests and recurring timers; Workers prohibit startup I/O, and public page availability must not depend on marketplace syncing.
+- Share marketplace navigation and seller presentation across public marketplace detail pages to keep shopping controls and responsive layouts consistent.

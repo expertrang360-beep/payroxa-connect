@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, XCircle, Clock, ArrowRight, Loader2, Package } from "lucide-react";
 import type { MarketplaceOrder } from "../cms/marketplace.server";
 import { pageHead } from "@/config/seo";
+import { MarketplaceHeader, MarketplaceBreadcrumb } from "@/components/marketplace/MarketplaceHeader";
+import { PayroxaButton } from "@/components/PayroxaButton";
 
 export const Route = createFileRoute("/marketplace_/checkout/return")({
   head: () => {
@@ -24,13 +26,14 @@ function CheckoutReturn() {
       setLoading(false);
       return;
     }
+    const orderId = search.orderId;
 
     let intervalId: any;
     
     const fetchStatus = async () => {
       try {
         const { getMarketplaceOrderFn } = await import("../cms/marketplace-api");
-        const res = await getMarketplaceOrderFn({ data: { orderId: search.orderId! } });
+        const res = await getMarketplaceOrderFn({ data: { orderId } });
         if (res.success && res.order) {
           setOrder(res.order);
           // Stop polling if status is final
@@ -61,24 +64,24 @@ function CheckoutReturn() {
 
   if (loading && !order) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-market-paper"><MarketplaceHeader /><div className="min-h-[70vh] flex flex-col items-center justify-center p-4 text-center">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <h2 className="text-xl font-black">Confirming your payment...</h2>
         <p className="text-muted-foreground mt-2">Please wait while we verify the transaction with the provider.</p>
-      </div>
+      </div></div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-        <XCircle className="size-16 text-red-500 mb-4" />
-        <h2 className="text-xl font-black text-foreground">Verification Failed</h2>
+      <div className="min-h-screen bg-market-paper"><MarketplaceHeader /><MarketplaceBreadcrumb current="Order status" /><div className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center bg-card p-5 text-center">
+        <XCircle className="size-12 text-destructive mb-4" />
+        <h1 className="text-xl font-semibold text-foreground">Unable to verify this order</h1>
         <p className="text-muted-foreground mt-2">{error}</p>
-        <Link to="/marketplace" className="mt-8 bg-primary text-white px-6 py-3 rounded-full font-bold">
+        <PayroxaButton to="/marketplace" className="mt-8 rounded-sm shadow-none">
           Return to Marketplace
-        </Link>
-      </div>
+        </PayroxaButton>
+      </div></div>
     );
   }
 
@@ -89,33 +92,33 @@ function CheckoutReturn() {
   const isPending = order.paymentStatus === "INITIATED" || order.paymentStatus === "PENDING" || order.paymentStatus === "PROCESSING";
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto bg-card rounded-sm shadow-soft border border-border/40 overflow-hidden">
+    <div className="min-h-screen bg-market-paper pb-12"><MarketplaceHeader /><MarketplaceBreadcrumb current="Order status" />
+      <main className="mx-auto max-w-2xl overflow-hidden rounded-sm border border-market-line bg-card shadow-soft">
         
         {/* Header section based on status */}
-        <div className={`p-8 text-center text-white ${isSuccess ? 'bg-emerald-600' : isFailed ? 'bg-red-600' : 'bg-primary'}`}>
+        <div className={`border-b border-market-line p-5 text-center sm:p-8 ${isFailed ? 'bg-destructive/10 text-destructive' : 'bg-accent text-primary'}`}>
           {isSuccess && <CheckCircle2 className="size-16 mx-auto mb-4 opacity-90" />}
           {isFailed && <XCircle className="size-16 mx-auto mb-4 opacity-90" />}
           {isPending && <Clock className="size-16 mx-auto mb-4 opacity-90" />}
           
-          <h1 className="text-3xl font-black tracking-tight mb-2">
+          <h1 className="text-2xl font-semibold mb-2">
             {isSuccess ? 'Payment Successful' : isFailed ? 'Payment Failed' : 'Payment Processing'}
           </h1>
-          <p className="text-white/80 text-sm">
-            Order Reference: <span className="font-mono font-bold bg-black/20 px-2 py-1 rounded">{order.id}</span>
+          <p className="text-market-muted text-sm">
+            Order Reference: <span className="break-all font-mono font-medium">{order.id}</span>
           </p>
         </div>
 
         {/* Order Details */}
-        <div className="p-8">
-          <div className="flex items-center justify-between mb-6 pb-6 border-b border-border/50">
+        <div className="p-5 sm:p-8">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-market-line pb-6">
             <div>
-              <h3 className="text-sm font-bold text-muted-foreground uppercase">Total Paid</h3>
+              <h3 className="text-sm font-bold text-muted-foreground uppercase">{isSuccess ? "Total paid" : "Order total"}</h3>
               <p className="text-2xl font-black">{order.currency} {order.total.toLocaleString()}</p>
             </div>
             <div className="text-right">
               <h3 className="text-sm font-bold text-muted-foreground uppercase">Order Status</h3>
-              <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-700 mt-1">
+              <span className="mt-1 inline-block rounded-sm bg-muted px-3 py-1 text-xs font-semibold text-market-ink">
                 {order.orderStatus.replace('_', ' ')}
               </span>
             </div>
@@ -125,42 +128,42 @@ function CheckoutReturn() {
             <h3 className="font-black flex items-center gap-2"><Package className="size-5" /> Items Summary</h3>
             <div className="space-y-3">
               {order.items.map((item, idx) => (
-                <div key={idx} className="flex justify-between items-center text-sm">
-                  <div className="flex items-center gap-3">
-                    <span className="font-bold text-gray-500">{item.quantity}x</span>
-                    <span className="font-medium">{item.productNameSnapshot}</span>
+                <div key={idx} className="flex justify-between items-start gap-3 text-sm">
+                  <div className="flex min-w-0 items-start gap-3">
+                    <span className="shrink-0 font-bold text-market-muted">{item.quantity}x</span>
+                    <span className="break-words font-medium">{item.productNameSnapshot}</span>
                   </div>
-                  <span className="font-bold">{(item.subtotal).toLocaleString()}</span>
+                  <span className="shrink-0 font-bold">{(item.subtotal).toLocaleString()}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-sm p-5 mb-8 text-sm">
+          <div className="border-y border-market-line py-5 mb-8 text-sm">
             <h4 className="font-black mb-3">Delivery Information</h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <span className="text-muted-foreground block mb-1">Recipient</span>
                 <span className="font-medium block">{order.customerName}</span>
-                <span className="text-gray-500">{order.customerPhone}</span>
+                <span className="text-market-muted">{order.customerPhone}</span>
               </div>
               <div>
                 <span className="text-muted-foreground block mb-1">Address</span>
-                <span className="font-medium block">{order.deliveryAddress}</span>
+                <span className="block break-words font-medium">{order.deliveryAddress}</span>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link 
+            <PayroxaButton
               to="/marketplace" 
-              className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-full text-center flex items-center justify-center gap-2 transition-colors"
+              className="h-12 flex-1 rounded-sm shadow-none"
             >
               Continue Shopping <ArrowRight className="size-4" />
-            </Link>
+            </PayroxaButton>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
