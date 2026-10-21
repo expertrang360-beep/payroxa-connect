@@ -16,3 +16,4 @@
 - Keep the branded social preview in a CDN asset pointer and the small favicon in public; use leaf-route sharing metadata so previews stay crawlable without sitewide image inheritance.
 - Keep the server entry free of import-time network requests and recurring timers; Workers prohibit startup I/O, and public page availability must not depend on marketplace syncing.
 - Share marketplace navigation and seller presentation across public marketplace detail pages to keep shopping controls and responsive layouts consistent.
+- Validate marketplace search with the TanStack Zod adapter and defaulted input fields so ordinary navigation does not require a search term.

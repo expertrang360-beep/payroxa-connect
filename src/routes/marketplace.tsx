@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
+import { z } from "zod";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Filter, Grid3X3, LayoutGrid, List, Loader2, Minus, Plus, RefreshCw, RotateCw, Search, ShieldCheck, ShoppingBag, Sparkles, Trash2, Truck, X } from "lucide-react";
 import { EditorialProductCard } from "@/components/marketplace/EditorialProductCard";
@@ -16,7 +18,9 @@ function toArray<T>(value: unknown): T[] {
 }
 
 export const Route = createFileRoute("/marketplace")({
-  validateSearch: (search: Record<string, unknown>) => ({ q: typeof search.q === "string" ? search.q : "" }),
+  validateSearch: zodValidator(z.object({
+    q: fallback(z.string(), "").default(""),
+  })),
   head: () => ({
     meta: [
       { title: "Payroxa Marketplace | Shop Verified African Stores" },
