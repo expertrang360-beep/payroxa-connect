@@ -2,7 +2,7 @@
 - [x] Update Payroxa's social-sharing banner and favicon.
 - [x] Verify page metadata and image delivery.
 - [x] Fix marketplace navigation build errors and verify search and cart pages load.
-- [ ] Enhance the marketplace slider and add labelled, configurable advertising spaces.
+- [x] Enhance the marketplace slider and add labelled, configurable advertising spaces.
 - [ ] Verify stored SEO failures and remove unsafe homepage startup work.
 - [ ] Finish Jumia-inspired product, storefront, merchant, cart and checkout presentation.
 - [ ] Verify marketplace navigation, shopping controls and layouts on small phones and desktop.
