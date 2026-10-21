@@ -5,7 +5,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Filter, Grid3X3, LayoutGrid, List, Loader2, Minus, Plus, RefreshCw, RotateCw, Search, ShieldCheck, ShoppingBag, Sparkles, Trash2, Truck, X } from "lucide-react";
 import { EditorialProductCard } from "@/components/marketplace/EditorialProductCard";
 import { PayroxaButton } from "@/components/PayroxaButton";
-import { FLASH_PROMO_SLIDES, TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.data";
+import { TEMU_CIRCLE_CATEGORIES } from "@/data/marketplace.data";
+import { MarketplaceSlider } from "@/components/marketplace/MarketplaceSlider";
+import { MarketplaceAd } from "@/components/marketplace/MarketplaceAd";
 import { useCart } from "@/hooks/useCart";
 import { getApiBaseUrl, getCategories, getFeatured, getProducts, getVendors } from "@/services/payroxa-public-api/client";
 import { isProductList, readCatalogueCache, saveCatalogueCache } from "@/lib/catalogue-cache";
@@ -81,7 +83,6 @@ function MarketplacePage() {
   const catalogueRequestPending = useRef(false);
 
   // 3. Gamification States
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [timeLeft, setTimeLeft] = useState({ hours: 11, minutes: 24, seconds: 43 });
 
   // Custom interactive & iframe compliant states
@@ -146,15 +147,6 @@ function MarketplacePage() {
     loadData();
   }, []);
 
-  // Promo slide auto-advance
-  useEffect(() => {
-    const interval = setInterval(
-      () => setCurrentSlide((index) => (index + 1) % Math.max(FLASH_PROMO_SLIDES.length, 1)),
-      6000,
-    );
-    return () => clearInterval(interval);
-  }, []);
-
   // Countdown ticker
   useEffect(() => {
     const interval = setInterval(() => {
@@ -175,6 +167,7 @@ function MarketplacePage() {
       list = list.filter(
         (product) =>
           (product as any).categorySlug === selectedCategory ||
+          product.category?.slug === selectedCategory ||
           (product as any).category === selectedCategory,
       );
     }
@@ -300,7 +293,6 @@ function MarketplacePage() {
     setToastMessage(`${product.name} added to your bag`);
   };
 
-  const activePromo = FLASH_PROMO_SLIDES[currentSlide];
 
   return (
     <div className="theme-marketplace min-h-screen bg-market-paper pb-24 font-market text-market-ink">
@@ -341,23 +333,16 @@ function MarketplacePage() {
               <PayroxaButton variant="text" size="sm" onClick={() => setSelectedCategory("")} className={`h-9 w-full justify-start rounded-sm px-4 text-xs font-medium ${selectedCategory ? "text-market-ink" : "text-primary"}`}>All categories</PayroxaButton>
               {(categories.length ? categories : TEMU_CIRCLE_CATEGORIES).slice(0, 11).map((category) => <PayroxaButton key={category.id} variant="text" size="sm" onClick={() => setSelectedCategory(category.slug)} className={`h-9 w-full justify-start rounded-sm px-4 text-xs font-medium hover:text-primary ${selectedCategory === category.slug ? "text-primary" : "text-market-ink"}`}>{category.name}</PayroxaButton>)}
             </nav>
-            <div className="relative flex min-h-[200px] overflow-hidden rounded-sm gradient-brand text-primary-foreground sm:min-h-[340px]">
-              <div className="relative z-10 flex max-w-[60%] flex-col justify-center gap-3 p-5 sm:p-10">
-                <span className="w-fit rounded-sm bg-primary-foreground/15 px-2 py-1 text-[11px] font-bold uppercase">{activePromo?.badge || "Payroxa deals"}</span>
-                <h1 className="font-market-display text-2xl font-bold leading-tight sm:text-5xl">Shop smarter. Live better.</h1>
-                <p className="hidden text-sm opacity-85 sm:block">Verified African stores. Payment protected until delivery.</p>
-                <PayroxaButton variant="secondary" size="sm" onClick={() => document.getElementById("catalog-hub")?.scrollIntoView({ behavior: "smooth" })} className="mt-1 w-fit rounded-sm">Shop now <ArrowRight className="size-4" /></PayroxaButton>
-              </div>
-              <img src={featured.featuredProducts[0]?.images?.[0]?.url || allProducts[0]?.images?.[0]?.url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1000&q=85"} alt="" className="absolute inset-y-0 right-0 h-full w-1/2 object-cover opacity-90 [mask-image:linear-gradient(to_right,transparent,black_35%)]" />
-              <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5" aria-label="Promotion slides">{FLASH_PROMO_SLIDES.map((slide, index) => <button key={slide.id} type="button" aria-label={`Show promotion ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2 rounded-full bg-primary-foreground transition-all ${index === currentSlide ? "w-6" : "w-2 opacity-50"}`} />)}</div>
-            </div>
+            <MarketplaceSlider onShop={(category) => { setSelectedCategory(category); setActiveFilterTab("all"); document.getElementById("catalog-hub")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }); }} />
             <aside className="grid grid-cols-2 gap-3 lg:grid-cols-1">
               <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><ShieldCheck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Protected checkout</p><p className="mt-1 text-xs text-market-muted">Paid out only after delivery.</p></div></div>
               <div className="flex items-start gap-3 rounded-sm bg-card p-4 shadow-soft"><Truck className="size-6 shrink-0 text-primary" /><div><p className="text-sm font-bold">Reliable delivery</p><p className="mt-1 text-xs text-market-muted">Track every order.</p></div></div>
-              <div className="col-span-2 hidden rounded-sm bg-navy p-4 text-navy-foreground lg:col-span-1 lg:block"><p className="text-sm font-bold">Sell on Payroxa</p><p className="mt-1 text-xs opacity-75">Open a store and reach more buyers.</p></div>
+              <div className="col-span-2 lg:col-span-1"><MarketplaceAd placement="sidebar" /></div>
             </aside>
           </div>
         </section>
+
+        <div className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4"><MarketplaceAd placement="banner" /></div>
 
         <section className="mx-auto max-w-[1200px] px-2 pt-3 sm:px-4">
           <div className="rounded-sm bg-card shadow-soft">
