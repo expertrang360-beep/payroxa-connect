@@ -44,8 +44,8 @@ export function MarketplaceSlider({ onShop }: { onShop: (category: string) => vo
         <div className="flex">
           {marketplacePromotions.map((slide, index) => (
             <div key={slide.id} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${marketplacePromotions.length}`} aria-hidden={active !== index} inert={active !== index} className="relative min-h-[320px] min-w-0 flex-[0_0_100%] sm:min-h-[360px]">
-              <img src={slide.image} alt={slide.alt} width={1536} height={1024} loading={index === 0 ? "eager" : "lazy"} className="absolute inset-0 h-full w-full object-cover" />
-              <div className="relative z-10 flex min-h-[320px] w-[57%] flex-col justify-center px-5 pb-16 pt-7 sm:min-h-[360px] sm:px-7">
+              <img src={slide.image} alt={slide.alt} width={1536} height={1024} loading={index === 0 ? "eager" : "lazy"} className="absolute inset-0 h-full w-full object-cover object-left" />
+              <div className="relative z-10 flex min-h-[320px] w-[52%] flex-col justify-center px-5 pb-16 pt-7 sm:min-h-[360px] sm:px-7">
                 <p className="mb-3 text-xs font-semibold uppercase text-market-paper/80">{slide.eyebrow}</p>
                 {index === 0 ? <h1 className="font-market-display text-3xl font-bold leading-tight">{slide.title}</h1> : <h2 className="font-market-display text-3xl font-bold leading-tight">{slide.title}</h2>}
                 <p className="mt-3 text-sm text-market-paper/85">{slide.description}</p>
