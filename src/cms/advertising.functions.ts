@@ -46,7 +46,6 @@ export const listPublicAdvertsFn = createServerFn({ method: "GET" }).handler(asy
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
   if (!url || !key) return [];
   const { createClient } = await import("@supabase/supabase-js");
-  const { supabasePublic: unused } = { supabasePublic: undefined };
   const client = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: (input, init) => {
     const headers = new Headers(init?.headers);
     if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");

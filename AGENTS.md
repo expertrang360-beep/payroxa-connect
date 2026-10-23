@@ -18,3 +18,5 @@
 - Share marketplace navigation and seller presentation across public marketplace detail pages to keep shopping controls and responsive layouts consistent.
 - Validate marketplace search with the TanStack Zod adapter and defaulted input fields so ordinary navigation does not require a search term.
 - Keep marketplace campaigns and direct-sponsor placement configuration separate from catalogue data; reserve labelled ad inventory without implying an ad network or revenue collection is active.
+- Store merchant adverts in Cloud with owner-scoped pending reads and database-backed administrator moderation; public delivery exposes only approved, currently scheduled creatives.
+- Keep direct sponsorship and AdSense in separate labelled inventory; load AdSense only after a certified CMP consent signal, using validated public publisher and slot configuration.
