@@ -6,3 +6,5 @@
 - [ ] Verify stored SEO failures and remove unsafe homepage startup work.
 - [ ] Finish Jumia-inspired product, storefront, merchant, cart and checkout presentation.
 - [ ] Verify marketplace navigation, shopping controls and layouts on small phones and desktop.
+- [ ] Add merchant advert submissions, moderation and approved placement delivery.
+- [ ] Add consent-gated ad-network inventory and verify advert fallback behavior.

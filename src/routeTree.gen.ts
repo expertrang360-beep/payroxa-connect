@@ -44,6 +44,7 @@ import { Route as CmsAdminPagesRouteImport } from './routes/cms-admin.pages'
 import { Route as CmsAdminProductsRouteImport } from './routes/cms-admin.products'
 import { Route as CmsAdminSeoRouteImport } from './routes/cms-admin.seo'
 import { Route as CmsAdminTestimonialsRouteImport } from './routes/cms-admin.testimonials'
+import { Route as MarketplaceAdvertiseRouteImport } from './routes/marketplace_.advertise'
 import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 import { Route as CmsAdminSettingsIndexRouteImport } from './routes/cms-admin.settings.index'
 import { Route as CmsAdminSettingsAdminsRouteImport } from './routes/cms-admin.settings.admins'
@@ -229,6 +230,11 @@ const CmsAdminTestimonialsRoute = CmsAdminTestimonialsRouteImport.update({
   path: '/testimonials',
   getParentRoute: () => CmsAdminRoute,
 } as any)
+const MarketplaceAdvertiseRoute = MarketplaceAdvertiseRouteImport.update({
+  id: '/marketplace_/advertise',
+  path: '/marketplace/advertise',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -311,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/cms-admin/products': typeof CmsAdminProductsRoute
   '/cms-admin/seo': typeof CmsAdminSeoRoute
   '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/marketplace/advertise': typeof MarketplaceAdvertiseRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/cms-admin/': typeof CmsAdminIndexRoute
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
@@ -356,6 +363,7 @@ export interface FileRoutesByTo {
   '/cms-admin/products': typeof CmsAdminProductsRoute
   '/cms-admin/seo': typeof CmsAdminSeoRoute
   '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/marketplace/advertise': typeof MarketplaceAdvertiseRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/cms-admin': typeof CmsAdminIndexRoute
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
@@ -403,6 +411,7 @@ export interface FileRoutesById {
   '/cms-admin/products': typeof CmsAdminProductsRoute
   '/cms-admin/seo': typeof CmsAdminSeoRoute
   '/cms-admin/testimonials': typeof CmsAdminTestimonialsRoute
+  '/marketplace_/advertise': typeof MarketplaceAdvertiseRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/cms-admin/': typeof CmsAdminIndexRoute
   '/cms-admin/settings/admins': typeof CmsAdminSettingsAdminsRoute
@@ -451,6 +460,7 @@ export interface FileRouteTypes {
     | '/cms-admin/products'
     | '/cms-admin/seo'
     | '/cms-admin/testimonials'
+    | '/marketplace/advertise'
     | '/resources/$slug'
     | '/cms-admin/'
     | '/cms-admin/settings/admins'
@@ -496,6 +506,7 @@ export interface FileRouteTypes {
     | '/cms-admin/products'
     | '/cms-admin/seo'
     | '/cms-admin/testimonials'
+    | '/marketplace/advertise'
     | '/resources/$slug'
     | '/cms-admin'
     | '/cms-admin/settings/admins'
@@ -542,6 +553,7 @@ export interface FileRouteTypes {
     | '/cms-admin/products'
     | '/cms-admin/seo'
     | '/cms-admin/testimonials'
+    | '/marketplace_/advertise'
     | '/resources/$slug'
     | '/cms-admin/'
     | '/cms-admin/settings/admins'
@@ -574,6 +586,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   TransfersRoute: typeof TransfersRoute
   WalletRoute: typeof WalletRoute
+  MarketplaceAdvertiseRoute: typeof MarketplaceAdvertiseRoute
   MarketplaceCheckoutReturnRoute: typeof MarketplaceCheckoutReturnRoute
   MarketplaceProductSlugRoute: typeof MarketplaceProductSlugRoute
   MarketplaceStoreSlugRoute: typeof MarketplaceStoreSlugRoute
@@ -827,6 +840,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CmsAdminTestimonialsRouteImport
       parentRoute: typeof CmsAdminRoute
     }
+    '/marketplace_/advertise': {
+      id: '/marketplace_/advertise'
+      path: '/marketplace/advertise'
+      fullPath: '/marketplace/advertise'
+      preLoaderRoute: typeof MarketplaceAdvertiseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/$slug': {
       id: '/resources/$slug'
       path: '/$slug'
@@ -975,6 +995,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   TransfersRoute: TransfersRoute,
   WalletRoute: WalletRoute,
+  MarketplaceAdvertiseRoute: MarketplaceAdvertiseRoute,
   MarketplaceCheckoutReturnRoute: MarketplaceCheckoutReturnRoute,
   MarketplaceProductSlugRoute: MarketplaceProductSlugRoute,
   MarketplaceStoreSlugRoute: MarketplaceStoreSlugRoute,
