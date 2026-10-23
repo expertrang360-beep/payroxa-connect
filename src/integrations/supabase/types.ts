@@ -14,16 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      marketplace_adverts: {
+        Row: {
+          business_name: string
+          created_at: string
+          destination_url: string
+          ends_at: string
+          id: string
+          image_url: string
+          owner_id: string
+          placement: string
+          review_note: string
+          starts_at: string
+          status: string
+          title: string
+        }
+        Insert: {
+          business_name: string
+          created_at?: string
+          destination_url: string
+          ends_at: string
+          id?: string
+          image_url: string
+          owner_id?: string
+          placement: string
+          review_note?: string
+          starts_at: string
+          status?: string
+          title: string
+        }
+        Update: {
+          business_name?: string
+          created_at?: string
+          destination_url?: string
+          ends_at?: string
+          id?: string
+          image_url?: string
+          owner_id?: string
+          placement?: string
+          review_note?: string
+          starts_at?: string
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["advert_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["advert_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["advert_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_advert_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      advert_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +212,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      advert_role: ["admin"],
+    },
   },
 } as const
