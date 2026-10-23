@@ -14,7 +14,7 @@ import { pageHead } from "@/config/seo";
 import { advertSchema } from "@/lib/advertising";
 import { listMyAdvertsFn, listAdvertReviewsFn, submitAdvertFn, reviewAdvertFn } from "@/cms/advertising.functions";
 
-export const Route = createFileRoute("/marketplace/advertise")({
+export const Route = createFileRoute("/marketplace_/advertise")({
   head: () => pageHead("Advertise on Payroxa Marketplace", "Submit your merchant advert for review and reach shoppers on Payroxa Marketplace.", "/marketplace/advertise"),
   component: AdvertisePage,
 });
