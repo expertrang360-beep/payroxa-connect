@@ -13,7 +13,7 @@
         enumerable: true,
       });
     } catch {
-      // Ignored intentionally
+      // Ignore protection error
     }
   };
   if (typeof window !== "undefined") protect(window);

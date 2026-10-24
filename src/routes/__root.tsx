@@ -7,6 +7,7 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -18,8 +19,6 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import { siteConfig } from "@/config/siteConfig";
 import { PublicCmsProvider } from "@/cms/context/PublicCmsContext";
 import { LuckyWheelModal } from "@/components/marketplace/LuckyWheelModal";
-import { SidebarNavProvider } from "@/context/SidebarNavContext";
-import { ResponsiveSidebar } from "@/components/navigation/ResponsiveSidebar";
 
 function NotFoundComponent() {
   return (
@@ -43,7 +42,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -86,16 +85,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${siteConfig.name} | Sovereign Financial Infrastructure for Africa` },
-      { name: "description", content: siteConfig.description },
       { name: "author", content: siteConfig.name },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: siteConfig.name },
-      { property: "og:title", content: siteConfig.name },
-      { property: "og:description", content: siteConfig.description },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: siteConfig.name },
-      { name: "twitter:description", content: siteConfig.description },
       { name: "theme-color", content: "#4b1fd6" },
     ],
     links: [
@@ -106,7 +99,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
     scripts: [
       {
@@ -172,31 +166,28 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isCmsRoute = pathname.startsWith("/cms");
-  const isMarketplaceRoute = pathname.startsWith("/marketplace");
+  const isMarketplaceRoute = pathname === "/marketplace";
   const isFullWidthRoute = isCmsRoute || isMarketplaceRoute;
 
   return (
     <QueryClientProvider client={queryClient}>
       <PublicCmsProvider>
-        <SidebarNavProvider>
-          {isFullWidthRoute ? (
-            <div className={isMarketplaceRoute ? "theme-marketplace min-h-screen" : undefined}>
+        {isFullWidthRoute ? (
+          <div>
+            <Outlet />
+          </div>
+        ) : (
+          <div className="flex min-h-screen flex-col bg-background">
+            <AnnouncementBar />
+            <Navbar />
+            <main className="flex-1">
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
               <Outlet />
-            </div>
-          ) : (
-            <div className="flex min-h-screen flex-col bg-background">
-              <AnnouncementBar />
-              <Navbar />
-              <main className="flex-1">
-                {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-                <Outlet />
-              </main>
-              <Footer />
-            </div>
-          )}
-          <ResponsiveSidebar />
-          <LuckyWheelModal />
-        </SidebarNavProvider>
+            </main>
+            <Footer />
+          </div>
+        )}
+        {!isMarketplaceRoute && <LuckyWheelModal />}
       </PublicCmsProvider>
     </QueryClientProvider>
   );

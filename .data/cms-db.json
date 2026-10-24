@@ -888,7 +888,7 @@
       "schemaType": "WebSite",
       "priority": 0.9,
       "changefreq": "daily",
-      "updatedAt": "2026-10-17T13:16:36.025Z",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
       "updatedBy": "System"
     },
     "security": {
@@ -906,7 +906,7 @@
       "schemaType": "Organization",
       "priority": 0.7,
       "changefreq": "monthly",
-      "updatedAt": "2026-10-17T13:16:36.025Z",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
       "updatedBy": "System"
     },
     "privacy": {
@@ -924,7 +924,7 @@
       "schemaType": "WebSite",
       "priority": 0.4,
       "changefreq": "yearly",
-      "updatedAt": "2026-10-17T13:16:36.025Z",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
       "updatedBy": "System"
     },
     "terms": {
@@ -942,7 +942,7 @@
       "schemaType": "WebSite",
       "priority": 0.4,
       "changefreq": "yearly",
-      "updatedAt": "2026-10-17T13:16:36.025Z",
+      "updatedAt": "2026-10-08T17:37:54.116Z",
       "updatedBy": "System"
     }
   },
@@ -1006,12 +1006,7 @@
       "authorRole": "Fintech & Commerce Specialists",
       "categoryId": "cat-1",
       "categoryName": "Payments & Invoicing",
-      "tags": [
-        "online payments",
-        "Nigeria",
-        "payment links",
-        "fintech"
-      ],
+      "tags": ["online payments", "Nigeria", "payment links", "fintech"],
       "readTimeMinutes": 5,
       "seoTitle": "How to Accept Payments From Customers in Nigeria | Payroxa",
       "metaDescription": "Learn how Nigerian businesses collect payments easily with payment links, virtual accounts, and POS tools without reconciliation headaches.",
@@ -1036,11 +1031,7 @@
       "authorRole": "Head of Merchant Growth",
       "categoryId": "cat-1",
       "categoryName": "Payments & Invoicing",
-      "tags": [
-        "payment links",
-        "social commerce",
-        "WhatsApp sales"
-      ],
+      "tags": ["payment links", "social commerce", "WhatsApp sales"],
       "readTimeMinutes": 4,
       "seoTitle": "What Is a Payment Link and How Does It Work? | Payroxa",
       "metaDescription": "Everything you need to know about payment links: how they work, why they protect against transfer fraud, and how to create one in seconds.",
@@ -1065,12 +1056,7 @@
       "authorRole": "Head of Merchant Growth",
       "categoryId": "cat-2",
       "categoryName": "E-commerce & Store",
-      "tags": [
-        "online store",
-        "ecommerce",
-        "retail",
-        "sell online"
-      ],
+      "tags": ["online store", "ecommerce", "retail", "sell online"],
       "readTimeMinutes": 6,
       "seoTitle": "How to Create an Online Store for Your Business | Payroxa",
       "metaDescription": "Step-by-step guide on launching your online store with Payroxa Store. Sell physical products, collect payments, and manage shipping easily.",
@@ -1095,11 +1081,7 @@
       "authorRole": "Fintech & Commerce Specialists",
       "categoryId": "cat-3",
       "categoryName": "Financial Tools & Cards",
-      "tags": [
-        "virtual cards",
-        "dollar card",
-        "corporate expenses"
-      ],
+      "tags": ["virtual cards", "dollar card", "corporate expenses"],
       "readTimeMinutes": 5,
       "seoTitle": "Virtual Cards for Nigerian Businesses & International Spend | Payroxa",
       "metaDescription": "Solve international subscription and advertisement payment declines with Payroxa instant virtual cards with custom spending limits.",
@@ -1199,6 +1181,6 @@
     }
   ],
   "revisions": [],
-  "lastMarketplaceSync": "2026-10-24T06:45:17.040Z",
+  "lastMarketplaceSync": "2026-10-17T13:22:22.086Z",
   "marketplaceProductCount": 2
 }

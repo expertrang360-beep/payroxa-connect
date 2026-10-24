@@ -1,0 +1,10 @@
+- [x] Remove unsafe shared site-origin access and verify public pages without runtime errors.
+- [x] Update Payroxa's social-sharing banner and favicon.
+- [x] Verify page metadata and image delivery.
+- [x] Fix marketplace navigation build errors and verify search and cart pages load.
+- [x] Enhance the marketplace slider and add labelled, configurable advertising spaces.
+- [ ] Verify stored SEO failures and remove unsafe homepage startup work.
+- [ ] Finish Jumia-inspired product, storefront, merchant, cart and checkout presentation.
+- [ ] Verify marketplace navigation, shopping controls and layouts on small phones and desktop.
+- [ ] Add merchant advert submissions, moderation and approved placement delivery.
+- [ ] Add consent-gated ad-network inventory and verify advert fallback behavior.
