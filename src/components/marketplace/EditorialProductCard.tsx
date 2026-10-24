@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { CheckCircle2, Plus, Heart } from "lucide-react";
+import { CheckCircle2, Plus, Heart, Eye } from "lucide-react";
 import { PayroxaButton } from "@/components/PayroxaButton";
 import type { PayroxaProduct } from "@/services/payroxa-public-api/types";
 import { useWishlist } from "@/hooks/useWishlist";
+import { ProductQuickViewModal } from "@/components/marketplace/ProductQuickViewModal";
 import { cn } from "@/lib/utils";
 
 interface EditorialProductCardProps {
@@ -19,6 +21,7 @@ export function EditorialProductCard({
   onAdd,
 }: EditorialProductCardProps) {
   const { isWishlisted, toggleWishlist } = useWishlist();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const favorited = isWishlisted(product.id);
 
   const image =
@@ -50,103 +53,150 @@ export function EditorialProductCard({
 
   if (viewMode === "list") {
     return (
-      <article className="group grid gap-5 border-b border-market-line py-6 sm:grid-cols-[180px_1fr_auto] sm:items-center">
-        <Link
-          to="/marketplace/product/$slug"
-          params={{ slug: product.slug }}
-          className="block aspect-[4/3] overflow-hidden bg-market-lilac relative"
-        >
-          <img
-            src={image}
-            alt={product.images?.[0]?.alt || product.name}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
-            loading="lazy"
-          />
-          {renderWishlistBtn("absolute top-2 right-2")}
-        </Link>
-        <div className="min-w-0">
-          <p className="mb-2 text-[0.68rem] font-bold uppercase text-primary">
-            {product.category?.name || "Marketplace"}
-          </p>
-          <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}>
-            <h3 className="font-market-display text-xl font-medium group-hover:underline">
+      <>
+        <article className="group grid gap-5 border-b border-market-line py-6 sm:grid-cols-[180px_1fr_auto] sm:items-center">
+          <div
+            onClick={() => setIsModalOpen(true)}
+            className="block aspect-[4/3] overflow-hidden bg-market-lilac relative cursor-pointer group/img"
+          >
+            <img
+              src={image}
+              alt={product.images?.[0]?.alt || product.name}
+              className="h-full w-full object-cover transition-transform duration-700 group-hover/img:scale-105 motion-reduce:transition-none"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+              <span className="bg-white/90 text-market-ink text-xs font-bold px-3 py-1.5 rounded-full shadow-medium flex items-center gap-1.5">
+                <Eye className="size-3.5" /> Quick View
+              </span>
+            </div>
+            {renderWishlistBtn("absolute top-2 right-2")}
+          </div>
+          <div className="min-w-0">
+            <p className="mb-2 text-[0.68rem] font-bold uppercase text-primary">
+              {product.category?.name || "Marketplace"}
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="text-left font-market-display text-xl font-medium hover:underline cursor-pointer block"
+            >
               {product.name}
-            </h3>
-          </Link>
-          <p className="mt-2 line-clamp-2 max-w-xl text-sm text-market-muted">
-            {product.description}
-          </p>
-          <p className="mt-3 flex items-center gap-1.5 text-xs text-market-muted">
-            {product.vendor?.verified && <CheckCircle2 className="size-3.5 text-primary" />}
-            {product.vendor?.name}
-          </p>
-        </div>
-        <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
-          <p className="font-market-display text-lg font-semibold">
-            {product.currency} {product.price.toLocaleString()}
-          </p>
-          <PayroxaButton variant="secondary" size="sm" onClick={() => onAdd(product)}>
-            <Plus className="size-4" /> Add to bag
-          </PayroxaButton>
-        </div>
-      </article>
+            </button>
+            <p className="mt-2 line-clamp-2 max-w-xl text-sm text-market-muted">
+              {product.description}
+            </p>
+            <p className="mt-3 flex items-center gap-1.5 text-xs text-market-muted">
+              {product.vendor?.verified && <CheckCircle2 className="size-3.5 text-primary" />}
+              {product.vendor?.name}
+            </p>
+          </div>
+          <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
+            <p className="font-market-display text-lg font-semibold">
+              {product.currency} {product.price.toLocaleString()}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-market-line hover:bg-market-lilac/50 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <Eye className="size-3.5" /> Quick View
+              </button>
+              <PayroxaButton variant="secondary" size="sm" onClick={() => onAdd(product)}>
+                <Plus className="size-4" /> Add to bag
+              </PayroxaButton>
+            </div>
+          </div>
+        </article>
+        <ProductQuickViewModal
+          product={product}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </>
     );
   }
 
   return (
-    <article className="group min-w-0">
-      <Link
-        to="/marketplace/product/$slug"
-        params={{ slug: product.slug }}
-        className={`relative mb-5 block overflow-hidden bg-market-lilac ${
-          viewMode === "dense" ? "aspect-square" : "aspect-[3/4]"
-        }`}
-      >
-        <img
-          src={image}
-          alt={product.images?.[0]?.alt || product.name}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transition-none"
-          loading="lazy"
-        />
-        {label && (
-          <span className="absolute left-3 top-3 bg-market-paper px-3 py-1 text-[0.62rem] font-bold uppercase text-market-ink">
-            {label}
-          </span>
-        )}
-        {renderWishlistBtn("absolute top-3 right-3")}
-        <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none">
-          <PayroxaButton
-            variant="secondary"
-            size="sm"
-            className="w-full rounded-none"
-            onClick={(event) => {
-              event.preventDefault();
-              onAdd(product);
-            }}
-          >
-            <Plus className="size-4" /> Add to bag
-          </PayroxaButton>
+    <>
+      <article className="group min-w-0">
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className={`relative mb-5 block overflow-hidden bg-market-lilac cursor-pointer group/img ${
+            viewMode === "dense" ? "aspect-square" : "aspect-[3/4]"
+          }`}
+        >
+          <img
+            src={image}
+            alt={product.images?.[0]?.alt || product.name}
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-105 motion-reduce:transition-none"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+            <span className="bg-white/90 text-market-ink text-xs font-bold px-3 py-1.5 rounded-full shadow-medium flex items-center gap-1.5">
+              <Eye className="size-3.5" /> Quick View
+            </span>
+          </div>
+          {label && (
+            <span className="absolute left-3 top-3 bg-market-paper px-3 py-1 text-[0.62rem] font-bold uppercase text-market-ink">
+              {label}
+            </span>
+          )}
+          {renderWishlistBtn("absolute top-3 right-3")}
+          <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none z-10">
+            <PayroxaButton
+              variant="secondary"
+              size="sm"
+              className="w-full rounded-none"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onAdd(product);
+              }}
+            >
+              <Plus className="size-4" /> Add to bag
+            </PayroxaButton>
+          </div>
         </div>
-      </Link>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <p className="mb-1 truncate text-[0.65rem] font-bold uppercase text-primary">
-            {product.vendor?.name || product.category?.name}
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="mb-1 truncate text-[0.65rem] font-bold uppercase text-primary">
+              {product.vendor?.name || product.category?.name}
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="text-left cursor-pointer block"
+            >
+              <h3 className="font-market-display line-clamp-2 text-base font-medium leading-tight hover:underline">
+                {product.name}
+              </h3>
+            </button>
+          </div>
+          <p className="shrink-0 text-sm font-semibold">
+            {product.currency} {product.price.toLocaleString()}
           </p>
-          <Link to="/marketplace/product/$slug" params={{ slug: product.slug }}>
-            <h3 className="font-market-display line-clamp-2 text-base font-medium leading-tight group-hover:underline">
-              {product.name}
-            </h3>
-          </Link>
         </div>
-        <p className="shrink-0 text-sm font-semibold">
-          {product.currency} {product.price.toLocaleString()}
-        </p>
-      </div>
-      <p className="mt-2 flex items-center gap-1 text-xs text-market-muted">
-        {product.vendor?.verified && <CheckCircle2 className="size-3 text-primary" />}
-        {product.category?.name}
-      </p>
-    </article>
+        <div className="mt-2 flex items-center justify-between text-xs text-market-muted">
+          <p className="flex items-center gap-1">
+            {product.vendor?.verified && <CheckCircle2 className="size-3 text-primary" />}
+            {product.category?.name}
+          </p>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="text-[11px] font-semibold text-primary hover:underline cursor-pointer"
+          >
+            Quick View
+          </button>
+        </div>
+      </article>
+      <ProductQuickViewModal
+        product={product}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   );
 }

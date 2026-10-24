@@ -7,7 +7,6 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
-  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -19,6 +18,8 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import { siteConfig } from "@/config/siteConfig";
 import { PublicCmsProvider } from "@/cms/context/PublicCmsContext";
 import { LuckyWheelModal } from "@/components/marketplace/LuckyWheelModal";
+import { SidebarNavProvider } from "@/context/SidebarNavContext";
+import { ResponsiveSidebar } from "@/components/navigation/ResponsiveSidebar";
 
 function NotFoundComponent() {
   return (
@@ -42,7 +43,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: ErrorComponentProps) {
+function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -105,8 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
     scripts: [
       {
@@ -178,22 +178,25 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PublicCmsProvider>
-        {isFullWidthRoute ? (
-          <div className={isMarketplaceRoute ? "theme-marketplace min-h-screen" : undefined}>
-            <Outlet />
-          </div>
-        ) : (
-          <div className="flex min-h-screen flex-col bg-background">
-            <AnnouncementBar />
-            <Navbar />
-            <main className="flex-1">
-              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <SidebarNavProvider>
+          {isFullWidthRoute ? (
+            <div className={isMarketplaceRoute ? "theme-marketplace min-h-screen" : undefined}>
               <Outlet />
-            </main>
-            <Footer />
-          </div>
-        )}
-        <LuckyWheelModal />
+            </div>
+          ) : (
+            <div className="flex min-h-screen flex-col bg-background">
+              <AnnouncementBar />
+              <Navbar />
+              <main className="flex-1">
+                {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+                <Outlet />
+              </main>
+              <Footer />
+            </div>
+          )}
+          <ResponsiveSidebar />
+          <LuckyWheelModal />
+        </SidebarNavProvider>
       </PublicCmsProvider>
     </QueryClientProvider>
   );

@@ -141,6 +141,11 @@ function MarketplacePage() {
 
   useEffect(() => {
     loadData();
+    // Run fetch products every minute to ensure consistent products updates
+    const intervalId = setInterval(() => {
+      loadData();
+    }, 60000);
+    return () => clearInterval(intervalId);
   }, []);
 
   // Promo slide auto-advance

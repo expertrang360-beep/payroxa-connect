@@ -110,6 +110,11 @@ export function MarketplaceGrid({
 
   useEffect(() => {
     fetchProducts();
+    // Run fetch products every minute to ensure consistent products updates
+    const intervalId = setInterval(() => {
+      fetchProducts();
+    }, 60000);
+    return () => clearInterval(intervalId);
   }, [fetchProducts]);
 
   // Client-Side extra filtration and sorting

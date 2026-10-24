@@ -12,10 +12,8 @@ import {
 import { getStore } from "@/services/payroxa-public-api/client";
 import { PayroxaStore } from "@/services/payroxa-public-api/types";
 import { APP_URL } from "@/config/siteConfig";
-import { pageHead } from "@/config/seo";
 
 export const Route = createFileRoute("/marketplace_/store/$slug")({
-  head: ({ params }) => pageHead(`${params.slug.replace(/-/g, " ")} | Payroxa Storefront`, "Browse this merchant's storefront and products on Payroxa Marketplace.", `/marketplace/store/${encodeURIComponent(params.slug)}`),
   component: StoreDetailPage,
 });
 
@@ -59,14 +57,14 @@ function StoreDetailPage() {
   if (error || !store) {
     return (
       <div className="min-h-screen bg-background py-24 px-5 text-center">
-        <div className="mx-auto max-w-md rounded-sm border border-border bg-card p-8 shadow-soft">
+        <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-soft">
           <h2 className="text-xl font-bold font-display">Store Not Found</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             {error || "The requested store could not be found."}
           </p>
           <Link
             to="/marketplace"
-            className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
           >
             <ArrowLeft className="size-4" /> Back to Marketplace
           </Link>
@@ -99,7 +97,7 @@ function StoreDetailPage() {
                 "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
               }
               alt={store.name}
-              className="size-28 rounded-sm object-cover border-4 border-background shadow-medium bg-card"
+              className="size-28 rounded-3xl object-cover border-4 border-background shadow-medium bg-card"
             />
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold text-primary mb-1">
@@ -115,7 +113,7 @@ function StoreDetailPage() {
             href={store.appUrl || APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="rounded-sm bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
+            className="rounded-2xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-medium hover:bg-primary/90 transition-all flex items-center gap-2"
           >
             Open Store in Payroxa <ExternalLink className="size-4" />
           </a>
@@ -129,7 +127,7 @@ function StoreDetailPage() {
               {store.products.map((product) => (
                 <div
                   key={product.id}
-                  className="rounded-sm border border-border bg-card overflow-hidden shadow-soft flex flex-col justify-between"
+                  className="rounded-2xl border border-border bg-card overflow-hidden shadow-soft flex flex-col justify-between"
                 >
                   <div className="aspect-[4/3] relative bg-muted">
                     <img
@@ -168,7 +166,7 @@ function StoreDetailPage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-sm border border-border bg-card p-12 text-center">
+            <div className="rounded-3xl border border-border bg-card p-12 text-center">
               <ShoppingBag className="mx-auto size-12 text-muted-foreground/50 mb-4" />
               <h3 className="text-base font-bold">No products currently displayed</h3>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -178,7 +176,7 @@ function StoreDetailPage() {
                 href={store.appUrl || APP_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-semibold text-primary-foreground"
               >
                 Open in Payroxa <ExternalLink className="size-4" />
               </a>

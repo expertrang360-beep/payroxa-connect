@@ -17,11 +17,14 @@ const read = (key: string, fallback: string): string => {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : fallback;
 };
 
+const getOrigin = () => {
+  if (typeof window !== "undefined") return window.location.origin;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "https://payroxa.com.ng";
+};
+
 /** Public marketing website origin. */
-export const WEBSITE_URL = read(
-  "VITE_PAYROXA_WEBSITE_URL",
-  "https://payroxa-groundswell.lovable.app",
-).replace(/\/$/, "");
+export const WEBSITE_URL = read("VITE_PAYROXA_WEBSITE_URL", getOrigin());
 
 /** Authenticated product application origin. */
 export const APP_URL = read("VITE_PAYROXA_APP_URL", "https://app.payroxa.com.ng");
@@ -50,6 +53,10 @@ export const PAYROXA_LINKS = {
   transfers: read("VITE_PAYROXA_TRANSFERS_URL", appPath("/transfers")),
   delivery: read("VITE_PAYROXA_DELIVERY_URL", appPath("/delivery")),
   ride: read("VITE_PAYROXA_RIDE_URL", appPath("/ride")),
+  paymentLinks: read("VITE_PAYROXA_PAYMENT_LINKS_URL", appPath("/payment-links")),
+  paymentRequests: read("VITE_PAYROXA_PAYMENT_REQUESTS_URL", appPath("/payment-requests")),
+  paymentGateway: read("VITE_PAYROXA_PAYMENT_GATEWAY_URL", appPath("/payment-gateway")),
+  marketplace: read("VITE_PAYROXA_MARKETPLACE_URL", appPath("/marketplace")),
 } as const;
 
 export type PayroxaLinkKey = keyof typeof PAYROXA_LINKS;
